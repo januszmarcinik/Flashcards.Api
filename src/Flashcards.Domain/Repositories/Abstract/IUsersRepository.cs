@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Flashcards.Domain.Repositories.Abstract
 {
-    interface IUsersRepository
+    public interface IUsersRepository
     {
         Task<List<User>> GetAsync();
         Task<IQueryable<User>> QueryAsync();
