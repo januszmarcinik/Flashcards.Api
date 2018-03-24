@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using NLog;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 
 namespace Flashcards.Api
@@ -33,7 +34,10 @@ namespace Flashcards.Api
             services.AddMvc()
                 .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
 
-            services.AddMemoryCache();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Flashcards API", Version = "v1" });
+            });
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -56,6 +60,12 @@ namespace Flashcards.Api
             loggerFactory.AddNLog();
             app.AddNLogWeb();
             HostingEnvironment.ConfigureNLog("nlog.config");
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flashcards API V1");
+            });
 
             if (HostingEnvironment.IsDevelopment())
             {
