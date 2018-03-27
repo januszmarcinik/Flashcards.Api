@@ -1,6 +1,6 @@
-﻿using Flashcards.Domain.Entities;
+﻿using Flashcards.Core.Exceptions;
+using Flashcards.Domain.Entities;
 using Flashcards.Domain.Enums;
-using Flashcards.Domain.Exceptions;
 using Flashcards.Domain.Repositories.Abstract;
 using Flashcards.Infrastructure.Managers.Abstract;
 using Flashcards.Infrastructure.Services.Abstract.Commands;

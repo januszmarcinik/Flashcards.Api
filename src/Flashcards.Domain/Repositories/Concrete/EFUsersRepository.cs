@@ -1,6 +1,7 @@
-﻿using Flashcards.Domain.Data.Abstract;
+﻿using Flashcards.Core.Exceptions;
+using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Entities;
-using Flashcards.Domain.Exceptions;
+using Flashcards.Domain.Extensions;
 using Flashcards.Domain.Repositories.Abstract;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -58,8 +59,7 @@ namespace Flashcards.Domain.Repositories.Concrete
 
         public async Task CreateAsync(User entity)
         {
-            var existedUser = await _context.Users.SingleOrDefaultAsync(x => x.Email == entity.Email);
-            if (existedUser != null)
+            if (_context.Users.ExistsSingle(x => x.Email == entity.Email))
             {
                 throw new FlashcardsException(ErrorCode.UserWithGivenEmailAlreadyExist, entity.Email);
             }
@@ -70,11 +70,7 @@ namespace Flashcards.Domain.Repositories.Concrete
 
         public async Task UpdateAsync(User entity)
         {
-            var existedUser = await _context.Users
-                .Where(x => x.Email == entity.Email)
-                .Where(x => x.Id != entity.Id)
-                .SingleOrDefaultAsync();
-            if (existedUser != null)
+            if (_context.Users.ExistsSingleExceptFor(x => x.Email == entity.Email, entity.Id))
             {
                 throw new FlashcardsException(ErrorCode.UserWithGivenEmailAlreadyExist, entity.Email);
             }

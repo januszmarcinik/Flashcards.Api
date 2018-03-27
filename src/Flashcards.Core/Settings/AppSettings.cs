@@ -1,4 +1,4 @@
-﻿namespace Flashcards.Infrastructure.Settings
+﻿namespace Flashcards.Core.Settings
 {
     public class AppSettings
     {

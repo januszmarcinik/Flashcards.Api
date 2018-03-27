@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Flashcards.Api.Middleware;
+using Flashcards.Core.Modules;
 using Flashcards.Domain.Modules;
 using Flashcards.Infrastructure.Modules;
 using Microsoft.AspNetCore.Builder;

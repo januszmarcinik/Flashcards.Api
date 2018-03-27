@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Flashcards.Domain.Data.Concrete.Configurations
 {
-    internal class UserConfiguration : IEntityTypeConfiguration<User>
+    internal class CardConfiguration : IEntityTypeConfiguration<Card>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<Card> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Email).HasMaxLength(32);
-            builder.HasIndex(x => x.Email).IsUnique();
+            builder.Property(x => x.Title).HasMaxLength(32);
         }
     }
 }

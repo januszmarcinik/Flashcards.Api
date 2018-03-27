@@ -1,4 +1,4 @@
-﻿using Flashcards.Domain.Exceptions;
+﻿using Flashcards.Core.Exceptions;
 using Flashcards.Infrastructure.Managers.Abstract;
 using System;
 using System.Security.Cryptography;

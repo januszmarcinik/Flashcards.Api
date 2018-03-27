@@ -11,6 +11,7 @@ namespace Flashcards.Infrastructure.Commands.Models.Users
 
         [Required]
         [MinLength(3)]
+        [MaxLength(32)]
         public string Email { get; set; }
     }
 }

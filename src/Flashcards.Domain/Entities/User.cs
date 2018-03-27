@@ -1,18 +1,22 @@
-﻿using Flashcards.Domain.Enums;
-using Flashcards.Domain.Exceptions;
+﻿using Flashcards.Core.Exceptions;
+using Flashcards.Core.Extensions;
+using Flashcards.Domain.Data.Abstract;
+using Flashcards.Domain.Enums;
 using System;
 
 namespace Flashcards.Domain.Entities
 {
-    public class User
+    public class User : Entity
     {
-        public Guid Id { get; protected set; }
         public string Email { get; protected set; }
         public Role Role { get; set; }
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
 
         protected User() { }
+
+        public User(string email, Role role, string password, string salt)
+            : this(Guid.NewGuid(), email, role, password, salt) { }
 
         public User(Guid id, string email, Role role, string password, string salt)
         {
@@ -24,7 +28,7 @@ namespace Flashcards.Domain.Entities
 
         public void SetId(Guid id)
         {
-            if (id == Guid.Empty)
+            if (id.IsEmpty())
             {
                 throw new FlashcardsException(ErrorCode.InvalidUserId);
             }

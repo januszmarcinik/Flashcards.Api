@@ -1,9 +1,9 @@
 ﻿using Autofac;
-using Flashcards.Infrastructure.Extensions;
-using Flashcards.Infrastructure.Settings;
+using Flashcards.Core.Extensions;
+using Flashcards.Core.Settings;
 using Microsoft.Extensions.Configuration;
 
-namespace Flashcards.Infrastructure.Modules
+namespace Flashcards.Core.Modules
 {
     public class SettingsModule : Module
     {

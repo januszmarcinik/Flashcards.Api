@@ -8,6 +8,7 @@ namespace Flashcards.Domain.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<EFCategoriesRepository>().As<ICategoriesRepository>().InstancePerLifetimeScope();
             builder.RegisterType<EFUsersRepository>().As<IUsersRepository>().InstancePerLifetimeScope();
         }
     }
