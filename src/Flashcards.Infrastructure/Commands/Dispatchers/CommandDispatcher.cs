@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Flashcards.Domain.Exceptions;
+using Flashcards.Core.Exceptions;
 using Flashcards.Infrastructure.Commands.Abstract;
 using NLog;
 using System.Threading.Tasks;

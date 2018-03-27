@@ -1,4 +1,4 @@
-﻿using Flashcards.Domain.Exceptions;
+﻿using Flashcards.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using NLog;

@@ -7,6 +7,8 @@ namespace Flashcards.Domain.Data.Concrete
 {
     internal class EFContext : DbContext, IDbContext
     {
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Deck> Decks { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
         public EFContext(string databaseName)
@@ -16,6 +18,9 @@ namespace Flashcards.Domain.Data.Concrete
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.ApplyConfiguration(new CardConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new DeckConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
         }
     }

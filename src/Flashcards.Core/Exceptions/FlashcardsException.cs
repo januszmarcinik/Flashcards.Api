@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Domain.Exceptions
+namespace Flashcards.Core.Exceptions
 {
     public class FlashcardsException : Exception
     {
