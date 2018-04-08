@@ -1,0 +1,32 @@
+<app-header>
+  <p navigation>
+    Flashcards / Topics / {{topic}} / Categories / {{category}} / Decks / Add
+  </p>
+  <div content>
+    <p>
+      <button class="btn btn-secondary" (click)="goBack()"> Back </button>
+    </p>
+  </div>
+</app-header>
+
+<div class="row">
+  <div class="col-sm-8 offset-sm-2">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="deckForm">
+          <mat-form-field>
+            <input matInput formControlName="name" placeholder="Name">
+          </mat-form-field>
+
+          <label class="text-danger text-center">
+            {{errors}}
+          </label>
+
+          <button [disabled]="deckForm.invalid" (click)="save()" class="btn btn-primary float-right">
+            Save
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -12,7 +12,7 @@ namespace Flashcards.Domain.Entities
 
         public string Name { get; protected set; }
         public virtual Category Category { get; protected set; }
-        public IReadOnlyCollection<Card> Cards => _cards;
+        public virtual IReadOnlyCollection<Card> Cards => _cards;
 
         protected Deck() { }
 

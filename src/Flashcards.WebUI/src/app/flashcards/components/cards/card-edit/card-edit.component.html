@@ -1,0 +1,40 @@
+<app-header>
+  <p navigation>
+    Flashcards / Topics / {{topic}} / Categories / {{category}} / Decks / {{deck}} / Cards / {{cardId}}
+  </p>
+  <div content>
+    <p>
+      <button class="btn btn-secondary" (click)="goBack()"> Back </button>
+    </p>
+  </div>
+</app-header>
+
+<div class="row">
+  <div class="col-sm-8 offset-sm-2">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="cardForm">
+          <mat-form-field>
+            <input matInput formControlName="title" placeholder="Title" />
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput rows="10" formControlName="question" placeholder="Question"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <textarea matInput rows="5" formControlName="answer" placeholder="Answer"></textarea>
+          </mat-form-field>
+
+          <label class="text-danger text-center">
+            {{errors}}
+          </label>
+
+          <button [disabled]="cardForm.invalid" (click)="save()" class="btn btn-primary float-right">
+            Save
+          </button>
+        </form>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>
