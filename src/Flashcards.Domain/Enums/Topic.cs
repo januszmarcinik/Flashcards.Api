@@ -1,9 +1,15 @@
-﻿namespace Flashcards.Domain.Enums
+﻿using System.ComponentModel;
+
+namespace Flashcards.Domain.Enums
 {
     public enum Topic
     {
         Default = 0,
-        IT = 1,
-        EnglishPolish = 2
+
+        [Description("IT")]
+        It = 1,
+
+        [Description("English-Polish")]
+        EnPl = 2
     }
 }

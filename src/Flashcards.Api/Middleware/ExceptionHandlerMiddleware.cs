@@ -5,6 +5,7 @@ using NLog;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Flashcards.Core.Extensions;
 
 namespace Flashcards.Api.Middleware
 {
@@ -34,27 +35,26 @@ namespace Flashcards.Api.Middleware
 
         private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
-            var code = HttpStatusCode.BadRequest;
+            var errorCode = nameof(HttpStatusCode.InternalServerError);
+            var httpStatusCode = HttpStatusCode.InternalServerError;
             var message = ex.Message;
 
             if (ex is UnauthorizedAccessException)
             {
-                code = HttpStatusCode.Unauthorized;
+                httpStatusCode = HttpStatusCode.Unauthorized;
+                errorCode = nameof(HttpStatusCode.Unauthorized);
             }
             else if (ex is FlashcardsException)
             {
-                var errorCode = (ex as FlashcardsException).ErrorCode;
-                code = errorCode.HttpStatusCode;
-                message = $"{errorCode.Message}: '{ex.Message}'";
-            }
-            else
-            {
-                code = HttpStatusCode.InternalServerError;
+                var flashcardsException = ex as FlashcardsException;
+                httpStatusCode = flashcardsException.ErrorCode.HttpStatusCode;
+                errorCode = flashcardsException.ErrorCode.Message;
+                message = flashcardsException.Message.IsEmpty() ? errorCode : flashcardsException.Message;
             }
 
             context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)code;
-            var responseBody = JsonConvert.SerializeObject(new { code, message });
+            context.Response.StatusCode = (int)httpStatusCode;
+            var responseBody = JsonConvert.SerializeObject(new { errorCode, message });
 
             return context.Response.WriteAsync(responseBody);
         }

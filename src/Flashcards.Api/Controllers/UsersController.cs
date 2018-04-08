@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Flashcards.Api.Controllers
 {
+    [Authorize]
+    [Route("api/users")]
     public class UsersController : ApiController
     {
         private readonly IUsersQueryService _usersQueryService;
@@ -18,7 +21,7 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Get()
             => Ok(await _usersQueryService.GetListAsync());
 
         [HttpGet("{id}")]
@@ -26,6 +29,7 @@ namespace Flashcards.Api.Controllers
             => Ok(await _usersQueryService.GetByIdAsync(id));
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromBody] RegisterUserCommandModel command)
             => await DispatchAsync(command);
 

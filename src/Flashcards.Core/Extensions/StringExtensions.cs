@@ -1,4 +1,6 @@
-﻿namespace Flashcards.Core.Extensions
+﻿using System;
+
+namespace Flashcards.Core.Extensions
 {
     public static class StringExtensions
     {
@@ -10,6 +12,11 @@
         public static bool IsNotEmpty(this string value)
         {
             return !string.IsNullOrWhiteSpace(value);
+        }
+
+        public static T ToEnum<T>(this string value)
+        {
+            return (T)Enum.Parse(typeof(T), value);
         }
     }
 }
