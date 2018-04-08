@@ -1,0 +1,39 @@
+<app-header>
+  <p navigation>
+    Flashcards / Topics / {{topic}} / Categories
+  </p>
+  <div content>
+    <p>
+      <button class="btn btn-success" (click)="add()"> Add </button>
+    </p>
+  </div>
+</app-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped app-table">
+        <thead>
+        <tr>
+          <th> # </th>
+          <th> Name </th>
+          <th> Topic </th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let category of categories; let i = index">
+          <td> {{ i+1 }}</td>
+          <td> {{ category.name }}</td>
+          <td> {{ category.topicName }}</td>
+          <td class="float-right">
+            <button class="btn btn-primary" (click)="goToDecks(category)">Decks</button>
+            <button class="btn btn-warning" (click)="edit(category)"> Edit </button>
+            <button class="btn btn-danger" (click)="delete(category)"> Delete </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

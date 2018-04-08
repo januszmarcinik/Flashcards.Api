@@ -50,7 +50,7 @@ namespace Flashcards.Domain.Entities
         {
             if (role == Role.Empty)
             {
-                throw new FlashcardsException(ErrorCode.InvalidUserRole);
+                throw new FlashcardsException(ErrorCode.InvalidUserRole, "Invalid user role.");
             }
 
             Role = role;

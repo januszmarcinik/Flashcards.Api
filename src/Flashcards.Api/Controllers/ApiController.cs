@@ -1,10 +1,11 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using System.Linq;
+using Flashcards.Infrastructure.Commands.Abstract;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Flashcards.Core.Exceptions;
 
 namespace Flashcards.Api.Controllers
 {
-    [Route("api/[controller]")]
     public class ApiController : Controller
     {
         private readonly ICommandDispatcher _commandDispatcher;
@@ -16,6 +17,12 @@ namespace Flashcards.Api.Controllers
 
         protected async Task<IActionResult> DispatchAsync<T>(T command) where T : ICommandModel
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = string.Join(", ", ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage));
+                throw new FlashcardsException(ErrorCode.InvalidCommand, errors);
+            }
+
             await _commandDispatcher.DispatchAsync(command);
             return Accepted();
         }

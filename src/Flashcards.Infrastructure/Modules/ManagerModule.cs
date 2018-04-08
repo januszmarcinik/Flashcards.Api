@@ -9,6 +9,8 @@ namespace Flashcards.Infrastructure.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<EncryptionManager>().As<IEncryptionManager>().SingleInstance();
+            builder.RegisterType<JwtManager>().As<IJwtManager>().SingleInstance();
+            builder.RegisterType<TestDataSeedingManager>().As<ITestDataSeedingManager>().InstancePerLifetimeScope();
         }
     }
 }
