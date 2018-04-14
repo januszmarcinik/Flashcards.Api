@@ -9,6 +9,7 @@ namespace Flashcards.Domain.Data.Concrete
     {
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Deck> Decks { get; set; }
         public virtual DbSet<User> Users { get; set; }
 

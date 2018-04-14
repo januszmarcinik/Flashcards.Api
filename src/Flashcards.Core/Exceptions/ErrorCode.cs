@@ -53,5 +53,8 @@ namespace Flashcards.Core.Exceptions
         public static ErrorCode InvalidCardQuestion => new ErrorCode(nameof(InvalidCardQuestion));
         public static ErrorCode InvalidCardAnswer => new ErrorCode(nameof(InvalidCardAnswer));
         public static ErrorCode CardDoesNotExist => new ErrorCode(nameof(CardDoesNotExist), HttpStatusCode.NotFound);
+
+        public static ErrorCode InvalidCommentText => new ErrorCode(nameof(InvalidCommentText));
+        public static ErrorCode CommentDoesNotExist => new ErrorCode(nameof(CommentDoesNotExist), HttpStatusCode.NotFound);
     }
 }

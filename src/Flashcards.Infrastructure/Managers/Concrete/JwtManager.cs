@@ -20,11 +20,12 @@ namespace Flashcards.Infrastructure.Managers.Concrete
             _jwtSettings = jwtSettings;
         }
 
-        public JwtDto CreateToken(string email, Role role)
+        public JwtDto CreateToken(Guid id, string email, Role role)
         {
             var now = DateTime.UtcNow;
             var claims = new Claim[]
             {
+                new Claim(JwtRegisteredClaimNames.UniqueName, id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(ClaimTypes.Role, role.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),

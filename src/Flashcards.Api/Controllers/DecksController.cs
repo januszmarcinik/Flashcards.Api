@@ -28,7 +28,7 @@ namespace Flashcards.Api.Controllers
             => Ok(await _deckQueryService.GetAsync(deck));
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddDeckCommandModel command)
-            => await DispatchAsync(command);
+        public async Task<IActionResult> Post(string category, [FromBody] AddDeckCommandModel command)
+            => await DispatchAsync(command.SetCategory(category));
     }
 }

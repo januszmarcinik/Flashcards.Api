@@ -17,12 +17,8 @@
           <mat-form-field>
             <input matInput formControlName="title" placeholder="Title" />
           </mat-form-field>
-          <mat-form-field>
-            <textarea matInput rows="10" formControlName="question" placeholder="Question"></textarea>
-          </mat-form-field>
-          <mat-form-field>
-            <textarea matInput rows="5" formControlName="answer" placeholder="Answer"></textarea>
-          </mat-form-field>
+          <quill-editor [modules]="modules" formControlName="question"></quill-editor>
+          <quill-editor [modules]="modules" formControlName="answer"></quill-editor>
 
           <label class="text-danger text-center">
             {{errors}}

@@ -5,6 +5,7 @@ import {AlertService} from '../../../../shared/services/alert.service';
 import {MatDialog} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
+import {QUILL_EDITOR_MODULES} from '../../../../../constans/constans';
 
 @Component({
   selector: 'app-card-add',
@@ -17,6 +18,7 @@ export class CardAddComponent implements OnInit {
   category: string;
   deck: string;
 
+  modules: any;
   cardForm: FormGroup;
   errors: string;
 
@@ -33,6 +35,7 @@ export class CardAddComponent implements OnInit {
     this.category = this.route.snapshot.paramMap.get('category');
     this.deck = this.route.snapshot.paramMap.get('deck');
     this.cardForm = this.buildForm();
+    this.modules = QUILL_EDITOR_MODULES;
   }
 
   buildForm(): FormGroup {
