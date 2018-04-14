@@ -11,6 +11,10 @@ namespace Flashcards.Domain.Data.Concrete.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Email).HasMaxLength(32);
             builder.HasIndex(x => x.Email).IsUnique();
+
+            builder.HasMany(x => x.Comments)
+                .WithOne(x => x.User)
+                .HasForeignKey("UserId");
         }
     }
 }

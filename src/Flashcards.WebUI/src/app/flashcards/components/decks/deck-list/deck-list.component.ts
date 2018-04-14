@@ -38,7 +38,7 @@ export class DeckListComponent implements OnInit {
   }
 
   getDecks() {
-    this.decksService.getDecks(this.topic, this.category).subscribe(resp => {
+    this.decksService.getByCategory(this.topic, this.category).subscribe(resp => {
       if (resp.ok) {
         this.decks = resp.body;
       }

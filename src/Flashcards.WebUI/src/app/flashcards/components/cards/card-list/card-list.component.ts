@@ -3,7 +3,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {MatDialog} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {Card} from '../../../models/cards/card';
+import {Card} from '../../../models/card';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {CardsService} from '../../../services/cards.service';
 import {Category} from '../../../models/category';

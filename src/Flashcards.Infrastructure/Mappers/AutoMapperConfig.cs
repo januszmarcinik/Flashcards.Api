@@ -10,6 +10,7 @@ namespace Flashcards.Infrastructure.Mappers
             return new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new CategoryProfile());
+                cfg.AddProfile(new CommentsProfile());
                 cfg.AddProfile(new UsersProfile());
                 cfg.AddProfile(new CardsProfile());
                 cfg.AddProfile(new DecksProfile());

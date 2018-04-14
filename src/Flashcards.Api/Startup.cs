@@ -84,15 +84,12 @@ namespace Flashcards.Api
 
             app.UseCors(cors =>
             {
-                cors.WithOrigins("http://localhost:4200");
+                cors.AllowAnyOrigin();
                 cors.AllowAnyMethod();
                 cors.AllowAnyHeader();
             });
 
-            if (HostingEnvironment.IsDevelopment())
-            {
-                serviceProvider.GetService<ITestDataSeedingManager>().Seed();
-            }
+            serviceProvider.GetService<ITestDataSeedingManager>().Seed();
 
             app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
             app.UseAuthentication();

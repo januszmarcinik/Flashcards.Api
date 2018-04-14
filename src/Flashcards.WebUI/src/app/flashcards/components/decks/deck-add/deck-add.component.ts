@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {DeckForCreation} from '../../../models/deckForCreation';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DecksService} from '../../../services/decks.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -11,7 +10,7 @@ import {HttpErrorResponse} from '@angular/common/http';
   styleUrls: ['./deck-add.component.less']
 })
 export class DeckAddComponent implements OnInit {
-  deckForCreation: DeckForCreation;
+
   category: string;
   topic: string;
   deckForm: FormGroup;
@@ -36,10 +35,7 @@ export class DeckAddComponent implements OnInit {
   }
 
   save() {
-    this.deckForCreation = this.deckForm.value;
-    this.deckForCreation.categoryName = this.category;
-
-    this.deckService.addDeck(this.topic, this.category, this.deckForCreation).subscribe(resp => {
+    this.deckService.add(this.topic, this.category, this.deckForm.value).subscribe(resp => {
       if (resp.ok) {
         this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
       }

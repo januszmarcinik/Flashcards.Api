@@ -6,7 +6,7 @@ import {SharedModule} from '../shared/shared.module';
 import {CategoriesService} from './services/categories.service';
 import {CategoryAddComponent} from './components/categories/category-add/category-add.component';
 import {CategoryEditComponent} from './components/categories/category-edit/category-edit.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../material.module';
 import {DeckListComponent} from './components/decks/deck-list/deck-list.component';
 import {DecksService} from './services/decks.service';
@@ -15,7 +15,11 @@ import {CardListComponent} from './components/cards/card-list/card-list.componen
 import {CardsService} from './services/cards.service';
 import {DeckEditComponent} from './components/decks/deck-edit/deck-edit.component';
 import {CardAddComponent} from './components/cards/card-add/card-add.component';
-import { CardEditComponent } from './components/cards/card-edit/card-edit.component';
+import {CardEditComponent} from './components/cards/card-edit/card-edit.component';
+import {QuillModule} from 'ngx-quill';
+import {CommentListComponent} from './components/comments/comment-list/comment-list.component';
+import {CommentAddComponent} from './components/comments/comment-add/comment-add.component';
+import {CommentsService} from './services/comments.service';
 
 @NgModule({
   imports: [
@@ -23,7 +27,9 @@ import { CardEditComponent } from './components/cards/card-edit/card-edit.compon
     RouterModule,
     SharedModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    QuillModule,
+    FormsModule
   ],
   declarations: [
     CategoryListComponent,
@@ -34,9 +40,11 @@ import { CardEditComponent } from './components/cards/card-edit/card-edit.compon
     DeckAddComponent,
     DeckEditComponent,
     CardAddComponent,
-    CardEditComponent
+    CardEditComponent,
+    CommentListComponent,
+    CommentAddComponent
   ],
-  providers: [CategoriesService, DecksService, CardsService]
+  providers: [CategoriesService, DecksService, CardsService, CommentsService]
 })
 export class FlashcardsModule {
 }

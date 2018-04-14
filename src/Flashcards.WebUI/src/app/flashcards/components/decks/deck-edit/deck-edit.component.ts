@@ -33,7 +33,7 @@ export class DeckEditComponent implements OnInit {
   }
 
   getDeck() {
-    this.deckService.getDeck(this.topic, this.category, this.deckName).subscribe(resp => {
+    this.deckService.getByName(this.topic, this.category, this.deckName).subscribe(resp => {
       if (resp.ok) {
         this.deck = resp.body;
         this.deckForm.controls['name'].setValue(this.deck.name);
@@ -44,7 +44,7 @@ export class DeckEditComponent implements OnInit {
   }
 
   updateDeck() {
-    this.deckService.updateDeck(this.topic, this.category, this.deck).subscribe(resp => {
+    this.deckService.edit(this.topic, this.category, this.deck).subscribe(resp => {
       if (resp.ok) {
         this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
       }
