@@ -21,6 +21,9 @@ namespace Flashcards.Infrastructure.Modules
 
             builder.RegisterType<CardsQueryService>().As<ICardsQueryService>().InstancePerLifetimeScope();
             builder.RegisterType<CardsCommandService>().As<ICardsCommandService>().InstancePerLifetimeScope();
+
+            builder.RegisterType<CommentsQueryService>().As<ICommentsQueryService>().InstancePerLifetimeScope();
+            builder.RegisterType<CommentsCommandService>().As<ICommentsCommandService>().InstancePerLifetimeScope();
         }
     }
 }

@@ -10,6 +10,10 @@ namespace Flashcards.Domain.Data.Concrete.Configurations
         {
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Title).HasMaxLength(32);
+
+            builder.HasMany(x => x.Comments)
+                .WithOne(x => x.Card)
+                .HasForeignKey("CardId");
         }
     }
 }

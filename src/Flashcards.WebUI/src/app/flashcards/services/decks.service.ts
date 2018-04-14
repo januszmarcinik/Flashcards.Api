@@ -5,7 +5,6 @@ import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../../shared/auth.service';
 import {API_URL} from '../../../constans/constans';
 import {Deck} from '../models/deck';
-import {DeckForCreation} from '../models/deckForCreation';
 
 @Injectable()
 export class DecksService {
@@ -14,7 +13,7 @@ export class DecksService {
               private authService: AuthService) {
   }
 
-  getDecks(topic: string, category: string): Observable<HttpResponse<Deck[]>> {
+  getByCategory(topic: string, category: string): Observable<HttpResponse<Deck[]>> {
     return this.http.get<Deck[]>(`${API_URL}/topics/${topic}/categories/${category}/decks`, {
       headers: {
         'Content-Type': 'application/json',
@@ -23,16 +22,7 @@ export class DecksService {
     });
   }
 
-  addDeck(topic: string, category: string, deck: DeckForCreation): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${API_URL}/topics/${topic}/categories/${category}/decks`, deck, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.authService.getToken()}`
-      }, observe: 'response'
-    });
-  }
-
-  getDeck(topic: string, category: string, deck: string): Observable<HttpResponse<Deck>> {
+  getByName(topic: string, category: string, deck: string): Observable<HttpResponse<Deck>> {
     return this.http.get<Deck>(`${API_URL}/topics/${topic}/categories/${category}/decks/${deck}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -41,7 +31,16 @@ export class DecksService {
     });
   }
 
-  updateDeck(topic: string, category: string, deck: Deck): Observable<HttpResponse<any>> {
+  add(topic: string, category: string, deck: Deck): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${API_URL}/topics/${topic}/categories/${category}/decks`, deck, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.authService.getToken()}`
+      }, observe: 'response'
+    });
+  }
+
+  edit(topic: string, category: string, deck: Deck): Observable<HttpResponse<any>> {
     return this.http.put(`${API_URL}/topics/${topic}/categories/${category}/decks`, deck, {
       headers: {
         'Content-Type': 'application/json',

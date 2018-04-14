@@ -3,4 +3,6 @@ export interface Card {
   title: string;
   question: string;
   answer: string;
+  previousCardId: string;
+  nextCardId: string;
 }

@@ -4,7 +4,8 @@ import {
   MatInputModule,
   MatCardModule,
   MatDialogModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSlideToggleModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
@@ -16,7 +17,8 @@ const modules = [
   BrowserAnimationsModule,
   MatSelectModule,
   MatDialogModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSlideToggleModule
 ];
 
 @NgModule({

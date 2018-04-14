@@ -9,6 +9,7 @@ namespace Flashcards.Domain.Data.Abstract
     {
         DbSet<Card> Cards { get; set; }
         DbSet<Category> Categories { get; set; }
+        DbSet<Comment> Comments { get; set; }
         DbSet<Deck> Decks { get; set; }
         DbSet<User> Users { get; set; }
 

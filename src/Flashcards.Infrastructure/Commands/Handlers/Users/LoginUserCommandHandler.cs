@@ -36,7 +36,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
             await _usersCommandService.LoginAsync(command.Email, command.Password);
             var user = await _usersQueryService.GetByEmailAsync(command.Email);
 
-            var jwt = _jwtManager.CreateToken(command.Email, user.Role);
+            var jwt = _jwtManager.CreateToken(user.Id, user.Email, user.Role);
             _cache.SetJwt(command.TokenId, jwt);
         }
     }

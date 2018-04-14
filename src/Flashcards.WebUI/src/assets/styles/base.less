@@ -4,6 +4,15 @@ body {
    background: @background;
 }
 
+quill-editor {
+  margin-bottom: 20px;
+}
+
+.quill-editor-readonly {
+  background-color: #eee;
+  color: #444;
+}
+
 a.link {
   color: @orange;
 }
@@ -16,5 +25,24 @@ a.link {
 }
 
 .custom-button:hover {
+  cursor: pointer;
+}
+
+.btn-group-justified {
+  display: flex;
+  width: 100%;
+  .btn,
+  .btn-group {
+    flex: 1;
+    .btn {
+      width: 100%;
+    }
+    .dropdown-menu {
+      left: auto;
+    }
+  }
+}
+
+button {
   cursor: pointer;
 }

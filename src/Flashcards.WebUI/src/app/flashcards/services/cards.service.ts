@@ -3,7 +3,7 @@ import {API_URL} from '../../../constans/constans';
 import {AuthService} from '../../shared/auth.service';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import {Card} from '../models/cards/card';
+import {Card} from '../models/card';
 
 @Injectable()
 export class CardsService {

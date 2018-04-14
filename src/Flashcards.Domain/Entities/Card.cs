@@ -2,15 +2,19 @@
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Data.Abstract;
 using System;
+using System.Collections.Generic;
 
 namespace Flashcards.Domain.Entities
 {
     public class Card : Entity
     {
+        private List<Comment> _comments = new List<Comment>();
+
         public string Title { get; protected set; }
         public string Question { get; protected set; }
         public string Answer { get; protected set; }
         public virtual Deck Deck { get; protected set; }
+        public virtual IReadOnlyCollection<Comment> Comments => _comments;
 
         protected Card() { }
 
@@ -63,6 +67,11 @@ namespace Flashcards.Domain.Entities
             }
 
             Answer = answer;
+        }
+
+        public void AddComment(Comment comment)
+        {
+            _comments.Add(comment);
         }
     }
 }
