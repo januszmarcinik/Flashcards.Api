@@ -9,6 +9,7 @@ import {FlashcardsModule} from './flashcards/flashcards.module';
 import {FlashcardsRoutingModule} from './flashcards/flashcards-routing.module';
 import {AuthService} from './shared/auth.service';
 import {AuthGuard} from './shared/auth.guard';
+import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,7 @@ import {AuthGuard} from './shared/auth.guard';
     FlashcardsModule,
     FlashcardsRoutingModule
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -14,7 +14,8 @@ namespace Flashcards.Domain.Data.Concrete.Configurations
 
             builder.HasMany(x => x.Comments)
                 .WithOne(x => x.User)
-                .HasForeignKey("UserId");
+                .HasForeignKey("UserId")
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

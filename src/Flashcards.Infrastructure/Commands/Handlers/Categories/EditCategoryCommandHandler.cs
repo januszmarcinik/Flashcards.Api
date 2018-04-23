@@ -15,6 +15,6 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Categories
         }
 
         public async Task HandleAsync(EditCategoryCommandModel command)
-            => await _categoriesCommandService.EditAsync(command.Id, command.Name, command.Topic.Value);
+            => await _categoriesCommandService.EditAsync(command.Id, command.Name, command.Topic.Value, command.Description);
     }
 }

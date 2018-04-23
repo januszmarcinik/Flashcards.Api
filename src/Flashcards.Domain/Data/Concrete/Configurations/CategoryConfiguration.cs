@@ -14,7 +14,8 @@ namespace Flashcards.Domain.Data.Concrete.Configurations
 
             builder.HasMany(x => x.Decks)
                 .WithOne(x => x.Category)
-                .HasForeignKey("CategoryId");
+                .HasForeignKey("CategoryId")
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

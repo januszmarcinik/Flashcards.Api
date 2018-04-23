@@ -3,4 +3,5 @@ export interface Category {
   name: string;
   topic: number;
   topicName: string;
+  description: string;
 }

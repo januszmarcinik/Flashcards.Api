@@ -24,27 +24,27 @@ namespace Flashcards.Infrastructure.Managers.Concrete
             var categories = new List<Category>();
             var users = new List<User>();
 
-            var azure = new Category(Topic.It, "Azure");
-            var a70_532 = new Deck("70-532");
+            var azure = new Category(Topic.It, "Azure", "");
+            var a70_532 = new Deck("70-532", "");
             azure.AddDeck(a70_532);
-            azure.AddDeck(new Deck("70-533"));
-            azure.AddDeck(new Deck("70-535"));
+            azure.AddDeck(new Deck("70-533", ""));
+            azure.AddDeck(new Deck("70-535", ""));
             categories.Add(azure);
 
-            var dotnet = new Category(Topic.It, ".NET");
-            dotnet.AddDeck(new Deck("Console Applications"));
-            dotnet.AddDeck(new Deck("Web API Applications"));
-            dotnet.AddDeck(new Deck("MVC 5 Applications"));
+            var dotnet = new Category(Topic.It, ".NET", "");
+            dotnet.AddDeck(new Deck("Console Applications", ""));
+            dotnet.AddDeck(new Deck("Web API Applications", ""));
+            dotnet.AddDeck(new Deck("MVC 5 Applications", ""));
             categories.Add(dotnet);
 
-            var b1 = new Category(Topic.EnPl, "B1");
-            b1.AddDeck(new Deck("Vocabulary"));
-            b1.AddDeck(new Deck("Test exam"));
+            var b1 = new Category(Topic.EnPl, "B1", "");
+            b1.AddDeck(new Deck("Vocabulary", ""));
+            b1.AddDeck(new Deck("Test exam", ""));
             categories.Add(b1);
 
-            var b2 = new Category(Topic.EnPl, "B2");
-            b2.AddDeck(new Deck("Vocabulary"));
-            b2.AddDeck(new Deck("Test exam"));
+            var b2 = new Category(Topic.EnPl, "B2", "");
+            b2.AddDeck(new Deck("Vocabulary", ""));
+            b2.AddDeck(new Deck("Test exam", ""));
             categories.Add(b2);
 
             for (int i = 1; i <= 10; i++)

@@ -3,9 +3,9 @@ import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 
-import {API_URL} from '../../../constans/constans';
 import {Category} from '../models/category';
 import {AuthService} from '../../shared/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class CategoriesService {
@@ -14,7 +14,7 @@ export class CategoriesService {
               private authService: AuthService) { }
 
   getByTopic(topic: string): Observable<HttpResponse<Category[]>> {
-    return this.http.get<Category[]>(`${API_URL}/topics/${topic}/categories`, {
+    return this.http.get<Category[]>(`${environment.API_URL}/topics/${topic}/categories`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -23,7 +23,7 @@ export class CategoriesService {
   }
 
   getByName(topic: string, name: string): Observable<HttpResponse<Category>> {
-    return this.http.get<Category>(`${API_URL}/topics/${topic}/categories/${name}`, {
+    return this.http.get<Category>(`${environment.API_URL}/topics/${topic}/categories/${name}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -32,7 +32,7 @@ export class CategoriesService {
   }
 
   add(topic: string, category: Category): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${API_URL}/topics/${topic}/categories`, category, {
+    return this.http.post<any>(`${environment.API_URL}/topics/${topic}/categories`, category, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -41,7 +41,7 @@ export class CategoriesService {
   }
 
   edit(topic: string, category: Category): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${API_URL}/topics/${topic}/categories`, category, {
+    return this.http.put<any>(`${environment.API_URL}/topics/${topic}/categories`, category, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -50,7 +50,7 @@ export class CategoriesService {
   }
 
   remove(topic: string, category: Category): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${API_URL}/topics/${topic}/categories/${category.id}`, {
+    return this.http.delete<any>(`${environment.API_URL}/topics/${topic}/categories/${category.id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`

@@ -5,4 +5,5 @@ export interface Card {
   answer: string;
   previousCardId: string;
   nextCardId: string;
+  confirmed: boolean;
 }

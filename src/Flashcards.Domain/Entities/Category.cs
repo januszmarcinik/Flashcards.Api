@@ -13,18 +13,20 @@ namespace Flashcards.Domain.Entities
 
         public string Name { get; protected set; }
         public Topic Topic { get; protected set; }
+        public string Description { get; protected set; }
         public virtual IReadOnlyCollection<Deck> Decks => _decks;
 
         protected Category() { }
 
-        public Category(Topic topic, string name)
-            : this(Guid.NewGuid(), topic, name) { }
+        public Category(Topic topic, string name, string description)
+            : this(Guid.NewGuid(), topic, name, description) { }
 
-        public Category(Guid id, Topic topic, string name)
+        public Category(Guid id, Topic topic, string name, string description)
         {
             SetId(id);
             SetTopic(topic);
             SetName(name);
+            SetDescription(description);
         }
 
         public void SetId(Guid id)
@@ -55,6 +57,11 @@ namespace Flashcards.Domain.Entities
             }
 
             Name = name;
+        }
+
+        public void SetDescription(string description)
+        {
+            Description = description;
         }
 
         public void AddDeck(Deck deck)

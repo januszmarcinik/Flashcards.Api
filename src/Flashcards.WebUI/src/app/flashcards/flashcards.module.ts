@@ -20,6 +20,8 @@ import {QuillModule} from 'ngx-quill';
 import {CommentListComponent} from './components/comments/comment-list/comment-list.component';
 import {CommentAddComponent} from './components/comments/comment-add/comment-add.component';
 import {CommentsService} from './services/comments.service';
+import {NgUploaderModule} from 'ngx-uploader';
+import {BlockCutDirective} from '../shared/directives/blockCutDirective';
 
 @NgModule({
   imports: [
@@ -29,7 +31,8 @@ import {CommentsService} from './services/comments.service';
     ReactiveFormsModule,
     MaterialModule,
     QuillModule,
-    FormsModule
+    FormsModule,
+    NgUploaderModule
   ],
   declarations: [
     CategoryListComponent,
@@ -42,7 +45,8 @@ import {CommentsService} from './services/comments.service';
     CardAddComponent,
     CardEditComponent,
     CommentListComponent,
-    CommentAddComponent
+    CommentAddComponent,
+    BlockCutDirective
   ],
   providers: [CategoriesService, DecksService, CardsService, CommentsService]
 })

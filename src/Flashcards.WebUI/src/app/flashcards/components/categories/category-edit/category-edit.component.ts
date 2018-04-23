@@ -40,8 +40,9 @@ export class CategoryEditComponent implements OnInit {
   buildForm() {
     return this.formBuilder.group({
       id: new FormControl('', Validators.required),
-      name: new FormControl('', [Validators.required, Validators.maxLength(32)]),
-      topic: new FormControl('', Validators.required)
+      name: new FormControl('', [Validators.required, Validators.pattern('([A-Za-z\\d\\-]+)'), Validators.maxLength(32)]),
+      topic: new FormControl('', Validators.required),
+      description: new FormControl('', Validators.maxLength(100))
     });
   }
 
@@ -53,7 +54,8 @@ export class CategoryEditComponent implements OnInit {
         this.categoryForm.setValue({
           id: this.category.id,
           name: this.category.name,
-          topic: this.category.topic
+          topic: this.category.topic,
+          description: this.category.description
         });
       });
   }
