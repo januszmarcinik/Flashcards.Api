@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {CardsService} from '../../../services/cards.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -31,7 +31,7 @@ export class CardEditComponent implements OnInit {
   cardForm: FormGroup;
   errors: string;
 
-  @ViewChild("commentList") commentList: CommentListComponent;
+  @ViewChild('commentList') commentList: CommentListComponent;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -56,7 +56,7 @@ export class CardEditComponent implements OnInit {
   buildForm(): FormGroup {
     return this.formBuilder.group({
       id: new FormControl('', [Validators.required]),
-      title: new FormControl({value: '', disabled: true}, [Validators.required, Validators.maxLength(32)]),
+      title: new FormControl({value: '', disabled: true}, [Validators.required, Validators.maxLength(128)]),
       question: new FormControl('', Validators.required),
       answer: new FormControl('', Validators.required)
     });
@@ -80,16 +80,21 @@ export class CardEditComponent implements OnInit {
   }
 
   save() {
-    console.log(this.cardForm.value);
     this.cardsService.edit(this.topic, this.category, this.deck, this.cardForm.value)
       .subscribe((response) => {
         if (response.ok) {
           this.isReadOnly = true;
           this.cardForm.controls['title'].disable();
+          this.loadCard(this.cardForm.controls['id'].value);
         }
       }, (ex: HttpErrorResponse) => {
         this.errors = ex.error.message;
       });
+  }
+
+  cancel(): void {
+    this.isReadOnly = true;
+    this.cardForm.controls['title'].disable();
   }
 
   edit(): void {
@@ -99,11 +104,13 @@ export class CardEditComponent implements OnInit {
   }
 
   prev(): void {
+    this.router.navigateByUrl(`/flashcards/topics/It/categories/Azure/decks/${this.deck}/cards/${this.card.previousCardId}`);
     this.loadCard(this.card.previousCardId);
     this.commentList.changeCard(this.card.previousCardId);
   }
 
   next(): void {
+    this.router.navigateByUrl(`/flashcards/topics/It/categories/Azure/decks/${this.deck}/cards/${this.card.nextCardId}`);
     this.loadCard(this.card.nextCardId);
     this.commentList.changeCard(this.card.nextCardId);
   }
@@ -112,10 +119,22 @@ export class CardEditComponent implements OnInit {
     this.isAnswerShown = !this.isAnswerShown;
   }
 
+  confirmCard(): void {
+    this.cardsService.confirmCard(this.topic, this.category, this.deck, this.card.id).subscribe(resp => {
+      this.card.confirmed = !this.card.confirmed;
+    });
+  }
+
   goBack(): void {
     this.router.navigate(
       [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards`]
-    )
+    );
+  }
+
+  onCut($event): void {
+    if ($event.target['tagName'].toLowerCase() === 'img') {
+      this.alertService.showMessage('You cannot CUT. Use COPY / PASTE / DELETE');
+    }
   }
 
 }

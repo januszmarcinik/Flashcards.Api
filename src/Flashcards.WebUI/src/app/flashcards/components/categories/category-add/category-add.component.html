@@ -17,9 +17,15 @@
           <mat-form-field>
             <input matInput formControlName="name" placeholder="Name">
           </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="description" placeholder="Description">
+          </mat-form-field>
 
           <label class="text-danger text-center">
             {{errors}}
+          </label>
+          <label class="text-danger text-center" *ngIf="!categoryForm.untouched && categoryForm.invalid">
+            Name can contains only letters from a-z and "-" not case sensitive.
           </label>
 
           <button [disabled]="categoryForm.invalid" (click)="save()" class="btn btn-primary float-right">

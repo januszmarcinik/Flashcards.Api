@@ -18,6 +18,7 @@
           <th> # </th>
           <th> Name </th>
           <th> Topic </th>
+          <th> Descrpiton </th>
           <th></th>
         </tr>
         </thead>
@@ -26,6 +27,7 @@
           <td> {{ i+1 }}</td>
           <td> {{ category.name }}</td>
           <td> {{ category.topicName }}</td>
+          <td> {{ category.description }}</td>
           <td class="float-right">
             <button class="btn btn-primary" (click)="goToDecks(category)">Decks</button>
             <button class="btn btn-warning" (click)="edit(category)"> Edit </button>

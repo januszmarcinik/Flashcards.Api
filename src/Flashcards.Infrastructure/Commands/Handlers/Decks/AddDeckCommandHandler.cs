@@ -16,7 +16,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Decks
 
         public async Task HandleAsync(AddDeckCommandModel command)
         {
-            await _deckCommandService.CreateAsync(command.CategoryName, command.Name);
+            await _deckCommandService.CreateAsync(command.CategoryName, command.Name, command.Description);
         }
     }
 }

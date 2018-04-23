@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Flashcards.Core.Extensions;
+using Flashcards.Domain.Enums;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
@@ -29,11 +31,15 @@ namespace Flashcards.Api.Controllers
             => Ok(await _cardsQueryService.GetAsync(card));
 
         [HttpPost]
-        public async Task<IActionResult> Post(string deck, [FromBody] AddCardCommandModel command)
-            => await DispatchAsync(command.SetDeck(deck));
+        public async Task<IActionResult> Post(string topic, string category, string deck, [FromBody] AddCardCommandModel command)
+            => await DispatchAsync(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck));
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] EditCardCommandModel command)
+        public async Task<IActionResult> Put(string topic, string category, string deck, [FromBody] EditCardCommandModel command)
+            => await DispatchAsync(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck, Guid.Parse(User.Identity.Name)));
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put([FromRoute] ConfirmCardCommandModel command)
             => await DispatchAsync(command);
 
         [HttpDelete("{id}")]

@@ -30,5 +30,13 @@ namespace Flashcards.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(string category, [FromBody] AddDeckCommandModel command)
             => await DispatchAsync(command.SetCategory(category));
+
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody] EditDeckCommandModel command)
+            => await DispatchAsync(command);
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] RemoveDeckCommandModel command)
+            => await DispatchAsync(command);  
     }
 }

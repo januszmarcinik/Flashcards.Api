@@ -9,11 +9,12 @@ namespace Flashcards.Domain.Data.Concrete.Configurations
         public void Configure(EntityTypeBuilder<Card> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Title).HasMaxLength(32);
+            builder.Property(x => x.Title).HasMaxLength(128);
 
             builder.HasMany(x => x.Comments)
                 .WithOne(x => x.Card)
-                .HasForeignKey("CardId");
+                .HasForeignKey("CardId")
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

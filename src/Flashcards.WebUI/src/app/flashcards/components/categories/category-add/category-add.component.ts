@@ -31,11 +31,12 @@ export class CategoryAddComponent implements OnInit {
   }
 
   buildForm() {
-    let topicValue = TOPICS.find(x => x.route == this.topic).value;
+    const topicValue = TOPICS.find(x => x.route == this.topic).value;
     return this.formBuilder.group({
-      name: new FormControl('', [Validators.required, Validators.maxLength(32)]),
-      topic: new FormControl(topicValue, Validators.required)
-    })
+      name: new FormControl('', [Validators.required, Validators.pattern('([A-Za-z\\d\\-]+)'), Validators.maxLength(32)]),
+      topic: new FormControl(topicValue, Validators.required),
+      description: new FormControl('', Validators.maxLength(100))
+    });
   }
 
   save() {

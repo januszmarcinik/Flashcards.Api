@@ -17,6 +17,7 @@ namespace Flashcards.Core.Modules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterInstance(_configuration.GetSettings<AppSettings>()).SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<DatabaseSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>()).SingleInstance();
         }
     }

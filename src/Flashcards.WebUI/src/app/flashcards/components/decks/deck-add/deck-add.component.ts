@@ -30,7 +30,8 @@ export class DeckAddComponent implements OnInit {
 
   createForm() {
     this.deckForm = this.fb.group({
-      'name': new FormControl('', Validators.required)
+      'name': new FormControl('', [Validators.required, Validators.pattern('([A-Za-z\\d\\-]+)')]),
+      'description': new FormControl('', Validators.maxLength(100))
     });
   }
 
@@ -41,7 +42,7 @@ export class DeckAddComponent implements OnInit {
       }
     }, (err: HttpErrorResponse) => {
       console.log(err);
-      this.errors = err.message;
+      this.errors = err.error.message;
     });
   }
 
