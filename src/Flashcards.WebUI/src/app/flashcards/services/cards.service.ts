@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {API_URL} from '../../../constans/constans';
 import {AuthService} from '../../shared/auth.service';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import {Card} from '../models/card';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class CardsService {
@@ -14,7 +14,7 @@ export class CardsService {
 
   getByDeck(topic: string, category: string, deck: string): Observable<HttpResponse<Card[]>> {
     return this.http.get<Card[]>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -24,7 +24,7 @@ export class CardsService {
 
   getById(topic: string, category: string, deck: string, id: string): Observable<HttpResponse<Card>> {
     return this.http.get<Card>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${id}`, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -34,7 +34,7 @@ export class CardsService {
 
   add(topic: string, category: string, deck: string, card: Card): Observable<HttpResponse<any>> {
     return this.http.post<any>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, card, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, card, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -44,7 +44,7 @@ export class CardsService {
 
   edit(topic: string, category: string, deck: string, card: Card): Observable<HttpResponse<any>> {
     return this.http.put<any>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, card, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, card, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -54,10 +54,19 @@ export class CardsService {
 
   remove(topic: string, category: string, deck: string, card: Card): Observable<HttpResponse<any>> {
     return this.http.delete<any>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card.id}`, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card.id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
+      }, observe: 'response'
+    });
+  }
+
+  confirmCard(topic: string, category: string, deck: string, cardId: string): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${cardId}`, null, {
+      headers: {
+        'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.authService.getToken()}`
       }, observe: 'response'
     });
   }

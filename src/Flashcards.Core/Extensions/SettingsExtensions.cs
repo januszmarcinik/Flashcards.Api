@@ -2,7 +2,7 @@
 
 namespace Flashcards.Core.Extensions
 {
-    internal static class SettingsExtensions
+    public static class SettingsExtensions
     {
         public static T GetSettings<T>(this IConfiguration configuration) where T : new()
         {

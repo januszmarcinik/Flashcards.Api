@@ -30,20 +30,20 @@ namespace Flashcards.Core.Exceptions
         public static ErrorCode InvalidCategoryId => new ErrorCode(nameof(InvalidCategoryId));
         public static ErrorCode InvalidCategoryTopic => new ErrorCode(nameof(InvalidCategoryTopic));
         public static ErrorCode InvalidCategoryName => new ErrorCode(nameof(InvalidCategoryName));
-        public static ErrorCode CategoryWithGivenNameDoesNotExist => new ErrorCode(nameof(CategoryWithGivenNameDoesNotExist), HttpStatusCode.NotFound);
-        public static ErrorCode CategoryDoesNotExist => new ErrorCode(nameof(CategoryDoesNotExist), HttpStatusCode.NotFound);
+        public static ErrorCode CategoryWithGivenNameDoesNotExist => new ErrorCode(nameof(CategoryWithGivenNameDoesNotExist));
+        public static ErrorCode CategoryDoesNotExist => new ErrorCode(nameof(CategoryDoesNotExist));
         public static ErrorCode CategoryWithGivenNameAlreadyExist => new ErrorCode(nameof(CategoryWithGivenNameAlreadyExist));
         public static ErrorCode CategoryCannotBeDeletedBecouseHasRelatedDecks => new ErrorCode(nameof(CategoryCannotBeDeletedBecouseHasRelatedDecks));
 
-        public static ErrorCode InvalidCredentials => new ErrorCode(nameof(InvalidCredentials), HttpStatusCode.Unauthorized);
+        public static ErrorCode InvalidCredentials => new ErrorCode(nameof(InvalidCredentials));
                       
-        public static ErrorCode UserDoesNotExist => new ErrorCode(nameof(UserDoesNotExist), HttpStatusCode.NotFound);
-        public static ErrorCode UserWithGivenEmailDoesNotExist => new ErrorCode(nameof(UserWithGivenEmailDoesNotExist), HttpStatusCode.NotFound);
+        public static ErrorCode UserDoesNotExist => new ErrorCode(nameof(UserDoesNotExist));
+        public static ErrorCode UserWithGivenEmailDoesNotExist => new ErrorCode(nameof(UserWithGivenEmailDoesNotExist));
         public static ErrorCode UserWithGivenEmailAlreadyExist => new ErrorCode(nameof(UserWithGivenEmailAlreadyExist));
 
         public static ErrorCode InvalidDeckId => new ErrorCode(nameof(InvalidDeckId));
         public static ErrorCode InvalidDeckName => new ErrorCode(nameof(InvalidDeckName));
-        public static ErrorCode DeckWithGivenNameDoesNotExist => new ErrorCode(nameof(DeckWithGivenNameDoesNotExist), HttpStatusCode.NotFound);
+        public static ErrorCode DeckWithGivenNameDoesNotExist => new ErrorCode(nameof(DeckWithGivenNameDoesNotExist));
         public static ErrorCode DeckDoesNotExist => new ErrorCode(nameof(DeckDoesNotExist), HttpStatusCode.NotFound);
         public static ErrorCode DeckWithGivenNameAlreadyExist => new ErrorCode(nameof(DeckWithGivenNameAlreadyExist));
         public static ErrorCode DeckAlreadyExist => new ErrorCode(nameof(DeckAlreadyExist));
@@ -56,5 +56,12 @@ namespace Flashcards.Core.Exceptions
 
         public static ErrorCode InvalidCommentText => new ErrorCode(nameof(InvalidCommentText));
         public static ErrorCode CommentDoesNotExist => new ErrorCode(nameof(CommentDoesNotExist), HttpStatusCode.NotFound);
+
+        public static ErrorCode DirectoryNotExist => new ErrorCode(nameof(DirectoryNotExist));
+        public static ErrorCode DirectoryCannotBeCreated => new ErrorCode(nameof(DirectoryCannotBeCreated));
+        public static ErrorCode DirectoryCannotBeDeleted => new ErrorCode(nameof(DirectoryCannotBeDeleted));
+
+        public static ErrorCode FileCannotBeMoved => new ErrorCode(nameof(FileCannotBeMoved));
+        public static ErrorCode FileCannotBeDownloaded => new ErrorCode(nameof(FileCannotBeDownloaded));
     }
 }

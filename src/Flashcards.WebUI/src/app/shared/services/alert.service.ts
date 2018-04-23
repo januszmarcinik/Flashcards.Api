@@ -24,4 +24,9 @@ export class AlertService {
     });
   }
 
+  showMessage(message: string): void {
+    this.dialog.open(AlertComponent, {
+      data: {message: message}
+    });
+  }
 }

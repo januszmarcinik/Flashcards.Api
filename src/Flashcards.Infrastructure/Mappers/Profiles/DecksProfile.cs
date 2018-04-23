@@ -12,7 +12,6 @@ namespace Flashcards.Infrastructure.Mappers.Profiles
         public DecksProfile() : base("Decks")
         {
             CreateMap<Deck, DeckDto>();
-            CreateMap<Deck, DeckWithCardsDto>();
         }
     }
 }

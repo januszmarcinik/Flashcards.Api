@@ -1,12 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Card} from '../../../models/card';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {CardsService} from '../../../services/cards.service';
-import {Category} from '../../../models/category';
 import {ConfirmDeleteComponent} from '../../../../shared/components/confirm-delete/confirm-delete.component';
 
 @Component({
@@ -20,7 +19,10 @@ export class CardListComponent implements OnInit {
   category: string;
   deck: string;
 
-  cards: Card[];
+  displayedColumns = ['no', 'title', 'confirmed', 'question', 'id'];
+  dataSource: MatTableDataSource<Card>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -39,26 +41,28 @@ export class CardListComponent implements OnInit {
   loadCards(): void {
     this.cardsService.getByDeck(this.topic, this.category, this.deck)
       .subscribe((cards) => {
-        this.cards = cards.body;
+        this.dataSource = new MatTableDataSource(cards.body);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }, (ex: HttpErrorResponse) => {
         this.alertService.handleError(ex);
-      })
+      });
   }
 
   add(): void {
     this.router.navigate(
       [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards/add`]
-    )
+    );
   }
 
   edit(card: Card): void {
     this.router.navigate(
       [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards/${card.id}`]
-    )
+    );
   }
 
   delete(card: Card): void {
-    let dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       data: {name: card.title}
     });
 
@@ -76,10 +80,16 @@ export class CardListComponent implements OnInit {
     });
   }
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
   goBack(): void {
     this.router.navigate(
       [`flashcards/topics/${this.topic}/categories/${this.category}/decks`]
-    )
+    );
   }
 
 }

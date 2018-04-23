@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {environment} from '../../../../environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,7 +10,11 @@ import {Router} from '@angular/router';
 
 export class SidebarComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  environmentName: string;
+
+  constructor(private router: Router) {
+    this.environmentName = environment.name;
+  }
 
   ngOnInit() {
   }

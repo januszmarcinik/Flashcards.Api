@@ -17,6 +17,7 @@ export class DeckEditComponent implements OnInit {
   deckName: string;
   category: string;
   topic: string;
+  errors: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -37,23 +38,29 @@ export class DeckEditComponent implements OnInit {
       if (resp.ok) {
         this.deck = resp.body;
         this.deckForm.controls['name'].setValue(this.deck.name);
+        this.deckForm.controls['description'].setValue(this.deck.description);
       }
     }, (err: HttpErrorResponse) => {
-      console.log(err.message);
+      this.errors = err.error.message;
     });
   }
 
-  updateDeck() {
+  save() {
+    this.deck.name = this.deckForm.value['name'];
+    this.deck.description = this.deckForm.value['description'];
     this.deckService.edit(this.topic, this.category, this.deck).subscribe(resp => {
-      if (resp.ok) {
-        this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
+        if (resp.ok) {
+          this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
+        }
+      }, (err: HttpErrorResponse) => {
       }
-    })
+    );
   }
 
   createForm() {
     this.deckForm = this.fb.group({
-      'name': new FormControl('', Validators.required)
+      name: new FormControl('', [Validators.required, Validators.pattern('([A-Za-z\\d\\-]+)')]),
+      description: new FormControl('', Validators.maxLength(100))
     });
   }
 

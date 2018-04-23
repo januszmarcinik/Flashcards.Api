@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse} from '@angular/common/http';
-import {API_URL} from '../../../constans/constans';
+
 import {Comment} from '../models/comment';
 import {AuthService} from '../../shared/auth.service';
 import {Observable} from 'rxjs/Observable';
+import {environment} from '../../../environments/environment';
 
 @Injectable()
 export class CommentsService {
@@ -14,7 +15,7 @@ export class CommentsService {
 
   getByCard(topic: string, category: string, deck: string, card: string): Observable<HttpResponse<Comment[]>> {
     return this.http.get<Comment[]>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments`, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`
@@ -24,7 +25,7 @@ export class CommentsService {
 
   getById(topic: string, category: string, deck: string, card: string, id: string): Observable<HttpResponse<Comment>> {
     return this.http.get<Comment>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments/${id}`, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`
@@ -34,7 +35,7 @@ export class CommentsService {
 
   add(topic: string, category: string, deck: string, card: string, comment: Comment): Observable<HttpResponse<any>> {
     return this.http.post<any>(
-      `${API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments`, comment, {
+      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments`, comment, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`

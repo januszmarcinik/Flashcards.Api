@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from 'rxjs/Subscription';
 import { MatDialog } from '@angular/material';
 
 import { CategoriesService } from '../../../services/categories.service';
@@ -58,7 +58,7 @@ export class CategoryListComponent implements OnInit, OnDestroy {
   }
 
   delete(category: Category) {
-    let dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       data: {name: category.name}
     });
 

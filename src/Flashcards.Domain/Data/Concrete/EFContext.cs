@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Flashcards.Domain.Data.Concrete
 {
-    internal class EFContext : DbContext, IDbContext
+    public class EFContext : DbContext, IDbContext
     {
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -13,14 +13,9 @@ namespace Flashcards.Domain.Data.Concrete
         public virtual DbSet<Deck> Decks { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
-        public EFContext(string databaseName)
-            : base(new DbContextOptionsBuilder<EFContext>().UseInMemoryDatabase(databaseName).Options)
+        public EFContext(DbContextOptions<EFContext> options)
+            : base(options)
         {
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

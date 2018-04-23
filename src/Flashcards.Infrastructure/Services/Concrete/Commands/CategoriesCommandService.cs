@@ -19,18 +19,18 @@ namespace Flashcards.Infrastructure.Services.Concrete.Commands
             _dbContext = dbContext;
         }
 
-        public async Task AddAsync(string name, Topic topic)
+        public async Task AddAsync(string name, Topic topic, string description)
         {
             if (_dbContext.Categories.ExistsSingle(d => d.Name == name))
             {
                 throw new FlashcardsException(ErrorCode.CategoryWithGivenNameAlreadyExist);
             }
 
-            await _dbContext.Categories.AddAsync(new Category(topic, name));
+            await _dbContext.Categories.AddAsync(new Category(topic, name, description));
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task EditAsync(Guid id, string name, Topic topic)
+        public async Task EditAsync(Guid id, string name, Topic topic, string description)
         {
             if (_dbContext.Categories.ExistsSingleExceptFor(d => d.Name == name, id))
             {
@@ -40,6 +40,7 @@ namespace Flashcards.Infrastructure.Services.Concrete.Commands
             var category = await _dbContext.Categories.FindAndEnsureExistsAsync(id, ErrorCode.CategoryDoesNotExist);
             category.SetName(name);
             category.SetTopic(topic);
+            category.SetDescription(description);
 
             _dbContext.Categories.Update(category);
             await _dbContext.SaveChangesAsync();

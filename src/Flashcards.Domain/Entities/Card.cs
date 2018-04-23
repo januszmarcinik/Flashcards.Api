@@ -13,6 +13,7 @@ namespace Flashcards.Domain.Entities
         public string Title { get; protected set; }
         public string Question { get; protected set; }
         public string Answer { get; protected set; }
+        public bool Confirmed { get; protected set; }
         public virtual Deck Deck { get; protected set; }
         public virtual IReadOnlyCollection<Comment> Comments => _comments;
 
@@ -27,6 +28,7 @@ namespace Flashcards.Domain.Entities
             SetTitle(title);
             SetQuestion(question);
             SetAnswer(answer);
+            SetConfirmed(false);
         }
 
         public void SetId(Guid id)
@@ -72,6 +74,11 @@ namespace Flashcards.Domain.Entities
         public void AddComment(Comment comment)
         {
             _comments.Add(comment);
+        }
+
+        public void SetConfirmed(bool confirmed)
+        {
+            Confirmed = confirmed;
         }
     }
 }

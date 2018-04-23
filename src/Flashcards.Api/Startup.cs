@@ -1,14 +1,16 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Flashcards.Api.Middleware;
+using Flashcards.Core.Extensions;
 using Flashcards.Core.Modules;
 using Flashcards.Core.Settings;
-using Flashcards.Domain.Modules;
-using Flashcards.Infrastructure.Managers.Abstract;
+using Flashcards.Domain.Data.Abstract;
+using Flashcards.Domain.Data.Concrete;
 using Flashcards.Infrastructure.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -40,11 +42,17 @@ namespace Flashcards.Api
             services.AddMvc(); 
             services.AddMemoryCache();
 
+            services.AddDbContext<EFContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetSettings<DatabaseSettings>().ConnectionString);
+                options.UseLazyLoadingProxies();
+            });
+            services.AddScoped<IDbContext>(provider => provider.GetService<EFContext>());
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    var jwtSettings = new JwtSettings();
-                    Configuration.GetSection("Jwt").Bind(jwtSettings);
+                    var jwtSettings = Configuration.GetSettings<JwtSettings>();
 
                     options.RequireHttpsMetadata = false;
                     options.Configuration = new OpenIdConnectConfiguration();
@@ -61,8 +69,6 @@ namespace Flashcards.Api
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
-
-            builder.RegisterModule(new DataModule(HostingEnvironment.EnvironmentName));
             builder.RegisterModule<MapperModule>();
             builder.RegisterModule<ManagerModule>();
             builder.RegisterModule(new SettingsModule(Configuration));
@@ -76,8 +82,10 @@ namespace Flashcards.Api
 
         public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
         {
+            app.UseStaticFiles();
+
             loggerFactory.AddNLog();
-            HostingEnvironment.ConfigureNLog("nlog.config");
+            HostingEnvironment.ConfigureNLog($"nlog.{HostingEnvironment.EnvironmentName}.config");
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flashcards API V1"));
@@ -88,8 +96,6 @@ namespace Flashcards.Api
                 cors.AllowAnyMethod();
                 cors.AllowAnyHeader();
             });
-
-            serviceProvider.GetService<ITestDataSeedingManager>().Seed();
 
             app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
             app.UseAuthentication();

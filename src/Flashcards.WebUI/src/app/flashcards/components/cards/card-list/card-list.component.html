@@ -13,25 +13,52 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <table class="table table-striped app-table">
-        <thead>
-        <tr>
-          <th> # </th>
-          <th> Title </th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let card of cards; let i = index">
-          <td> {{ i+1 }}</td>
-          <td> {{ card.title }}</td>
-          <td class="float-right">
-            <button class="btn btn-warning" (click)="edit(card)"> Edit </button>
-            <button class="btn btn-danger" (click)="delete(card)"> Delete </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container mat-elevation-z8">
+        <mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="no">
+            <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let i = index"> {{i+1}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="confirmed">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Confirmed </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <span *ngIf="row.confirmed"><i class="fas fa-check confirmed"></i></span>
+              <span *ngIf="!row.confirmed"><i class="fas fa-times unconfirmed"></i></span>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="question">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Question </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.question.substring(0, 100)}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="id" class="float-right">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button class="btn btn-warning" (click)="edit(row)"> Edit </button>
+              <button class="btn btn-danger" (click)="delete(row)"> Delete </button>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+      </div>
     </div>
   </div>
 </div>

@@ -8,7 +8,7 @@ import {MAT_DIALOG_DATA} from '@angular/material';
 })
 export class ConfirmDeleteComponent implements OnInit {
 
-  private title: string;
+  title: string;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
   }
@@ -16,11 +16,12 @@ export class ConfirmDeleteComponent implements OnInit {
   ngOnInit() {
     this.title = 'Are You sure You want to delete';
 
-    if (this.data['name'].length == 0) {
-      this.title += '?';
-    }
-    else {
+    if (this.data['title'] !== undefined) {
+      this.title = this.data['title'];
+    } else if (this.data['name'] !== undefined) {
       this.title += ` ${this.data['name']}?`;
+    } else {
+      this.title += '?';
     }
   }
 }

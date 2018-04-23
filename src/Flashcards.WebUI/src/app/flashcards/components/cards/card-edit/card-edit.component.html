@@ -12,19 +12,28 @@
   <div class="col-sm-8 offset-sm-2">
     <mat-card>
       <mat-card-content>
-        <form [formGroup]="cardForm">
-          <div class="btn-group btn-group-justified">
-            <button class="btn btn-secondary" [disabled]="!previousExists || !isReadOnly" (click)="prev()">Previous</button>
-            <button class="btn btn-warning" [disabled]="!isReadOnly" (click)="edit()">Edit</button>
-            <button class="btn btn-secondary" [disabled]="!nextExists || !isReadOnly" (click)="next()">Next</button>
-          </div>
-          <hr />
+        <button class="btn btn-info" [disabled]="!previousExists || !isReadOnly" (click)="prev()">Previous</button>
+        <button class="btn btn-info" [disabled]="!nextExists || !isReadOnly" (click)="next()">Next</button>
+        <button class="btn btn-warning" [disabled]="!isReadOnly" (click)="edit()">Edit</button>
+        <div class="float-right">
+          <button *ngIf="!isReadOnly" (click)="cancel()" class="btn btn-dark">Cancel</button>
+          <button [disabled]="cardForm.invalid" *ngIf="!isReadOnly" (click)="save()" class="btn btn-primary">Save</button>
+        </div>
+        <hr />
 
+        <form [formGroup]="cardForm">
           <div class="row">
-            <div class="col-sm-10">
+            <div class="col-sm-8">
               <mat-form-field>
                 <input matInput formControlName="title" placeholder="Title"/>
               </mat-form-field>
+            </div>
+            <div class="col-sm-2">
+              <mat-slide-toggle
+                [checked]="card?.confirmed"
+                (change)="confirmCard()">
+                Confirmed
+              </mat-slide-toggle>
             </div>
             <div class="col-sm-2">
               <mat-slide-toggle
@@ -39,7 +48,9 @@
             [modules]="modules"
             [readOnly]="isReadOnly"
             [ngClass]="{'quill-editor-readonly': isReadOnly}"
-            formControlName="question">
+            formControlName="question"
+            appBlockCut
+            (cut)="onCut($event)">
           </quill-editor>
 
           <quill-editor
@@ -47,16 +58,14 @@
             [modules]="modules"
             [readOnly]="isReadOnly"
             [ngClass]="{'quill-editor-readonly': isReadOnly}"
-            formControlName="answer">
+            formControlName="answer"
+            appBlockCut
+            (cut)="onCut($event)">
           </quill-editor>
 
           <label class="text-danger text-center">
             {{errors}}
           </label>
-
-          <button [disabled]="cardForm.invalid" *ngIf="!isReadOnly" (click)="save()" class="btn btn-primary float-right">
-            Save
-          </button>
         </form>
       </mat-card-content>
     </mat-card>

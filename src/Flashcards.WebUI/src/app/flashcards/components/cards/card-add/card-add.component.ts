@@ -40,7 +40,7 @@ export class CardAddComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(32)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(128)]),
       question: new FormControl('', Validators.required),
       answer: new FormControl('', Validators.required)
     });

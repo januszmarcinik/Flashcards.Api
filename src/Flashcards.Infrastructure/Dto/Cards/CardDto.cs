@@ -8,7 +8,7 @@ namespace Flashcards.Infrastructure.Dto.Cards
         public string Title { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
-
+        public bool Confirmed { get; set; }
         public Guid PreviousCardId { get; set; }
         public Guid NextCardId { get; set; }
     }
