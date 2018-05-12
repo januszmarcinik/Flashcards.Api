@@ -1,5 +1,6 @@
 ﻿using System;
 using Flashcards.WindowsUI.Controls;
+using Flashcards.WindowsUI.Forms.Categories;
 using Flashcards.WindowsUI.Models;
 using Flashcards.WindowsUI.Services;
 
@@ -55,6 +56,11 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             {
                 RefreshCards((lbCategories.SelectedItem as Category)?.Name, (lbDecks.SelectedItem as Deck)?.Name);
             }
+        }
+
+        private void btnCategoriesAdd_Click(object sender, EventArgs e)
+        {
+            new CategoryAddForm(_topic).ShowDialog();
         }
     }
 }

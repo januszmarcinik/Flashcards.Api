@@ -60,7 +60,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.SandyBrown;
+            this.label1.BackColor = System.Drawing.Color.Moccasin;
             this.label1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Location = new System.Drawing.Point(12, 11);
@@ -81,6 +81,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCategoriesAdd.TabIndex = 5;
             this.btnCategoriesAdd.Text = "Add";
             this.btnCategoriesAdd.UseVisualStyleBackColor = false;
+            this.btnCategoriesAdd.Click += new System.EventHandler(this.btnCategoriesAdd_Click);
             // 
             // btnCategoriesEdit
             // 
@@ -96,7 +97,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             // 
             // label2
             // 
-            this.label2.BackColor = System.Drawing.Color.SandyBrown;
+            this.label2.BackColor = System.Drawing.Color.Moccasin;
             this.label2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(274, 11);
             this.label2.Name = "label2";
@@ -118,7 +119,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.Color.SandyBrown;
+            this.label3.BackColor = System.Drawing.Color.Moccasin;
             this.label3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(536, 11);
             this.label3.Name = "label3";

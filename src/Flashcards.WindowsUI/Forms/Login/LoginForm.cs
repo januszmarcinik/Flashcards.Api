@@ -15,9 +15,6 @@ namespace Flashcards.WindowsUI.Forms.Login
             _usersService = new UsersService();
 
             InitializeComponent();
-
-            tbEmail.Text = "admin@januszmarcinik.pl";
-            tbPassword.Text = "JAma94ikSZ";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
