@@ -1,4 +1,6 @@
-﻿namespace Flashcards.WindowsUI.Forms.Login
+﻿using Flashcards.WindowsUI.Controls;
+
+namespace Flashcards.WindowsUI.Forms.Login
 {
     partial class LoginForm
     {
@@ -32,7 +34,7 @@
             this.lblEmail = new System.Windows.Forms.Label();
             this.lblPassword = new System.Windows.Forms.Label();
             this.tbPassword = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnSave = new FlashcardsButton();
             this.SuspendLayout();
             // 
             // tbEmail
@@ -74,13 +76,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.Location = new System.Drawing.Point(214, 82);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(125, 30);
             this.btnSave.TabIndex = 4;
             this.btnSave.Text = "Login";
-            this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // LoginForm
@@ -106,6 +105,6 @@
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.Label lblPassword;
         private System.Windows.Forms.TextBox tbPassword;
-        private System.Windows.Forms.Button btnSave;
+        private FlashcardsButton btnSave;
     }
 }

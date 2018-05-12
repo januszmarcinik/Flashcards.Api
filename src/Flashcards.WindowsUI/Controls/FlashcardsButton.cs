@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace Flashcards.WindowsUI.Controls
@@ -12,8 +7,11 @@ namespace Flashcards.WindowsUI.Controls
     {
         public FlashcardsButton()
         {
-            Text = "I'm Flashcards button";
-            Size = new Size(200, 100);
+            BackColor = Color.SandyBrown;
+            FlatStyle = FlatStyle.Popup;
+            Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Size = new Size(125, 30);
+            UseVisualStyleBackColor = false;
         }
     }
 }
