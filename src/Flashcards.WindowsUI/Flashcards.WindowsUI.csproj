@@ -58,6 +58,9 @@
     <Compile Include="Controls\FlashcardsForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Controls\FlashcardsListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Forms\Dashboard\DashboardForm.cs">
       <SubType>Form</SubType>
@@ -79,10 +82,19 @@
     </Compile>
     <Compile Include="Infrastructure\FlashcardsHttpClient.cs" />
     <Compile Include="Infrastructure\ApiResponse.cs" />
+    <Compile Include="Infrastructure\IControlItem.cs" />
+    <Compile Include="Infrastructure\ServiceBase.cs" />
+    <Compile Include="Models\Card.cs" />
+    <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Deck.cs" />
     <Compile Include="Models\JwtToken.cs" />
+    <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CardsService.cs" />
+    <Compile Include="Services\DecksService.cs" />
+    <Compile Include="Services\CategoriesService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Session.cs" />
     <EmbeddedResource Include="Forms\Dashboard\DashboardForm.resx">

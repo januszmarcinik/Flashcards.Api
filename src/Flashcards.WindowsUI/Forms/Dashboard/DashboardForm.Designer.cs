@@ -45,23 +45,29 @@
             // 
             // btnIt
             // 
+            this.btnIt.BackColor = System.Drawing.Color.SandyBrown;
+            this.btnIt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnIt.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnIt.Location = new System.Drawing.Point(12, 98);
             this.btnIt.Name = "btnIt";
             this.btnIt.Size = new System.Drawing.Size(776, 66);
             this.btnIt.TabIndex = 2;
             this.btnIt.Text = "IT";
-            this.btnIt.UseVisualStyleBackColor = true;
+            this.btnIt.UseVisualStyleBackColor = false;
+            this.btnIt.Click += new System.EventHandler(this.btnIt_Click);
             // 
             // btnEnPl
             // 
+            this.btnEnPl.BackColor = System.Drawing.Color.SandyBrown;
+            this.btnEnPl.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnPl.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEnPl.Location = new System.Drawing.Point(12, 170);
             this.btnEnPl.Name = "btnEnPl";
             this.btnEnPl.Size = new System.Drawing.Size(776, 66);
             this.btnEnPl.TabIndex = 3;
             this.btnEnPl.Text = "English-Polish";
-            this.btnEnPl.UseVisualStyleBackColor = true;
+            this.btnEnPl.UseVisualStyleBackColor = false;
+            this.btnEnPl.Click += new System.EventHandler(this.btnEnPl_Click);
             // 
             // DashboardForm
             // 
@@ -73,6 +79,7 @@
             this.Controls.Add(this.label1);
             this.Name = "DashboardForm";
             this.Text = "DashboardForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DashboardForm_FormClosed);
             this.ResumeLayout(false);
 
         }
