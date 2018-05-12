@@ -37,6 +37,14 @@ namespace Flashcards.WindowsUI.Infrastructure
             }
         }
 
+        public void Post(string requestUri, object body)
+        {
+            var response = PostAsync(GetRequestUri(requestUri), GetContent(body))
+                .GetAwaiter().GetResult();
+            var content = response.Content.ReadAsStringAsync()
+                .GetAwaiter().GetResult();
+        }
+
         public ApiResponse<T> Post<T>(string requestUri, object body)
         {
             var response = PostAsync(GetRequestUri(requestUri), GetContent(body))
