@@ -8,19 +8,13 @@ namespace Flashcards.WindowsUI.Services
     class CategoriesService : ServiceBase
     {
         public List<Category> GetAll(Topic topic)
+            => Handle<List<Category>>(RestUrl(topic));
+
+        public void Add(Topic topic, Category category)
         {
             using (var client = new FlashcardsHttpClient())
             {
-                var response = client.Get<List<Category>>(RestUrl(topic));
-                if (response.IsSuccess)
-                {
-                    return response.Result;
-                }
-                else
-                {
-                    MessageBox.Show(response.Message);
-                    return new List<Category>();
-                }
+                client.Post(RestUrl(topic), category);
             }
         }
     }
