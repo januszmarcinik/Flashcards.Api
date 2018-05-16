@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using Flashcards.WindowsUI.Models;
 
 namespace Flashcards.WindowsUI.Infrastructure
@@ -8,6 +9,11 @@ namespace Flashcards.WindowsUI.Infrastructure
         protected string RestUrl(Topic topic)
         {
             return $@"/topics/{topic}/categories";
+        }
+
+        protected string RestUrl(Topic topic, Guid id)
+        {
+            return $@"{RestUrl(topic)}/{id}";
         }
 
         protected string RestUrl(Topic topic, string category)
@@ -34,6 +40,20 @@ namespace Flashcards.WindowsUI.Infrastructure
                     MessageBox.Show(response.Message);
                     return new T();
                 }
+            }
+        }
+
+        protected bool Handle(Action action)
+        {
+            try
+            {
+                action();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
             }
         }
     }

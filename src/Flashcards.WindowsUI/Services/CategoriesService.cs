@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Flashcards.WindowsUI.Infrastructure;
 using Flashcards.WindowsUI.Models;
@@ -10,12 +11,31 @@ namespace Flashcards.WindowsUI.Services
         public List<Category> GetAll(Topic topic)
             => Handle<List<Category>>(RestUrl(topic));
 
-        public void Add(Topic topic, Category category)
-        {
-            using (var client = new FlashcardsHttpClient())
+        public bool Add(Topic topic, Category category)
+            => Handle(() =>
             {
-                client.Post(RestUrl(topic), category);
-            }
-        }
+                using (var client = new FlashcardsHttpClient())
+                {
+                    client.Post(RestUrl(topic), category);
+                }
+            });
+
+        public bool Edit(Topic topic, Category category)
+            => Handle(() =>
+            {
+                using (var client = new FlashcardsHttpClient())
+                {
+                    client.Put(RestUrl(topic), category);
+                }
+            });
+
+        public bool Delete(Topic topic, Guid id)
+            => Handle(() =>
+            {
+                using (var client = new FlashcardsHttpClient())
+                {
+                    client.Delete(RestUrl(topic, id));
+                }
+            });
     }
 }
