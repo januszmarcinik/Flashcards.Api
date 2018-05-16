@@ -164,6 +164,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnDecksDelete.TabIndex = 16;
             this.btnDecksDelete.Text = "Delete";
             this.btnDecksDelete.UseVisualStyleBackColor = false;
+            this.btnDecksDelete.Click += new System.EventHandler(this.BtnDecksDelete_Click);
             // 
             // btnDecksEdit
             // 
@@ -176,6 +177,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnDecksEdit.TabIndex = 15;
             this.btnDecksEdit.Text = "Edit";
             this.btnDecksEdit.UseVisualStyleBackColor = false;
+            this.btnDecksEdit.Click += new System.EventHandler(this.BtnDecksEdit_Click);
             // 
             // btnDecksAdd
             // 
@@ -188,6 +190,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnDecksAdd.TabIndex = 14;
             this.btnDecksAdd.Text = "Add";
             this.btnDecksAdd.UseVisualStyleBackColor = false;
+            this.btnDecksAdd.Click += new System.EventHandler(this.BtnDecksAdd_Click);
             // 
             // btnCardsDelete
             // 

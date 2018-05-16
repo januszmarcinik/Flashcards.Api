@@ -74,7 +74,6 @@
             // 
             // tbDescription
             // 
-            this.tbDescription.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbDescription.Location = new System.Drawing.Point(152, 40);
             this.tbDescription.Name = "tbDescription";
             this.tbDescription.Size = new System.Drawing.Size(258, 26);
@@ -82,7 +81,6 @@
             // 
             // tbName
             // 
-            this.tbName.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbName.Location = new System.Drawing.Point(152, 11);
             this.tbName.Name = "tbName";
             this.tbName.Size = new System.Drawing.Size(258, 26);

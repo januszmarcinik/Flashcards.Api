@@ -13,5 +13,15 @@ namespace Flashcards.WindowsUI.Controls
             Size = new Size(125, 30);
             UseVisualStyleBackColor = false;
         }
+
+        public void Enable()
+        {
+            Enabled = true;
+        }
+
+        public void Disable()
+        {
+            Enabled = false;
+        }
     }
 }

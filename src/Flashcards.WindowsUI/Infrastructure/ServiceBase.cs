@@ -21,6 +21,11 @@ namespace Flashcards.WindowsUI.Infrastructure
             return $@"{RestUrl(topic)}/{category}/decks";
         }
 
+        protected string RestUrl(Topic topic, string category, Guid id)
+        {
+            return $@"{RestUrl(topic, category)}/{id}";
+        }
+
         protected string RestUrl(Topic topic, string category, string deck)
         {
             return $@"{RestUrl(topic, category)}/{deck}/cards";
