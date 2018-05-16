@@ -56,7 +56,8 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.lbCategories.Name = "lbCategories";
             this.lbCategories.Size = new System.Drawing.Size(256, 441);
             this.lbCategories.TabIndex = 0;
-            this.lbCategories.SelectedIndexChanged += new System.EventHandler(this.lbCategories_SelectedIndexChanged);
+            this.lbCategories.SelectedIndexChanged += new System.EventHandler(this.LbCategories_SelectedIndexChanged);
+            this.lbCategories.DoubleClick += new System.EventHandler(this.BtnCategoriesEdit_Click);
             // 
             // label1
             // 
@@ -81,7 +82,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCategoriesAdd.TabIndex = 5;
             this.btnCategoriesAdd.Text = "Add";
             this.btnCategoriesAdd.UseVisualStyleBackColor = false;
-            this.btnCategoriesAdd.Click += new System.EventHandler(this.btnCategoriesAdd_Click);
+            this.btnCategoriesAdd.Click += new System.EventHandler(this.BtnCategoriesAdd_Click);
             // 
             // btnCategoriesEdit
             // 
@@ -94,6 +95,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCategoriesEdit.TabIndex = 6;
             this.btnCategoriesEdit.Text = "Edit";
             this.btnCategoriesEdit.UseVisualStyleBackColor = false;
+            this.btnCategoriesEdit.Click += new System.EventHandler(this.BtnCategoriesEdit_Click);
             // 
             // label2
             // 
@@ -115,7 +117,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.lbDecks.Name = "lbDecks";
             this.lbDecks.Size = new System.Drawing.Size(256, 441);
             this.lbDecks.TabIndex = 7;
-            this.lbDecks.SelectedIndexChanged += new System.EventHandler(this.lbDecks_SelectedIndexChanged);
+            this.lbDecks.SelectedIndexChanged += new System.EventHandler(this.LbDecks_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -149,6 +151,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCategoriesDelete.TabIndex = 13;
             this.btnCategoriesDelete.Text = "Delete";
             this.btnCategoriesDelete.UseVisualStyleBackColor = false;
+            this.btnCategoriesDelete.Click += new System.EventHandler(this.BtnCategoriesDelete_Click);
             // 
             // btnDecksDelete
             // 

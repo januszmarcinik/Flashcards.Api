@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using Flashcards.WindowsUI.Controls;
 using Flashcards.WindowsUI.Forms.Categories;
 using Flashcards.WindowsUI.Models;
@@ -41,7 +42,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             lbCards.LoadItems(_cardsService.GetAll(_topic, category, deck));
         }
 
-        private void lbCategories_SelectedIndexChanged(object sender, EventArgs e)
+        private void LbCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbCategories.SelectedItem != null)
             {
@@ -50,7 +51,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             }
         }
 
-        private void lbDecks_SelectedIndexChanged(object sender, EventArgs e)
+        private void LbDecks_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbCategories.SelectedItem != null && lbDecks.SelectedItem != null)
             {
@@ -58,9 +59,31 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             }
         }
 
-        private void btnCategoriesAdd_Click(object sender, EventArgs e)
+        private void BtnCategoriesAdd_Click(object sender, EventArgs e)
         {
             new CategoryAddForm(_topic).ShowDialog();
+            RefreshCategories();
+        }
+
+        private void BtnCategoriesEdit_Click(object sender, EventArgs e)
+        {
+            if (lbCategories.SelectedItem != null)
+            {
+                new CategoryEditForm(_topic, lbCategories.SelectedItem as Category).ShowDialog();
+                RefreshCategories();
+            }
+        }
+
+        private void BtnCategoriesDelete_Click(object sender, EventArgs e)
+        {
+            if (lbCategories.SelectedItem != null)
+            {
+                if (FlashcardsMessageBox.YesNo("Are you sure to delete category with all decks and cards?"))
+                {
+                    _categoriesService.Delete(_topic, (lbCategories.SelectedItem as Category).Id);
+                    RefreshCategories();
+                }
+            }
         }
     }
 }

@@ -13,6 +13,11 @@ namespace Flashcards.WindowsUI.Infrastructure
 
         public FlashcardsHttpClient()
         {
+            LoadToken();
+        }
+
+        public void LoadToken()
+        {
             if (Session.Jwt != null && Session.Jwt.Token.IsNotEmpty())
             {
                 DefaultRequestHeaders.Add("Authorization", $"Bearer {Session.Jwt.Token}");
@@ -37,12 +42,22 @@ namespace Flashcards.WindowsUI.Infrastructure
             }
         }
 
-        public void Post(string requestUri, object body)
+        public bool Post(string requestUri, object body)
         {
-            var response = PostAsync(GetRequestUri(requestUri), GetContent(body))
-                .GetAwaiter().GetResult();
-            var content = response.Content.ReadAsStringAsync()
-                .GetAwaiter().GetResult();
+            return PostAsync(GetRequestUri(requestUri), GetContent(body))
+                .GetAwaiter().GetResult().IsSuccessStatusCode;
+        }
+
+        public bool Put(string requestUri, object body)
+        {
+            return PutAsync(GetRequestUri(requestUri), GetContent(body))
+                .GetAwaiter().GetResult().IsSuccessStatusCode;
+        }
+
+        public bool Delete(string requestUri)
+        {
+            return DeleteAsync(GetRequestUri(requestUri))
+                .GetAwaiter().GetResult().IsSuccessStatusCode;
         }
 
         public ApiResponse<T> Post<T>(string requestUri, object body)
