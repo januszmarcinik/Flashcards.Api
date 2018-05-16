@@ -24,9 +24,9 @@ namespace Flashcards.Api.Controllers
         public async Task<IActionResult> Get()
             => Ok(await _usersQueryService.GetListAsync());
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(Guid id)
-            => Ok(await _usersQueryService.GetByIdAsync(id));
+        [HttpGet("{email}")]
+        public async Task<IActionResult> Get(string email)
+            => Ok(await _usersQueryService.GetByEmailAsync(email));
 
         [HttpPost]
         [AllowAnonymous]

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using Flashcards.WindowsUI.Controls;
-using Flashcards.WindowsUI.Forms.Dashboard;
 using Flashcards.WindowsUI.Services;
 
 namespace Flashcards.WindowsUI.Forms.Login
@@ -15,6 +14,9 @@ namespace Flashcards.WindowsUI.Forms.Login
             _usersService = new UsersService();
 
             InitializeComponent();
+
+            tbEmail.Text = "admin@januszmarcinik.pl";
+            tbPassword.Text = "JAma94ikSZ";
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -22,7 +24,7 @@ namespace Flashcards.WindowsUI.Forms.Login
             try
             {
                 _usersService.Auth(tbEmail.Text, tbPassword.Text);
-                new DashboardForm().ShowDialog();
+                Close();
             }
             catch (Exception exception)
             {

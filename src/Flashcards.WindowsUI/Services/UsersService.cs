@@ -26,6 +26,7 @@ namespace Flashcards.WindowsUI.Services
                 {
                     Session.Jwt = authResponse.Result;
 
+                    client.LoadToken();
                     var userResponse = client.Get<User>($@"/users/{email}");
                     if (userResponse.IsSuccess)
                     {
