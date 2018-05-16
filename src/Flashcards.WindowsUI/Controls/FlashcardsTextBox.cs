@@ -7,7 +7,7 @@ namespace Flashcards.WindowsUI.Controls
     {
         public FlashcardsTextBox()
         {
-            Font = new Font("Consolas", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Calibri", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Size = new Size(258, 26);
         }
     }

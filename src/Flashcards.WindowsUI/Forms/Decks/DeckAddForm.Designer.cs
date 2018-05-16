@@ -1,6 +1,6 @@
-﻿namespace Flashcards.WindowsUI.Forms.Categories
+﻿namespace Flashcards.WindowsUI.Forms.Decks
 {
-    partial class CategoryEditForm
+    partial class DeckAddForm
     {
         /// <summary>
         /// Required designer variable.
@@ -83,7 +83,7 @@
             this.tbName.Size = new System.Drawing.Size(258, 26);
             this.tbName.TabIndex = 7;
             // 
-            // CategoryEditForm
+            // DeckAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -93,8 +93,8 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.tbName);
-            this.Name = "CategoryEditForm";
-            this.Text = "Edit category";
+            this.Name = "DeckAddForm";
+            this.Text = "Add deck";
             this.ResumeLayout(false);
             this.PerformLayout();
 
