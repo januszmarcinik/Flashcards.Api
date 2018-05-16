@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Windows.Forms;
 using Flashcards.WindowsUI.Controls;
 using Flashcards.WindowsUI.Forms.Categories;
+using Flashcards.WindowsUI.Forms.Decks;
 using Flashcards.WindowsUI.Models;
 using Flashcards.WindowsUI.Services;
 
@@ -27,6 +27,8 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             RefreshCategories();
         }
 
+        #region Refresh
+
         private void RefreshCategories()
         {
             lbCategories.LoadItems(_categoriesService.GetAll(_topic));
@@ -41,6 +43,10 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
         {
             lbCards.LoadItems(_cardsService.GetAll(_topic, category, deck));
         }
+
+        #endregion
+
+        #region SelectedIndexChanged
 
         private void LbCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -58,6 +64,10 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
                 RefreshCards((lbCategories.SelectedItem as Category)?.Name, (lbDecks.SelectedItem as Deck)?.Name);
             }
         }
+
+        #endregion
+
+        #region Categories
 
         private void BtnCategoriesAdd_Click(object sender, EventArgs e)
         {
@@ -80,10 +90,49 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             {
                 if (FlashcardsMessageBox.YesNo("Are you sure to delete category with all decks and cards?"))
                 {
-                    _categoriesService.Delete(_topic, (lbCategories.SelectedItem as Category).Id);
+                    _categoriesService.Delete(_topic, ((Category)lbCategories.SelectedItem).Id);
                     RefreshCategories();
                 }
             }
         }
+
+        #endregion
+
+        #region Decks
+
+        private void BtnDecksAdd_Click(object sender, EventArgs e)
+        {
+            if (lbCategories.SelectedItem != null)
+            {
+                var category = (lbCategories.SelectedItem as Category)?.Name;
+                new DeckAddForm(_topic, category).ShowDialog();
+                RefreshDecks(category);
+            }
+        }
+
+        private void BtnDecksEdit_Click(object sender, EventArgs e)
+        {
+            if (lbDecks.SelectedItem != null)
+            {
+                var category = (lbCategories.SelectedItem as Category)?.Name;
+                new DeckEditForm(_topic, category, (Deck)lbDecks.SelectedItem).ShowDialog();
+                RefreshDecks(category);
+            }
+        }
+
+        private void BtnDecksDelete_Click(object sender, EventArgs e)
+        {
+            if (lbDecks.SelectedItem != null)
+            {
+                if (FlashcardsMessageBox.YesNo("Are you sure to delete deck with all cards?"))
+                {
+                    var category = (lbCategories.SelectedItem as Category)?.Name;
+                    _decksService.Delete(_topic, category, ((Deck)lbDecks.SelectedItem).Id);
+                    RefreshDecks(category);
+                }
+            }
+        }
+
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Flashcards.WindowsUI.Forms.Categories
+﻿namespace Flashcards.WindowsUI.Forms.Decks
 {
-    partial class CategoryEditForm
+    partial class DeckEditForm
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,6 @@
             // 
             // label2
             // 
-            this.label2.BackColor = System.Drawing.Color.Moccasin;
             this.label2.Location = new System.Drawing.Point(12, 41);
             this.label2.Margin = new System.Windows.Forms.Padding(3);
             this.label2.Name = "label2";
@@ -48,7 +47,6 @@
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.Moccasin;
             this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
@@ -59,7 +57,6 @@
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.SandyBrown;
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSave.Location = new System.Drawing.Point(285, 72);
             this.btnSave.Name = "btnSave";
@@ -83,7 +80,7 @@
             this.tbName.Size = new System.Drawing.Size(258, 26);
             this.tbName.TabIndex = 7;
             // 
-            // CategoryEditForm
+            // DeckAddForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -93,8 +90,8 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tbDescription);
             this.Controls.Add(this.tbName);
-            this.Name = "CategoryEditForm";
-            this.Text = "Edit category";
+            this.Name = "DeckAddForm";
+            this.Text = "Add deck";
             this.ResumeLayout(false);
             this.PerformLayout();
 
