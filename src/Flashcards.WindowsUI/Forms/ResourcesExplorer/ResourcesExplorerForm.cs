@@ -1,5 +1,6 @@
 ﻿using System;
 using Flashcards.WindowsUI.Controls;
+using Flashcards.WindowsUI.Forms.Cards;
 using Flashcards.WindowsUI.Forms.Categories;
 using Flashcards.WindowsUI.Forms.Decks;
 using Flashcards.WindowsUI.Models;
@@ -129,6 +130,46 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
                     var category = (lbCategories.SelectedItem as Category)?.Name;
                     _decksService.Delete(_topic, category, ((Deck)lbDecks.SelectedItem).Id);
                     RefreshDecks(category);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Cards
+
+        private void BtnCardsAdd_Click(object sender, EventArgs e)
+        {
+            if (lbDecks.SelectedItem != null)
+            {
+                var category = (lbCategories.SelectedItem as Category)?.Name;
+                var deck = (lbDecks.SelectedItem as Deck)?.Name;
+                new CardAddForm(_topic, category, deck).ShowDialog();
+                RefreshCards(category, deck);
+            }
+        }
+
+        private void BtnCardsEdit_Click(object sender, EventArgs e)
+        {
+            if (lbCards.SelectedItem != null)
+            {
+                var category = (lbCategories.SelectedItem as Category)?.Name;
+                var deck = (lbDecks.SelectedItem as Deck)?.Name;
+                new CardEditForm(_topic, category, deck, ((Card)lbCards.SelectedItem).Id).ShowDialog();
+                RefreshCards(category, deck);
+            }
+        }
+
+        private void BtnCardsDelete_Click(object sender, EventArgs e)
+        {
+            if (lbCards.SelectedItem != null)
+            {
+                if (FlashcardsMessageBox.YesNo("Are you sure to delete card?"))
+                {
+                    var category = (lbCategories.SelectedItem as Category)?.Name;
+                    var deck = (lbDecks.SelectedItem as Deck)?.Name;
+                    _cardsService.Delete(_topic, category, deck, ((Card)lbCards.SelectedItem).Id);
+                    RefreshCards(category, deck);
                 }
             }
         }
