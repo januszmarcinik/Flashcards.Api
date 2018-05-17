@@ -31,6 +31,11 @@ namespace Flashcards.WindowsUI.Infrastructure
             return $@"{RestUrl(topic, category)}/{deck}/cards";
         }
 
+        protected string RestUrl(Topic topic, string category, string deck, Guid id)
+        {
+            return $@"{RestUrl(topic, category, deck)}/{id}";
+        }
+
         protected T Handle<T>(string url) where T : class, new()
         {
             using (var client = new FlashcardsHttpClient())
