@@ -118,6 +118,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.lbDecks.Size = new System.Drawing.Size(256, 441);
             this.lbDecks.TabIndex = 7;
             this.lbDecks.SelectedIndexChanged += new System.EventHandler(this.LbDecks_SelectedIndexChanged);
+            this.lbDecks.DoubleClick += new System.EventHandler(this.BtnDecksEdit_Click);
             // 
             // label3
             // 
@@ -139,6 +140,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.lbCards.Name = "lbCards";
             this.lbCards.Size = new System.Drawing.Size(256, 441);
             this.lbCards.TabIndex = 11;
+            this.lbCards.DoubleClick += new System.EventHandler(this.BtnCardsEdit_Click);
             // 
             // btnCategoriesDelete
             // 
@@ -203,6 +205,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCardsDelete.TabIndex = 19;
             this.btnCardsDelete.Text = "Delete";
             this.btnCardsDelete.UseVisualStyleBackColor = false;
+            this.btnCardsDelete.Click += new System.EventHandler(this.BtnCardsDelete_Click);
             // 
             // btnCardsEdit
             // 
@@ -215,6 +218,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCardsEdit.TabIndex = 18;
             this.btnCardsEdit.Text = "Edit";
             this.btnCardsEdit.UseVisualStyleBackColor = false;
+            this.btnCardsEdit.Click += new System.EventHandler(this.BtnCardsEdit_Click);
             // 
             // btnCardsAdd
             // 
@@ -227,6 +231,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCardsAdd.TabIndex = 17;
             this.btnCardsAdd.Text = "Add";
             this.btnCardsAdd.UseVisualStyleBackColor = false;
+            this.btnCardsAdd.Click += new System.EventHandler(this.BtnCardsAdd_Click);
             // 
             // ResourcesExplorerForm
             // 
@@ -248,6 +253,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.Controls.Add(this.btnCategoriesAdd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbCategories);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ResourcesExplorerForm";
             this.Text = "ResourcesExplorerForm";
             this.ResumeLayout(false);

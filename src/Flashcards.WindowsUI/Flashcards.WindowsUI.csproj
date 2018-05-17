@@ -68,7 +68,20 @@
     <Compile Include="Controls\FlashcardsTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Extensions\GuidExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Forms\Cards\CardAddForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cards\CardAddForm.Designer.cs">
+      <DependentUpon>CardAddForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Cards\CardEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Cards\CardEditForm.Designer.cs">
+      <DependentUpon>CardEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Categories\CategoryAddForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +141,12 @@
     <Compile Include="Services\CategoriesService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Session.cs" />
+    <EmbeddedResource Include="Forms\Cards\CardAddForm.resx">
+      <DependentUpon>CardAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Cards\CardEditForm.resx">
+      <DependentUpon>CardEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Categories\CategoryAddForm.resx">
       <DependentUpon>CategoryAddForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -139,6 +158,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Decks\DeckAddForm.resx">
       <DependentUpon>DeckAddForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Decks\DeckEditForm.resx">
+      <DependentUpon>DeckEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Login\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
