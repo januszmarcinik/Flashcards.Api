@@ -12,6 +12,7 @@ namespace Flashcards.Infrastructure.Modules
             builder.RegisterType<ImagesManager>().As<IImagesManager>().InstancePerLifetimeScope();
             builder.RegisterType<JwtManager>().As<IJwtManager>().SingleInstance();
             builder.RegisterType<TestDataSeedingManager>().As<ITestDataSeedingManager>().InstancePerLifetimeScope();
+            builder.RegisterType<SessionsManager>().As<ISessionsManager>().InstancePerLifetimeScope();
         }
     }
 }

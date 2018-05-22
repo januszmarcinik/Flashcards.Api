@@ -124,6 +124,12 @@
     <Compile Include="Forms\ResourcesExplorer\ResourcesExplorerForm.Designer.cs">
       <DependentUpon>ResourcesExplorerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Session\SessionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Session\SessionForm.Designer.cs">
+      <DependentUpon>SessionForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\FlashcardsHttpClient.cs" />
     <Compile Include="Infrastructure\ApiResponse.cs" />
     <Compile Include="Infrastructure\IControlItem.cs" />
@@ -132,6 +138,10 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Deck.cs" />
     <Compile Include="Models\JwtToken.cs" />
+    <Compile Include="Models\Sessions\ApplySessionCardCommand.cs" />
+    <Compile Include="Models\Sessions\SessionCard.cs" />
+    <Compile Include="Models\Sessions\SessionCardStatus.cs" />
+    <Compile Include="Models\Sessions\SessionState.cs" />
     <Compile Include="Models\Topic.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Program.cs" />
@@ -139,6 +149,7 @@
     <Compile Include="Services\CardsService.cs" />
     <Compile Include="Services\DecksService.cs" />
     <Compile Include="Services\CategoriesService.cs" />
+    <Compile Include="Services\SessionsService.cs" />
     <Compile Include="Services\UsersService.cs" />
     <Compile Include="Session.cs" />
     <EmbeddedResource Include="Forms\Cards\CardAddForm.resx">
@@ -167,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ResourcesExplorer\ResourcesExplorerForm.resx">
       <DependentUpon>ResourcesExplorerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Session\SessionForm.resx">
+      <DependentUpon>SessionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

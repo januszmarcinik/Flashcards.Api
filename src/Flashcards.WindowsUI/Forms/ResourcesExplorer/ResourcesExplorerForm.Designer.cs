@@ -33,18 +33,16 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.lbCategories = new Flashcards.WindowsUI.Controls.FlashcardsListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCategoriesAdd = new Flashcards.WindowsUI.Controls.FlashcardsButton();
-            this.btnCategoriesEdit = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.label2 = new System.Windows.Forms.Label();
             this.lbDecks = new Flashcards.WindowsUI.Controls.FlashcardsListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lbCards = new Flashcards.WindowsUI.Controls.FlashcardsListBox();
             this.btnCategoriesDelete = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.btnDecksDelete = new Flashcards.WindowsUI.Controls.FlashcardsButton();
-            this.btnDecksEdit = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.btnDecksAdd = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.btnCardsDelete = new Flashcards.WindowsUI.Controls.FlashcardsButton();
-            this.btnCardsEdit = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.btnCardsAdd = new Flashcards.WindowsUI.Controls.FlashcardsButton();
+            this.btnRun = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.SuspendLayout();
             // 
             // lbCategories
@@ -83,19 +81,6 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCategoriesAdd.Text = "Add";
             this.btnCategoriesAdd.UseVisualStyleBackColor = false;
             this.btnCategoriesAdd.Click += new System.EventHandler(this.BtnCategoriesAdd_Click);
-            // 
-            // btnCategoriesEdit
-            // 
-            this.btnCategoriesEdit.BackColor = System.Drawing.Color.SandyBrown;
-            this.btnCategoriesEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCategoriesEdit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCategoriesEdit.Location = new System.Drawing.Point(143, 489);
-            this.btnCategoriesEdit.Name = "btnCategoriesEdit";
-            this.btnCategoriesEdit.Size = new System.Drawing.Size(125, 30);
-            this.btnCategoriesEdit.TabIndex = 6;
-            this.btnCategoriesEdit.Text = "Edit";
-            this.btnCategoriesEdit.UseVisualStyleBackColor = false;
-            this.btnCategoriesEdit.Click += new System.EventHandler(this.BtnCategoriesEdit_Click);
             // 
             // label2
             // 
@@ -147,7 +132,7 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCategoriesDelete.BackColor = System.Drawing.Color.SandyBrown;
             this.btnCategoriesDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCategoriesDelete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCategoriesDelete.Location = new System.Drawing.Point(12, 525);
+            this.btnCategoriesDelete.Location = new System.Drawing.Point(143, 489);
             this.btnCategoriesDelete.Name = "btnCategoriesDelete";
             this.btnCategoriesDelete.Size = new System.Drawing.Size(125, 30);
             this.btnCategoriesDelete.TabIndex = 13;
@@ -160,26 +145,13 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnDecksDelete.BackColor = System.Drawing.Color.SandyBrown;
             this.btnDecksDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDecksDelete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDecksDelete.Location = new System.Drawing.Point(274, 525);
+            this.btnDecksDelete.Location = new System.Drawing.Point(405, 489);
             this.btnDecksDelete.Name = "btnDecksDelete";
             this.btnDecksDelete.Size = new System.Drawing.Size(125, 30);
             this.btnDecksDelete.TabIndex = 16;
             this.btnDecksDelete.Text = "Delete";
             this.btnDecksDelete.UseVisualStyleBackColor = false;
             this.btnDecksDelete.Click += new System.EventHandler(this.BtnDecksDelete_Click);
-            // 
-            // btnDecksEdit
-            // 
-            this.btnDecksEdit.BackColor = System.Drawing.Color.SandyBrown;
-            this.btnDecksEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnDecksEdit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDecksEdit.Location = new System.Drawing.Point(405, 489);
-            this.btnDecksEdit.Name = "btnDecksEdit";
-            this.btnDecksEdit.Size = new System.Drawing.Size(125, 30);
-            this.btnDecksEdit.TabIndex = 15;
-            this.btnDecksEdit.Text = "Edit";
-            this.btnDecksEdit.UseVisualStyleBackColor = false;
-            this.btnDecksEdit.Click += new System.EventHandler(this.BtnDecksEdit_Click);
             // 
             // btnDecksAdd
             // 
@@ -199,26 +171,13 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCardsDelete.BackColor = System.Drawing.Color.SandyBrown;
             this.btnCardsDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCardsDelete.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCardsDelete.Location = new System.Drawing.Point(536, 525);
+            this.btnCardsDelete.Location = new System.Drawing.Point(667, 489);
             this.btnCardsDelete.Name = "btnCardsDelete";
             this.btnCardsDelete.Size = new System.Drawing.Size(125, 30);
             this.btnCardsDelete.TabIndex = 19;
             this.btnCardsDelete.Text = "Delete";
             this.btnCardsDelete.UseVisualStyleBackColor = false;
             this.btnCardsDelete.Click += new System.EventHandler(this.BtnCardsDelete_Click);
-            // 
-            // btnCardsEdit
-            // 
-            this.btnCardsEdit.BackColor = System.Drawing.Color.SandyBrown;
-            this.btnCardsEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCardsEdit.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCardsEdit.Location = new System.Drawing.Point(667, 489);
-            this.btnCardsEdit.Name = "btnCardsEdit";
-            this.btnCardsEdit.Size = new System.Drawing.Size(125, 30);
-            this.btnCardsEdit.TabIndex = 18;
-            this.btnCardsEdit.Text = "Edit";
-            this.btnCardsEdit.UseVisualStyleBackColor = false;
-            this.btnCardsEdit.Click += new System.EventHandler(this.BtnCardsEdit_Click);
             // 
             // btnCardsAdd
             // 
@@ -233,27 +192,37 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
             this.btnCardsAdd.UseVisualStyleBackColor = false;
             this.btnCardsAdd.Click += new System.EventHandler(this.BtnCardsAdd_Click);
             // 
+            // btnRun
+            // 
+            this.btnRun.BackColor = System.Drawing.Color.SpringGreen;
+            this.btnRun.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnRun.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRun.Location = new System.Drawing.Point(12, 525);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(780, 30);
+            this.btnRun.TabIndex = 20;
+            this.btnRun.Text = "RUN FLASHCARDS SESSION";
+            this.btnRun.UseVisualStyleBackColor = false;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+            // 
             // ResourcesExplorerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(804, 561);
+            this.Controls.Add(this.btnRun);
             this.Controls.Add(this.btnCardsDelete);
-            this.Controls.Add(this.btnCardsEdit);
             this.Controls.Add(this.btnCardsAdd);
             this.Controls.Add(this.btnDecksDelete);
-            this.Controls.Add(this.btnDecksEdit);
             this.Controls.Add(this.btnDecksAdd);
             this.Controls.Add(this.btnCategoriesDelete);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lbCards);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lbDecks);
-            this.Controls.Add(this.btnCategoriesEdit);
             this.Controls.Add(this.btnCategoriesAdd);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbCategories);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ResourcesExplorerForm";
             this.Text = "ResourcesExplorerForm";
             this.ResumeLayout(false);
@@ -265,17 +234,15 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
         private FlashcardsListBox lbCategories;
         private System.Windows.Forms.Label label1;
         private FlashcardsButton btnCategoriesAdd;
-        private FlashcardsButton btnCategoriesEdit;
         private System.Windows.Forms.Label label2;
         private FlashcardsListBox lbDecks;
         private System.Windows.Forms.Label label3;
         private FlashcardsListBox lbCards;
         private FlashcardsButton btnCategoriesDelete;
         private FlashcardsButton btnDecksDelete;
-        private FlashcardsButton btnDecksEdit;
         private FlashcardsButton btnDecksAdd;
         private FlashcardsButton btnCardsDelete;
-        private FlashcardsButton btnCardsEdit;
         private FlashcardsButton btnCardsAdd;
+        private FlashcardsButton btnRun;
     }
 }
