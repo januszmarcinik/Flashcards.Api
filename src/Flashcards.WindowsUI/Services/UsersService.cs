@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Flashcards.WindowsUI.Controls;
 using Flashcards.WindowsUI.Extensions;
 using Flashcards.WindowsUI.Infrastructure;
 using Flashcards.WindowsUI.Models;
@@ -7,15 +7,17 @@ namespace Flashcards.WindowsUI.Services
 {
     class UsersService
     {
-        public void Auth(string email, string password)
+        public bool Auth(string email, string password)
         {
             if (email.IsEmpty())
             {
-                throw new Exception("Email can't be empty.");
+                FlashcardsMessageBox.Error("Email can't be empty.");
+                return false;
             }
             else if (password.IsEmpty())
             {
-                 throw new Exception("Password can't be empty.");
+                FlashcardsMessageBox.Error("Password can't be empty.");
+                return false;
             }
 
             using (var client = new FlashcardsHttpClient())
@@ -33,10 +35,13 @@ namespace Flashcards.WindowsUI.Services
                         Session.User = userResponse.Result;
                         Session.User.Password = password;
                     }
+
+                    return true;
                 }
                 else
                 {
-                    throw new Exception(authResponse.Message);
+                    FlashcardsMessageBox.Error(authResponse.ErrorMessage);
+                    return false;
                 }
             }
         }

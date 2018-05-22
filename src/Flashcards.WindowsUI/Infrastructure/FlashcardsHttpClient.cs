@@ -24,68 +24,34 @@ namespace Flashcards.WindowsUI.Infrastructure
             }
         }
 
-        public ApiResponse<T> Get<T>(string requestUri)
-        {
-            var response = GetAsync(GetRequestUri(requestUri))
-                .GetAwaiter().GetResult();
-            var content = response.Content.ReadAsStringAsync()
-                .GetAwaiter().GetResult();
+        public ApiResponse<T> Get<T>(string requestUri) 
+            => GetAsync(GetRequestUri(requestUri)).GetApiResponse<T>();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var result = JsonConvert.DeserializeObject<T>(content);
-                return ApiResponse<T>.Success(result);
-            }
-            else
-            {
-                return ApiResponse<T>.Error(content, response.StatusCode);
-            }
-        }
-
-        public bool Post(string requestUri, object body)
-        {
-            return PostAsync(GetRequestUri(requestUri), GetContent(body))
-                .GetAwaiter().GetResult().IsSuccessStatusCode;
-        }
-
-        public bool Put(string requestUri, object body)
-        {
-            return PutAsync(GetRequestUri(requestUri), GetContent(body))
-                .GetAwaiter().GetResult().IsSuccessStatusCode;
-        }
-
-        public bool Delete(string requestUri)
-        {
-            return DeleteAsync(GetRequestUri(requestUri))
-                .GetAwaiter().GetResult().IsSuccessStatusCode;
-        }
+        public ApiResponse<string> Get(string requestUri)
+            => GetAsync(GetRequestUri(requestUri)).GetApiResponse<string>();
 
         public ApiResponse<T> Post<T>(string requestUri, object body)
-        {
-            var response = PostAsync(GetRequestUri(requestUri), GetContent(body))
-                .GetAwaiter().GetResult();
-            var content = response.Content.ReadAsStringAsync()
-                .GetAwaiter().GetResult();
+            => PostAsync(GetRequestUri(requestUri), GetContent(body)).GetApiResponse<T>();
 
-            if (response.IsSuccessStatusCode)
-            {
-                var result = JsonConvert.DeserializeObject<T>(content);
-                return ApiResponse<T>.Success(result);
-            }
-            else
-            {
-                return ApiResponse<T>.Error(content, response.StatusCode);
-            }
-        }
+        public ApiResponse<string> Post(string requestUri, object body)
+            => PostAsync(GetRequestUri(requestUri), GetContent(body)).GetApiResponse<string>();
+
+        public ApiResponse<T> Put<T>(string requestUri, object body)
+            => PutAsync(GetRequestUri(requestUri), GetContent(body)).GetApiResponse<T>();
+
+        public ApiResponse<string> Put(string requestUri, object body)
+            => PutAsync(GetRequestUri(requestUri), GetContent(body)).GetApiResponse<string>();
+
+        public ApiResponse<T> Delete<T>(string requestUri)
+            => DeleteAsync(GetRequestUri(requestUri)).GetApiResponse<T>();
+
+        public ApiResponse<string> Delete(string requestUri)
+            => DeleteAsync(GetRequestUri(requestUri)).GetApiResponse<string>();
 
         private string GetRequestUri(string requestUri)
-        {
-            return $"{ApiUrl}{requestUri}";
-        }
+            => $"{ApiUrl}{requestUri}";
 
         private HttpContent GetContent(object body)
-        {
-            return new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
-        }
+            => new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
     }
 }
