@@ -3,6 +3,7 @@ using Flashcards.WindowsUI.Controls;
 using Flashcards.WindowsUI.Forms.Cards;
 using Flashcards.WindowsUI.Forms.Categories;
 using Flashcards.WindowsUI.Forms.Decks;
+using Flashcards.WindowsUI.Forms.Session;
 using Flashcards.WindowsUI.Models;
 using Flashcards.WindowsUI.Services;
 
@@ -175,5 +176,15 @@ namespace Flashcards.WindowsUI.Forms.ResourcesExplorer
         }
 
         #endregion
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            if (lbCategories.SelectedItem != null && lbDecks.SelectedItem != null)
+            {
+                var category = (lbCategories.SelectedItem as Category)?.Name;
+                var deck = (lbDecks.SelectedItem as Deck)?.Name;
+                new SessionForm(_topic, category, deck).ShowDialog();
+            }
+        }
     }
 }
