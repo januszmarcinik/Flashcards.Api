@@ -1,40 +1,28 @@
 ﻿using System;
-using System.Windows.Forms;
+using Flashcards.WindowsUI.Controls;
 using Flashcards.WindowsUI.Models;
 
 namespace Flashcards.WindowsUI.Infrastructure
 {
-    public abstract class ServiceBase
+    abstract class ServiceBase
     {
         protected string RestUrl(Topic topic)
-        {
-            return $@"/topics/{topic}/categories";
-        }
+            => $@"/topics/{topic}/categories";
 
         protected string RestUrl(Topic topic, Guid id)
-        {
-            return $@"{RestUrl(topic)}/{id}";
-        }
+            => $@"{RestUrl(topic)}/{id}";
 
         protected string RestUrl(Topic topic, string category)
-        {
-            return $@"{RestUrl(topic)}/{category}/decks";
-        }
+            => $@"{RestUrl(topic)}/{category}/decks";
 
         protected string RestUrl(Topic topic, string category, Guid id)
-        {
-            return $@"{RestUrl(topic, category)}/{id}";
-        }
+            => $@"{RestUrl(topic, category)}/{id}";
 
         protected string RestUrl(Topic topic, string category, string deck)
-        {
-            return $@"{RestUrl(topic, category)}/{deck}/cards";
-        }
+            => $@"{RestUrl(topic, category)}/{deck}/cards";
 
         protected string RestUrl(Topic topic, string category, string deck, Guid id)
-        {
-            return $@"{RestUrl(topic, category, deck)}/{id}";
-        }
+            => $@"{RestUrl(topic, category, deck)}/{id}";
 
         protected T Handle<T>(string url) where T : class, new()
         {
@@ -47,22 +35,22 @@ namespace Flashcards.WindowsUI.Infrastructure
                 }
                 else
                 {
-                    MessageBox.Show(response.Message);
+                    FlashcardsMessageBox.Error(response.ErrorMessage);
                     return new T();
                 }
             }
         }
 
-        protected bool Handle(Action action)
+        protected bool Handle<T>(Func<ApiResponse<T>> action)
         {
-            try
+            var response = action();
+            if (response.IsSuccess)
             {
-                action();
                 return true;
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message);
+                FlashcardsMessageBox.Error(response.ErrorMessage);
                 return false;
             }
         }

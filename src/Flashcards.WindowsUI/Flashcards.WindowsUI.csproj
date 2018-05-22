@@ -69,6 +69,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Extensions\GuidExtensions.cs" />
+    <Compile Include="Extensions\HttpResponseExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Forms\Cards\CardAddForm.cs">
       <SubType>Form</SubType>
@@ -130,6 +131,7 @@
     <Compile Include="Forms\Session\SessionForm.Designer.cs">
       <DependentUpon>SessionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ApiException.cs" />
     <Compile Include="Infrastructure\FlashcardsHttpClient.cs" />
     <Compile Include="Infrastructure\ApiResponse.cs" />
     <Compile Include="Infrastructure\IControlItem.cs" />

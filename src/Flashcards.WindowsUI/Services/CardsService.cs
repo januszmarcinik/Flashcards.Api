@@ -18,7 +18,7 @@ namespace Flashcards.WindowsUI.Services
             {
                 using (var client = new FlashcardsHttpClient())
                 {
-                    client.Post(RestUrl(topic, category, deck), card);
+                    return client.Post(RestUrl(topic, category, deck), card);
                 }
             });
 
@@ -27,7 +27,7 @@ namespace Flashcards.WindowsUI.Services
             {
                 using (var client = new FlashcardsHttpClient())
                 {
-                    client.Put(RestUrl(topic, category, deck), card);
+                    return client.Put(RestUrl(topic, category, deck), card);
                 }
             });
 
@@ -36,7 +36,7 @@ namespace Flashcards.WindowsUI.Services
             {
                 using (var client = new FlashcardsHttpClient())
                 {
-                    client.Delete(RestUrl(topic, category, deck, id));
+                    return client.Delete(RestUrl(topic, category, deck, id));
                 }
             });
     }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using Flashcards.WindowsUI.Controls;
 using Flashcards.WindowsUI.Models;
 using Flashcards.WindowsUI.Models.Sessions;
@@ -58,17 +57,25 @@ namespace Flashcards.WindowsUI.Forms.Session
 
         private void ApplySessionState(ApplySessionCardCommand command)
         {
-            _sessionState = _sessionsService.ApplySessionCard(_topic, _category, _deck, command);
-            if (_sessionState.IsFinished)
+            var apiResult = _sessionsService.ApplySessionCard(_topic, _category, _deck, command);
+            if (apiResult.IsSuccess)
             {
-                lblProgress.Text = $"{_sessionState.ActualCount} / {_sessionState.TotalCount}";
-                pbProgress.Value = _sessionState.Percentage;
-                MessageBox.Show("The session is finished.");
-                Close();
+                _sessionState = apiResult.Result;
+                if (_sessionState.IsFinished)
+                {
+                    lblProgress.Text = $"{_sessionState.ActualCount} / {_sessionState.TotalCount}";
+                    pbProgress.Value = _sessionState.Percentage;
+                    FlashcardsMessageBox.Info("The session is finished.");
+                    Close();
+                }
+                else
+                {
+                    SetControls();
+                }
             }
             else
             {
-                SetControls();
+                FlashcardsMessageBox.Error(apiResult.ErrorMessage);
             }
         }
     }
