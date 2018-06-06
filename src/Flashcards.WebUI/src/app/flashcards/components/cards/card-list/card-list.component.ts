@@ -80,6 +80,12 @@ export class CardListComponent implements OnInit {
     });
   }
 
+  session(): void {
+    this.router.navigate(
+      [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/session`]
+    );
+  }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();

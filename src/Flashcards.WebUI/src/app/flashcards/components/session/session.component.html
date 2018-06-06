@@ -1,0 +1,50 @@
+<app-header>
+  <p navigation>
+    Flashcards / Topics / {{topic}} / Categories / {{category}} / Decks / {{deck}} / Session
+  </p>
+  <div content>
+    <p>
+      <button class="btn btn-secondary" (click)="goBack()"> Back</button>
+    </p>
+  </div>
+</app-header>
+<div class="row">
+  <div class="col-sm-8 offset-sm-2">
+    <mat-card>
+      <mat-card-content>
+        <button class="btn btn-danger" (click)="doNotYet()">I can't do it yet</button>
+        <button class="btn btn-warning" (click)="notSure()">I'm not sure</button>
+        <button class="btn btn-success" (click)="alreadyDone()">I can do it already</button>
+        <span class="float-right">{{sessionState?.actualCount}} / {{sessionState?.totalCount}}</span>
+
+        <mat-progress-bar
+          class="session-progress-bar"
+          [color]="primary"
+          [mode]="determinate"
+          [value]="sessionState?.percentage"
+          [bufferValue]="100">
+        </mat-progress-bar>
+        <hr/>
+
+        <h4>{{sessionState?.card.title}}</h4>
+        <hr/>
+
+        <quill-editor [readOnly]="true" [modules]="{toolbar: false}"
+                      [(ngModel)]="sessionState?.card.question"></quill-editor>
+        <hr/>
+
+        <div class="col-sm-2">
+          <mat-slide-toggle
+            [checked]="isAnswerShown"
+            (change)="toggleShowAnswer()">
+            Show answer
+          </mat-slide-toggle>
+        </div>
+        <hr/>
+
+        <quill-editor [readOnly]="true" [modules]="{toolbar: false}" [(ngModel)]="sessionState?.card.answer"
+                      *ngIf="isAnswerShown"></quill-editor>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -21,7 +21,15 @@ namespace Flashcards.Infrastructure.Managers.Concrete
         }
 
         public async Task<SessionStateDto> GetSessionAsync(Guid userId, string deck)
-            => _cache.Get<SessionStateDto>(GetSessionStateKey(userId, deck)) ?? await InitializeAsync(userId, deck);
+        {
+            var session = _cache.Get<SessionStateDto>(GetSessionStateKey(userId, deck));
+            if (session == null)
+            {
+                session = await InitializeAsync(userId, deck);
+            }
+
+            return session;
+        }
 
         public async Task ApplySessionCardAsync(Guid userId, string deck, Guid cardId, SessionCardStatus status)
         {
@@ -60,7 +68,7 @@ namespace Flashcards.Infrastructure.Managers.Concrete
             else
             {
                 session.Finish();
-                _cache.Set(GetSessionStateKey(userId, deck), session, TimeSpan.FromSeconds(5));
+                _cache.Set(GetSessionStateKey(userId, deck), session, TimeSpan.FromSeconds(1));
                 _cache.Remove(GetSessionCardsKey(session.Id));
             }
 

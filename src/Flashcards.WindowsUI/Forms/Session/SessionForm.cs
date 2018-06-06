@@ -35,6 +35,7 @@ namespace Flashcards.WindowsUI.Forms.Session
             tbAnswer.Text = _sessionState.Card.Answer;
             lblProgress.Text = $"{_sessionState.ActualCount} / {_sessionState.TotalCount}";
             pbProgress.Value = _sessionState.Percentage;
+            ToggleShowAnswer(false);
         }
 
         private void btnDoNotYet_Click(object sender, EventArgs e)
@@ -53,6 +54,17 @@ namespace Flashcards.WindowsUI.Forms.Session
         {
             var command = new ApplySessionCardCommand(_sessionState.Card.CardId, SessionCardStatus.AlreadyDone);
             ApplySessionState(command);
+        }
+
+        private void btnShowAnswer_Click(object sender, EventArgs e)
+        {
+            ToggleShowAnswer(true);
+        }
+
+        private void ToggleShowAnswer(bool visible)
+        {
+            tbAnswer.Visible = visible;
+            btnShowAnswer.Enabled = !visible;
         }
 
         private void ApplySessionState(ApplySessionCardCommand command)
