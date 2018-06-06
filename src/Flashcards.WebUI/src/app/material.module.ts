@@ -8,7 +8,8 @@ import {
   MatSlideToggleModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatProgressBarModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
@@ -24,7 +25,8 @@ const modules = [
   MatSlideToggleModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatProgressBarModule
 ];
 
 @NgModule({

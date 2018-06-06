@@ -10,6 +10,7 @@ import {CategoryAddComponent} from './components/categories/category-add/categor
 import {CardListComponent} from './components/cards/card-list/card-list.component';
 import {CardAddComponent} from './components/cards/card-add/card-add.component';
 import {CardEditComponent} from './components/cards/card-edit/card-edit.component';
+import {SessionComponent} from "./components/session/session.component";
 
 const USER_ROUTES: Route[] = [
   {path: 'flashcards/topics/:topic/categories',
@@ -29,7 +30,9 @@ const USER_ROUTES: Route[] = [
   {path: 'flashcards/topics/:topic/categories/:category/decks/:deck/cards/add',
     component: CardAddComponent, canActivate: [AuthGuard]},
   {path: 'flashcards/topics/:topic/categories/:category/decks/:deck/cards/:card',
-    component: CardEditComponent, canActivate: [AuthGuard]}
+    component: CardEditComponent, canActivate: [AuthGuard]},
+  {path: 'flashcards/topics/:topic/categories/:category/decks/:deck/session',
+    component: SessionComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

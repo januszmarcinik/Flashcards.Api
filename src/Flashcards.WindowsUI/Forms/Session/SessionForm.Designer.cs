@@ -30,7 +30,7 @@
         {
             this.tbTitle = new Flashcards.WindowsUI.Controls.FlashcardsTextBox();
             this.tbQuestion = new System.Windows.Forms.RichTextBox();
-            this.btnCategoriesAdd = new Flashcards.WindowsUI.Controls.FlashcardsButton();
+            this.btnShowAnswer = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.tbAnswer = new System.Windows.Forms.RichTextBox();
             this.btnDoNotYet = new Flashcards.WindowsUI.Controls.FlashcardsButton();
             this.btnAlreadyDone = new Flashcards.WindowsUI.Controls.FlashcardsButton();
@@ -60,17 +60,18 @@
             this.tbQuestion.TabIndex = 9;
             this.tbQuestion.Text = "";
             // 
-            // btnCategoriesAdd
+            // btnShowAnswer
             // 
-            this.btnCategoriesAdd.BackColor = System.Drawing.Color.SandyBrown;
-            this.btnCategoriesAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnCategoriesAdd.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCategoriesAdd.Location = new System.Drawing.Point(12, 253);
-            this.btnCategoriesAdd.Name = "btnCategoriesAdd";
-            this.btnCategoriesAdd.Size = new System.Drawing.Size(634, 30);
-            this.btnCategoriesAdd.TabIndex = 10;
-            this.btnCategoriesAdd.Text = "Show answer";
-            this.btnCategoriesAdd.UseVisualStyleBackColor = false;
+            this.btnShowAnswer.BackColor = System.Drawing.Color.SandyBrown;
+            this.btnShowAnswer.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnShowAnswer.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowAnswer.Location = new System.Drawing.Point(12, 253);
+            this.btnShowAnswer.Name = "btnShowAnswer";
+            this.btnShowAnswer.Size = new System.Drawing.Size(634, 30);
+            this.btnShowAnswer.TabIndex = 10;
+            this.btnShowAnswer.Text = "Show answer";
+            this.btnShowAnswer.UseVisualStyleBackColor = false;
+            this.btnShowAnswer.Click += new System.EventHandler(this.btnShowAnswer_Click);
             // 
             // tbAnswer
             // 
@@ -152,7 +153,7 @@
             this.Controls.Add(this.btnAlreadyDone);
             this.Controls.Add(this.btnDoNotYet);
             this.Controls.Add(this.tbAnswer);
-            this.Controls.Add(this.btnCategoriesAdd);
+            this.Controls.Add(this.btnShowAnswer);
             this.Controls.Add(this.tbQuestion);
             this.Controls.Add(this.tbTitle);
             this.Name = "SessionForm";
@@ -166,7 +167,7 @@
 
         private Controls.FlashcardsTextBox tbTitle;
         private System.Windows.Forms.RichTextBox tbQuestion;
-        private Controls.FlashcardsButton btnCategoriesAdd;
+        private Controls.FlashcardsButton btnShowAnswer;
         private System.Windows.Forms.RichTextBox tbAnswer;
         private Controls.FlashcardsButton btnDoNotYet;
         private Controls.FlashcardsButton btnAlreadyDone;
