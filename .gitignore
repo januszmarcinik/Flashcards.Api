@@ -266,3 +266,6 @@ __pycache__/
 /Deploy
 /src/Flashcards.WebUI/dist
 /src/Flashcards.Api/wwwroot
+src/Flashcards.Api/appsettings.Production.json
+src/Flashcards.Api/nlog.Production.config
+src/Flashcards.Api/Properties/PublishProfiles/api.flashcards.januszmarcinik.pl.pubxml

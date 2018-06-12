@@ -1,4 +1,6 @@
 ﻿using System;
+using Flashcards.Domain.Entities;
+using Flashcards.Domain.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Flashcards.Domain.Migrations
@@ -142,6 +144,14 @@ namespace Flashcards.Domain.Migrations
                 column: "Email",
                 unique: true,
                 filter: "[Email] IS NOT NULL");
+
+            var admin = new User(
+                "flashcards@januszmarcinik.pl",
+                Role.Admin,
+                "IgS5W+t2tp2H8DYDagMuCCBo4Mj7t4bR6g6JFULEnLpqX3f6IrS4IA==",
+                "JxCiCnXJu8L/5fAecxkyOKnrSrjtlSFke8r1EVwvgfz5mSz2DdMIkg==");
+            migrationBuilder.Sql(
+                $"INSERT INTO [Users] (Id, Email, Role, Password, Salt) VALUES ('{admin.Id}', '{admin.Email}', {(int)admin.Role}, '{admin.Password}', '{admin.Salt}')");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

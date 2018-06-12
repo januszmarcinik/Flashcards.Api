@@ -3,7 +3,7 @@
         Dashboard / Users
     </p>
     <div content>
-        <p> Users list </p>
+      Users list
     </div>
 </app-header>
 
@@ -25,7 +25,7 @@
                         <td> {{ i+1 }} </td>
                         <td> {{ user.id }} </td>
                         <td> {{ user.email }} </td>
-                        <td> {{ user.role }} </td>
+                        <td> {{ getRoleName(user.role) }} </td>
                     </tr>
                 </tbody>
             </table>
