@@ -23,4 +23,18 @@ export class UserListComponent implements OnInit {
       this.users = users.body;
     });
   }
+
+  getRoleName(roleNumber: number): string {
+    if (roleNumber == 1) {
+      return "Admin";
+    }
+    if (roleNumber == 2) {
+      return "Moderator";
+    }
+    if (roleNumber == 3) {
+      return "User";
+    }
+
+    return "";
+  }
 }
