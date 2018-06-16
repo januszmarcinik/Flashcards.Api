@@ -269,3 +269,4 @@ __pycache__/
 src/Flashcards.Api/appsettings.Production.json
 src/Flashcards.Api/nlog.Production.config
 src/Flashcards.Api/Properties/PublishProfiles/api.flashcards.januszmarcinik.pl.pubxml
+src/Flashcards.WebUI/package-lock.json
