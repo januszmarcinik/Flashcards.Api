@@ -21,8 +21,8 @@ export class CardListComponent implements OnInit {
 
   displayedColumns = ['no', 'title', 'confirmed', 'question', 'id'];
   dataSource: MatTableDataSource<Card>;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

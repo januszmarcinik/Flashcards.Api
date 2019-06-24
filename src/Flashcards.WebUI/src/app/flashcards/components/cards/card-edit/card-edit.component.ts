@@ -31,7 +31,7 @@ export class CardEditComponent implements OnInit {
   cardForm: FormGroup;
   errors: string;
 
-  @ViewChild('commentList') commentList: CommentListComponent;
+  @ViewChild('commentList', {static: false}) commentList: CommentListComponent;
 
   constructor(private route: ActivatedRoute,
               private router: Router,

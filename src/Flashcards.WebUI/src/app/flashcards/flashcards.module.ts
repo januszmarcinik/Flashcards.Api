@@ -20,10 +20,10 @@ import {QuillModule} from 'ngx-quill';
 import {CommentListComponent} from './components/comments/comment-list/comment-list.component';
 import {CommentAddComponent} from './components/comments/comment-add/comment-add.component';
 import {CommentsService} from './services/comments.service';
-import {NgUploaderModule} from 'ngx-uploader';
+import {NgxUploaderModule} from 'ngx-uploader';
 import {BlockCutDirective} from '../shared/directives/blockCutDirective';
 import {SessionComponent} from './components/session/session.component';
-import {SessionService} from "./services/session.service";
+import {SessionService} from './services/session.service';
 
 @NgModule({
   imports: [
@@ -34,7 +34,7 @@ import {SessionService} from "./services/session.service";
     MaterialModule,
     QuillModule,
     FormsModule,
-    NgUploaderModule
+    NgxUploaderModule
   ],
   declarations: [
     CategoryListComponent,

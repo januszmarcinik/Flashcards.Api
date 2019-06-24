@@ -17,7 +17,7 @@ export class CommentListComponent implements OnInit {
   @Input() deck: string;
   @Input() cardId: string;
 
-  @ViewChild("commentAdd") commentAdd: CommentAddComponent;
+  @ViewChild('commentAdd', {static: false}) commentAdd: CommentAddComponent;
 
   comments: Comment[];
 
