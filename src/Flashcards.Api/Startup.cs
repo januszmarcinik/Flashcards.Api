@@ -22,6 +22,7 @@ using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Text;
+using Flashcards.Infrastructure;
 
 namespace Flashcards.Api
 {
@@ -75,6 +76,7 @@ namespace Flashcards.Api
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<CommandModule>();
             builder.RegisterInstance(LogManager.GetCurrentClassLogger()).As<NLog.ILogger>();
+            builder.ConfigureMediator();
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);

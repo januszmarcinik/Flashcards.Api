@@ -1,0 +1,38 @@
+﻿namespace Flashcards.Core
+{
+    public class Result
+    {
+        protected Result(bool isSuccess, string message)
+        {
+            IsSuccess = isSuccess;
+            Message = message;
+        }
+
+        public string Message { get; }
+
+        public bool IsSuccess { get; }
+
+        public static Result Fail(string message)
+            => new Result(false, message);
+
+        public static Result Fail<T>(string message)
+            => new Result<T>(false, message, default);
+
+        public static Result Ok()
+            => new Result(true, "");
+
+        public static Result Ok<T>(T value)
+            => new Result<T>(true, "", value);
+    }
+
+    public class Result<T> : Result
+    {
+        internal Result(bool isSuccess, string message, T value)
+            : base(isSuccess, message)
+        {
+            Value = value;
+        }
+
+        public T Value { get; }
+    }
+}
