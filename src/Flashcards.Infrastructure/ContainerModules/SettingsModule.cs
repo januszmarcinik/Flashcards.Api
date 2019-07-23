@@ -3,7 +3,7 @@ using Flashcards.Core.Extensions;
 using Flashcards.Core.Settings;
 using Microsoft.Extensions.Configuration;
 
-namespace Flashcards.Core.Modules
+namespace Flashcards.Infrastructure.ContainerModules
 {
     public class SettingsModule : Module
     {

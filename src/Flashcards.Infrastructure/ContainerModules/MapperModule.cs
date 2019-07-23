@@ -2,7 +2,7 @@
 using AutoMapper;
 using Flashcards.Infrastructure.Mappers;
 
-namespace Flashcards.Infrastructure.Modules
+namespace Flashcards.Infrastructure.ContainerModules
 {
     public class MapperModule : Module
     {

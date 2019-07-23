@@ -2,7 +2,7 @@
 using Flashcards.Infrastructure.Managers.Abstract;
 using Flashcards.Infrastructure.Managers.Concrete;
 
-namespace Flashcards.Infrastructure.Modules
+namespace Flashcards.Infrastructure.ContainerModules
 {
     public class ManagerModule : Module
     {

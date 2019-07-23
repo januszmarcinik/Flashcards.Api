@@ -4,7 +4,7 @@ using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Flashcards.Infrastructure.Services.Concrete.Commands;
 using Flashcards.Infrastructure.Services.Concrete.Queries;
 
-namespace Flashcards.Infrastructure.Modules
+namespace Flashcards.Infrastructure.ContainerModules
 {
     public class ServiceModule : Module
     {

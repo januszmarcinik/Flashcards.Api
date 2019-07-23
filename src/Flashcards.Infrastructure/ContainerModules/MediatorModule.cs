@@ -1,15 +1,15 @@
 ﻿using Autofac;
 using Flashcards.Core;
 
-namespace Flashcards.Infrastructure
+namespace Flashcards.Infrastructure.ContainerModules
 {
-    public static class MediatorConfiguration
+    public class MediatorModule : Autofac.Module
     {
-        public static void ConfigureMediator(this ContainerBuilder containerBuilder)
+        protected override void Load(ContainerBuilder builder)
         {
-            containerBuilder.RegisterType<Mediator>().As<IMediator>().InstancePerLifetimeScope();
+            builder.RegisterType<Mediator>().As<IMediator>().InstancePerLifetimeScope();
 
-            containerBuilder
+            builder
                 .Register(factory =>
                 {
                     var lifetimeScope = factory.Resolve<ILifetimeScope>();
@@ -20,12 +20,12 @@ namespace Flashcards.Infrastructure
 
             var handlersAssembly = typeof(Flashcards.Domain.Entities.Card).Assembly;
 
-            containerBuilder
+            builder
                 .RegisterAssemblyTypes(handlersAssembly)
                 .AsClosedTypesOf(typeof(ICommandHandler<>))
                 .InstancePerLifetimeScope();
 
-            containerBuilder
+            builder
                 .RegisterAssemblyTypes(handlersAssembly)
                 .AsClosedTypesOf(typeof(IQueryHandler<,>))
                 .InstancePerLifetimeScope();

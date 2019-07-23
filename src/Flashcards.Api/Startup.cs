@@ -2,10 +2,8 @@
 using Autofac.Extensions.DependencyInjection;
 using Flashcards.Api.Middleware;
 using Flashcards.Core.Extensions;
-using Flashcards.Core.Modules;
 using Flashcards.Core.Settings;
 using Flashcards.Domain.Data.Concrete;
-using Flashcards.Infrastructure.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,7 +19,7 @@ using NLog.Web;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Text;
-using Flashcards.Infrastructure;
+using Flashcards.Infrastructure.ContainerModules;
 
 namespace Flashcards.Api
 {
@@ -73,8 +71,8 @@ namespace Flashcards.Api
             builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule<ServiceModule>();
             builder.RegisterModule<CommandModule>();
+            builder.RegisterModule<MediatorModule>();
             builder.RegisterInstance(LogManager.GetCurrentClassLogger()).As<NLog.ILogger>();
-            builder.ConfigureMediator();
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);

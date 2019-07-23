@@ -1,9 +1,9 @@
-﻿using Autofac;
+﻿using System.Reflection;
+using Autofac;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Dispatchers;
-using System.Reflection;
 
-namespace Flashcards.Infrastructure.Modules
+namespace Flashcards.Infrastructure.ContainerModules
 {
     public class CommandModule : Autofac.Module
     {
