@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using Flashcards.Core.Extensions;
+using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 

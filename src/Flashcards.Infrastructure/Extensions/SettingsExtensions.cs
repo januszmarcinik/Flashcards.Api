@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace Flashcards.Core.Extensions
+namespace Flashcards.Infrastructure.Extensions
 {
     public static class SettingsExtensions
     {
