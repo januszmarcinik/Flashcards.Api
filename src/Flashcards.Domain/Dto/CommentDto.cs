@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Infrastructure.Dto.Comments
+namespace Flashcards.Domain.Dto
 {
     public class CommentDto
     {

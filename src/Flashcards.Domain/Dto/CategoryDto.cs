@@ -1,7 +1,7 @@
-﻿using Flashcards.Domain.Enums;
-using System;
+﻿using System;
+using Flashcards.Domain.Enums;
 
-namespace Flashcards.Infrastructure.Dto.Categories
+namespace Flashcards.Domain.Dto
 {
     public class CategoryDto
     {

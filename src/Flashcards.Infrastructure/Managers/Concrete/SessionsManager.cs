@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Flashcards.Infrastructure.Dto.Sessions;
+using Flashcards.Domain.Dto;
 using Flashcards.Infrastructure.Managers.Abstract;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.Extensions.Caching.Memory;

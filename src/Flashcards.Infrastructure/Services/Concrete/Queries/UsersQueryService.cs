@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Flashcards.Core.Exceptions;
-using Flashcards.Infrastructure.Dto.Users;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flashcards.Domain.Dto;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 

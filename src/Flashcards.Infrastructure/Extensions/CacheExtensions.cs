@@ -1,6 +1,7 @@
-﻿using Flashcards.Infrastructure.Dto.Tokens;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System;
+using Flashcards.Infrastructure.Managers.Abstract;
+using Flashcards.Infrastructure.Managers.Concrete;
 
 namespace Flashcards.Infrastructure.Extensions
 {

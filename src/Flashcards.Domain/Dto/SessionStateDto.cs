@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Infrastructure.Dto.Sessions
+namespace Flashcards.Domain.Dto
 {
     public class SessionStateDto
     {

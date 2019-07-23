@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Flashcards.Domain.Dto;
 using Flashcards.Domain.Entities;
-using Flashcards.Infrastructure.Dto.Comments;
 
 namespace Flashcards.Infrastructure.Mappers.Profiles
 {

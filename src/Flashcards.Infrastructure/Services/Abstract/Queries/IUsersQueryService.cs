@@ -1,7 +1,7 @@
-﻿using Flashcards.Infrastructure.Dto.Users;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flashcards.Domain.Dto;
 
 namespace Flashcards.Infrastructure.Services.Abstract.Queries
 {

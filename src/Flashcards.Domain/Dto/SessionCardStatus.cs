@@ -1,4 +1,4 @@
-﻿namespace Flashcards.Infrastructure.Dto.Sessions
+﻿namespace Flashcards.Domain.Dto
 {
     public enum SessionCardStatus
     {

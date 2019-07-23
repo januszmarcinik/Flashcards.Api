@@ -1,7 +1,7 @@
 ﻿using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Dto.Categories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flashcards.Domain.Dto;
 
 namespace Flashcards.Infrastructure.Services.Abstract.Queries
 {

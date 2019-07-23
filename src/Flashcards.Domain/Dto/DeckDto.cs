@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Infrastructure.Dto.Decks
+namespace Flashcards.Domain.Dto
 {
     public class DeckDto
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Flashcards.Domain.Dto;
 using Flashcards.Domain.Enums;
 using Flashcards.Infrastructure.Commands.Abstract;
-using Flashcards.Infrastructure.Dto.Sessions;
 
 namespace Flashcards.Infrastructure.Commands.Models.Sessions
 {

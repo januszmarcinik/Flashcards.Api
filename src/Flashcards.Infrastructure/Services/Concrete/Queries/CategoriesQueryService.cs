@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Dto.Categories;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Flashcards.Domain.Dto;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 

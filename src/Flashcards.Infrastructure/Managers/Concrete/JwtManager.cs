@@ -1,6 +1,5 @@
 ﻿using Flashcards.Core.Extensions;
 using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Dto.Tokens;
 using Flashcards.Infrastructure.Managers.Abstract;
 using Microsoft.IdentityModel.Tokens;
 using System;

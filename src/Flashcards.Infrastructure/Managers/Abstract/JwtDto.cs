@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Infrastructure.Dto.Tokens
+namespace Flashcards.Infrastructure.Managers.Abstract
 {
     public class JwtDto
     {

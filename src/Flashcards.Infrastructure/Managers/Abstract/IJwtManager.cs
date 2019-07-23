@@ -1,6 +1,6 @@
 ﻿using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Dto.Tokens;
 using System;
+using Flashcards.Infrastructure.Managers.Concrete;
 
 namespace Flashcards.Infrastructure.Managers.Abstract
 {
