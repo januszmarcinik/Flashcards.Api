@@ -1,25 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 {
     public class ConfirmCardCommandHandler : ICommandHandler<ConfirmCardCommandModel>
     {
-        private readonly ICardsCommandService _cardsCommandService;
+        private readonly ICardsRepository _cardsRepository;
 
-        public ConfirmCardCommandHandler(ICardsCommandService cardsCommandService)
+        public ConfirmCardCommandHandler(ICardsRepository cardsRepository)
         {
-            _cardsCommandService = cardsCommandService;
+            _cardsRepository = cardsRepository;
         }
 
         public async Task HandleAsync(ConfirmCardCommandModel command)
         {
-            await _cardsCommandService.ConfirmAsync(command.Id);
+            await _cardsRepository.ConfirmAsync(command.Id);
         }
     }
 }

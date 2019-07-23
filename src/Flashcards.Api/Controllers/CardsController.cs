@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Enums;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
-using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,21 +14,21 @@ namespace Flashcards.Api.Controllers
     [Route("api/topics/{topic}/categories/{category}/decks/{deck}/cards")]
     public class CardsController : ApiController
     {
-        private readonly ICardsQueryService _cardsQueryService;
+        private readonly ICardsRepository _cardsRepository;
 
-        public CardsController(ICommandDispatcher commandDispatcher, ICardsQueryService cardsQueryService) 
+        public CardsController(ICommandDispatcher commandDispatcher, ICardsRepository cardsRepository) 
             : base(commandDispatcher)
         {
-            _cardsQueryService = cardsQueryService;
+            _cardsRepository = cardsRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get(string topic, string category, string deck)
-            => Ok(await _cardsQueryService.GetListAsync(deck));
+            => Ok(await _cardsRepository.GetListAsync(deck));
 
         [HttpGet("{card}")]
         public async Task<IActionResult> Get(string topic, string category, string deck, Guid card)
-            => Ok(await _cardsQueryService.GetAsync(card));
+            => Ok(await _cardsRepository.GetAsync(card));
 
         [HttpPost]
         public async Task<IActionResult> Post(string topic, string category, string deck, [FromBody] AddCardCommandModel command)

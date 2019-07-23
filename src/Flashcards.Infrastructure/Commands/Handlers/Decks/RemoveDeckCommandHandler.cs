@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Decks;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Decks
 {
     public class RemoveDeckCommandHandler : ICommandHandler<RemoveDeckCommandModel>
     {
-        private readonly IDeckCommandService _deckCommandService;
+        private readonly IDecksRepository _decksRepository;
 
-        public RemoveDeckCommandHandler(IDeckCommandService deckCommandService)
+        public RemoveDeckCommandHandler(IDecksRepository decksRepository)
         {
-            _deckCommandService = deckCommandService;
+            _decksRepository = decksRepository;
         }
 
         public async Task HandleAsync(RemoveDeckCommandModel command)
-            => await _deckCommandService.RemoveAsync(command.Id);
+            => await _decksRepository.RemoveAsync(command.Id);
     }
 }

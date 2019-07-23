@@ -1,20 +1,20 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Categories;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Categories
 {
     internal class AddCategoryCommandHandler : ICommandHandler<AddCategoryCommandModel>
     {
-        private readonly ICategoriesCommandService _categoriesCommandService;
+        private readonly ICategoriesRepository _categoriesRepository;
 
-        public AddCategoryCommandHandler(ICategoriesCommandService categoriesCommandService)
+        public AddCategoryCommandHandler(ICategoriesRepository categoriesRepository)
         {
-            _categoriesCommandService = categoriesCommandService;
+            _categoriesRepository = categoriesRepository;
         }
 
         public async Task HandleAsync(AddCategoryCommandModel command)
-            => await _categoriesCommandService.AddAsync(command.Name, command.Topic.Value, command.Description);
+            => await _categoriesRepository.AddAsync(command.Name, command.Topic.Value, command.Description);
     }
 }

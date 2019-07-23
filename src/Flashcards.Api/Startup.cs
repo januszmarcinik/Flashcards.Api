@@ -68,7 +68,7 @@ namespace Flashcards.Api
             builder.Populate(services);
             builder.RegisterModule<ManagerModule>();
             builder.RegisterModule(new SettingsModule(Configuration));
-            builder.RegisterModule<ServiceModule>();
+            builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<CommandModule>();
             builder.RegisterModule<MediatorModule>();
             builder.RegisterInstance(LogManager.GetCurrentClassLogger()).As<NLog.ILogger>();

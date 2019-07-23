@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Flashcards.Domain.Dto;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Managers.Abstract;
-using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Flashcards.Infrastructure.Managers.Concrete
@@ -12,12 +12,12 @@ namespace Flashcards.Infrastructure.Managers.Concrete
     internal class SessionsManager : ISessionsManager
     {
         private readonly IMemoryCache _cache;
-        private readonly ICardsQueryService _cardsQueryService;
+        private readonly ICardsRepository _cardsRepository;
 
-        public SessionsManager(IMemoryCache cache, ICardsQueryService cardsQueryService)
+        public SessionsManager(IMemoryCache cache, ICardsRepository cardsRepository)
         {
             _cache = cache;
-            _cardsQueryService = cardsQueryService;
+            _cardsRepository = cardsRepository;
         }
 
         public async Task<SessionStateDto> GetSessionAsync(Guid userId, string deck)
@@ -77,7 +77,7 @@ namespace Flashcards.Infrastructure.Managers.Concrete
 
         private async Task<SessionStateDto> InitializeAsync(Guid userId, string deck)
         {
-            var cards = await _cardsQueryService.GetListAsync(deck);
+            var cards = await _cardsRepository.GetListAsync(deck);
             var sessionCards = cards.Select(x => new SessionCardDto(x.Id, x.Title, x.Answer, x.Question)).ToList();
             var sessionState = new SessionStateDto(userId, deck, sessionCards.Count);
 

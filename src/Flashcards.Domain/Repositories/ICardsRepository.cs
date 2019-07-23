@@ -1,14 +1,16 @@
-﻿using Flashcards.Domain.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flashcards.Domain.Dto;
 
-namespace Flashcards.Infrastructure.Services.Abstract.Commands
+namespace Flashcards.Domain.Repositories
 {
-    public interface ICardsCommandService
+    public interface ICardsRepository
     {
+        Task<CardDto> GetAsync(Guid id);
+        Task<List<CardDto>> GetListAsync(string deckName);
+
         Task AddAsync(string deckName, string title, string question, string answer);
-        Task AddRangeAsync(string deckName, List<Card> cards);
         Task EditAsync(Guid cardId, string title, string question, string answer);
         Task RemoveAsync(Guid id);
         Task ConfirmAsync(Guid id);

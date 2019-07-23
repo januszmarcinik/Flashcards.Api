@@ -1,27 +1,24 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Flashcards.Core.Extensions;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Managers.Abstract;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
-using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
 {
     internal class LoginUserCommandHandler : ICommandHandler<LoginUserCommandModel>
     {
-        private readonly IUsersCommandService _usersCommandService;
-        private readonly IUsersQueryService _usersQueryService;
+        private readonly IUsersRepository _usersRepository;
         private readonly IJwtManager _jwtManager;
         private readonly IMemoryCache _cache;
 
-        public LoginUserCommandHandler(IUsersCommandService usersCommandService, IUsersQueryService usersQueryService, IJwtManager jwtManager, IMemoryCache cache)
+        public LoginUserCommandHandler(IUsersRepository usersRepository, IJwtManager jwtManager, IMemoryCache cache)
         {
-            _usersCommandService = usersCommandService;
-            _usersQueryService = usersQueryService;
+            _usersRepository = usersRepository;
             _jwtManager = jwtManager;
             _cache = cache;
         }
@@ -33,8 +30,8 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
                 command.TokenId = Guid.NewGuid();
             }
 
-            await _usersCommandService.LoginAsync(command.Email, command.Password);
-            var user = await _usersQueryService.GetByEmailAsync(command.Email);
+            await _usersRepository.LoginAsync(command.Email, command.Password);
+            var user = await _usersRepository.GetByEmailAsync(command.Email);
 
             var jwt = _jwtManager.CreateToken(user.Id, user.Email, user.Role);
             _cache.SetJwt(command.TokenId, jwt);

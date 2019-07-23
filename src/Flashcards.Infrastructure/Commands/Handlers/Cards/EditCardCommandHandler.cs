@@ -1,19 +1,19 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 using Flashcards.Infrastructure.Managers.Abstract;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 {
     internal class EditCardCommandHandler : ICommandHandler<EditCardCommandModel>
     {
-        private readonly ICardsCommandService _cardsCommandService;
+        private readonly ICardsRepository _cardsRepository;
         private readonly IImagesManager _imagesManager;
 
-        public EditCardCommandHandler(ICardsCommandService cardsCommandService, IImagesManager imagesManager)
+        public EditCardCommandHandler(ICardsRepository cardsRepository, IImagesManager imagesManager)
         {
-            _cardsCommandService = cardsCommandService;
+            _cardsRepository = cardsRepository;
             _imagesManager = imagesManager;
         }
 
@@ -27,7 +27,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _imagesManager.RemoveDirectory(path);
             _imagesManager.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
 
-            await _cardsCommandService.EditAsync(command.Id, command.Title, command.Question, command.Answer);
+            await _cardsRepository.EditAsync(command.Id, command.Title, command.Question, command.Answer);
         }
     }
 }

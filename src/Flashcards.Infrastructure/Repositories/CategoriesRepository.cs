@@ -1,23 +1,38 @@
-﻿using Flashcards.Core.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Flashcards.Core.Exceptions;
+using Flashcards.Domain.Dto;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Extensions;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
+using Microsoft.EntityFrameworkCore;
 
-namespace Flashcards.Infrastructure.Services.Concrete.Commands
+namespace Flashcards.Infrastructure.Repositories
 {
-    internal class CategoriesCommandService : ICategoriesCommandService
+    internal class CategoriesRepository : ICategoriesRepository
     {
         private readonly EFContext _dbContext;
 
-        public CategoriesCommandService(EFContext dbContext)
+        public CategoriesRepository(EFContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public async Task<List<CategoryDto>> GetByTopic(Topic topic)
+            => await _dbContext.Categories
+                .Where(x => x.Topic == topic)
+                .Select(x => x.ToDto())
+                .ToListAsync();
+
+        public async Task<CategoryDto> GetByName(string name)
+        {
+            var category = _dbContext.Categories.SingleAndEnsureExists(x => x.Name == name, ErrorCode.CategoryDoesNotExist);
+            return await Task.FromResult(category.ToDto());
         }
 
         public async Task AddAsync(string name, Topic topic, string description)

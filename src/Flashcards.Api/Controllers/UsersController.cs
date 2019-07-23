@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
-using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,21 +11,21 @@ namespace Flashcards.Api.Controllers
     [Route("api/users")]
     public class UsersController : ApiController
     {
-        private readonly IUsersQueryService _usersQueryService;
+        private readonly IUsersRepository _usersRepository;
 
-        public UsersController(IUsersQueryService usersQueryService, ICommandDispatcher commandDispatcher)
+        public UsersController(IUsersRepository usersRepository, ICommandDispatcher commandDispatcher)
             : base(commandDispatcher)
         {
-            _usersQueryService = usersQueryService;
+            _usersRepository = usersRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
-            => Ok(await _usersQueryService.GetListAsync());
+            => Ok(await _usersRepository.GetListAsync());
 
         [HttpGet("{email}")]
         public async Task<IActionResult> Get(string email)
-            => Ok(await _usersQueryService.GetByEmailAsync(email));
+            => Ok(await _usersRepository.GetByEmailAsync(email));
 
         [HttpPost]
         [AllowAnonymous]

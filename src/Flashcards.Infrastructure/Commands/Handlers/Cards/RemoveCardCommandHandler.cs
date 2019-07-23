@@ -1,20 +1,20 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 {
     internal class RemoveCardCommandHandler : ICommandHandler<RemoveCardCommandModel>
     {
-        private readonly ICardsCommandService _cardsCommandService;
+        private readonly ICardsRepository _cardsRepository;
 
-        public RemoveCardCommandHandler(ICardsCommandService cardsCommandService)
+        public RemoveCardCommandHandler(ICardsRepository cardsRepository)
         {
-            _cardsCommandService = cardsCommandService;
+            _cardsRepository = cardsRepository;
         }
 
         public async Task HandleAsync(RemoveCardCommandModel command)
-            => await _cardsCommandService.RemoveAsync(command.Id);
+            => await _cardsRepository.RemoveAsync(command.Id);
     }
 }

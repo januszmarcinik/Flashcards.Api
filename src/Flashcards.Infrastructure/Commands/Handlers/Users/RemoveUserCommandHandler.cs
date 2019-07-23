@@ -1,22 +1,22 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
 {
     internal class RemoveUserCommandHandler : ICommandHandler<RemoveUserCommandModel>
     {
-        private readonly IUsersCommandService _usersCommandService;
+        private readonly IUsersRepository _usersRepository;
 
-        public RemoveUserCommandHandler(IUsersCommandService usersCommandService)
+        public RemoveUserCommandHandler(IUsersRepository usersRepository)
         {
-            _usersCommandService = usersCommandService;
+            _usersRepository = usersRepository;
         }
 
         public async Task HandleAsync(RemoveUserCommandModel command)
         {
-            await _usersCommandService.RemoveAsync(command.Id);
+            await _usersRepository.RemoveAsync(command.Id);
         }
     }
 }

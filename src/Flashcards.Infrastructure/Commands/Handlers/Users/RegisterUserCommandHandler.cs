@@ -1,22 +1,22 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
 {
     internal class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommandModel>
     {
-        private readonly IUsersCommandService _usersCommandService;
+        private readonly IUsersRepository _usersRepository;
 
-        public RegisterUserCommandHandler(IUsersCommandService usersCommandService)
+        public RegisterUserCommandHandler(IUsersRepository usersRepository)
         {
-            _usersCommandService = usersCommandService;
+            _usersRepository = usersRepository;
         }
 
         public async Task HandleAsync(RegisterUserCommandModel command)
         {
-            await _usersCommandService.RegisterAsync(command.Id, command.Email, command.Role, command.Password);
+            await _usersRepository.RegisterAsync(command.Id, command.Email, command.Role, command.Password);
         }
     }
 }

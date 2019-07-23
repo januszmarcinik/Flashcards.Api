@@ -1,22 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Flashcards.Core.Exceptions;
+using Flashcards.Domain.Dto;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Extensions;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 
-namespace Flashcards.Infrastructure.Services.Concrete.Commands
+namespace Flashcards.Infrastructure.Repositories
 {
-    internal class DeckCommandService : IDeckCommandService
+    internal class DecksRepository : IDecksRepository
     {
         private readonly EFContext _dbContext;
 
-        public DeckCommandService(EFContext dbContext)
+        public DecksRepository(EFContext dbContext)
         {
             _dbContext = dbContext;
         }
+
+        public async Task<DeckDto> GetAsync(string name)
+            => await Task.FromResult(_dbContext.Decks.SingleAndEnsureExists(x => x.Name == name, ErrorCode.DeckDoesNotExist).ToDto());
+
+        public async Task<List<DeckDto>> GetListAsync(string categoryName)
+            => await Task.FromResult(_dbContext.Decks
+                .Where(x => x.Category.Name == categoryName)
+                .Select(x => x.ToDto())
+                .ToList()
+            );
 
         public async Task CreateAsync(string categoryName, string deckName, string description)
         {

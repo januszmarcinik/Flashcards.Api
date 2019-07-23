@@ -1,26 +1,39 @@
-﻿using Flashcards.Core.Exceptions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Flashcards.Core.Exceptions;
+using Flashcards.Domain.Dto;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Extensions;
-using Flashcards.Infrastructure.Managers.Abstract;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
-using System;
-using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
+using Flashcards.Infrastructure.Managers.Abstract;
+using Microsoft.EntityFrameworkCore;
 
-namespace Flashcards.Infrastructure.Services.Concrete.Commands
+namespace Flashcards.Infrastructure.Repositories
 {
-    internal class UsersCommandService : IUsersCommandService
+    internal class UsersRepository : IUsersRepository
     {
         private readonly EFContext _dbContext;
         private readonly IEncryptionManager _encryptionManager;
 
-        public UsersCommandService(EFContext dbContext, IEncryptionManager encryptionManager)
+        public UsersRepository(EFContext dbContext, IEncryptionManager encryptionManager)
         {
             _dbContext = dbContext;
             _encryptionManager = encryptionManager;
         }
+
+        public async Task<List<UserDto>> GetListAsync()
+            => await _dbContext.Users.Select(x => x.ToDto()).ToListAsync();
+
+        public async Task<UserDto> GetByEmailAsync(string email)
+            => await Task.FromResult(_dbContext.Users
+                .SingleAndEnsureExists(x => x.Email == email, ErrorCode.UserWithGivenEmailDoesNotExist)
+                .ToDto()
+            );
 
         public async Task EditAsync(Guid id, string email)
         {

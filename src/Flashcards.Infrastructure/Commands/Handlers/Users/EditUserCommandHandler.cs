@@ -1,22 +1,22 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
 {
     internal class EditUserCommandHandler : ICommandHandler<EditUserCommandModel>
     {
-        private readonly IUsersCommandService _usersCommandService;
+        private readonly IUsersRepository _usersRepository;
 
-        public EditUserCommandHandler(IUsersCommandService usersCommandService)
+        public EditUserCommandHandler(IUsersRepository usersRepository)
         {
-            _usersCommandService = usersCommandService;
+            _usersRepository = usersRepository;
         }
 
         public async Task HandleAsync(EditUserCommandModel command)
         {
-            await _usersCommandService.EditAsync(command.Id, command.Email);
+            await _usersRepository.EditAsync(command.Id, command.Email);
         }
     }
 }

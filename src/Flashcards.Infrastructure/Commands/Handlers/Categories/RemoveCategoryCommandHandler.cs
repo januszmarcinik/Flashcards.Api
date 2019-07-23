@@ -1,20 +1,20 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Categories;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Categories
 {
     internal class RemoveCategoryCommandHandler : ICommandHandler<RemoveCategoryCommandModel>
     {
-        private readonly ICategoriesCommandService _categoriesCommandService;
+        private readonly ICategoriesRepository _categoriesRepository;
 
-        public RemoveCategoryCommandHandler(ICategoriesCommandService categoriesCommandService)
+        public RemoveCategoryCommandHandler(ICategoriesRepository categoriesRepository)
         {
-            _categoriesCommandService = categoriesCommandService;
+            _categoriesRepository = categoriesRepository;
         }
 
         public async Task HandleAsync(RemoveCategoryCommandModel command)
-            => await _categoriesCommandService.RemoveAsync(command.Id);
+            => await _categoriesRepository.RemoveAsync(command.Id);
     }
 }

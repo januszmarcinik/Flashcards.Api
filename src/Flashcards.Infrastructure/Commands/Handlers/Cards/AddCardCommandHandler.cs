@@ -2,20 +2,20 @@
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 using Flashcards.Infrastructure.Managers.Abstract;
-using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System;
 using System.Threading.Tasks;
+using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 {
     internal class AddCardCommandHandler : ICommandHandler<AddCardCommandModel>
     {
-        private readonly ICardsCommandService _cardsCommandService;
+        private readonly ICardsRepository _cardsRepository;
         private readonly IImagesManager _imagesManager;
 
-        public AddCardCommandHandler(ICardsCommandService cardsCommandService, IImagesManager imagesManager)
+        public AddCardCommandHandler(ICardsRepository cardsRepository, IImagesManager imagesManager)
         {
-            _cardsCommandService = cardsCommandService;
+            _cardsRepository = cardsRepository;
             _imagesManager = imagesManager;
         }
 
@@ -31,7 +31,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 
             _imagesManager.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
 
-            await _cardsCommandService.AddAsync(command.Deck, command.Title, command.Question, command.Answer);
+            await _cardsRepository.AddAsync(command.Deck, command.Title, command.Question, command.Answer);
         }
     }
 }
