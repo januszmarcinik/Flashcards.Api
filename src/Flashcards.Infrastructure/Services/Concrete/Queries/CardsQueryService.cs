@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Dto.Cards;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Flashcards.Domain.Data.Concrete;
+using Flashcards.Infrastructure.DataAccess;
+using Flashcards.Infrastructure.Extensions;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Queries
 {

@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Flashcards.Domain.Data.Concrete.Configurations
+namespace Flashcards.Infrastructure.DataAccess.Configurations
 {
     internal class CardConfiguration : IEntityTypeConfiguration<Card>
     {

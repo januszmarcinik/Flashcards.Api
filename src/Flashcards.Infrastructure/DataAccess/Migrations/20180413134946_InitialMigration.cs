@@ -3,7 +3,7 @@ using Flashcards.Domain.Entities;
 using Flashcards.Domain.Enums;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Flashcards.Domain.Migrations
+namespace Flashcards.Infrastructure.DataAccess.Migrations
 {
     public partial class InitialMigration : Migration
     {

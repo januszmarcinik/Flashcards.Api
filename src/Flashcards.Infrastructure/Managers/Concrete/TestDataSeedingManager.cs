@@ -4,7 +4,7 @@ using Flashcards.Infrastructure.Managers.Abstract;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using Flashcards.Domain.Data.Concrete;
+using Flashcards.Infrastructure.DataAccess;
 
 namespace Flashcards.Infrastructure.Managers.Concrete
 {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Concrete;
-using Flashcards.Domain.Extensions;
+using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Dto.Decks;
+using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.EntityFrameworkCore;
 

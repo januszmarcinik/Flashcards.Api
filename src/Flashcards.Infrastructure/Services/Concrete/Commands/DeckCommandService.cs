@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Concrete;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Extensions;
+using Flashcards.Infrastructure.DataAccess;
+using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Services.Abstract.Commands;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Commands

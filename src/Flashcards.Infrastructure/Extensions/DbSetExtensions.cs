@@ -1,10 +1,11 @@
-﻿using Flashcards.Core.Exceptions;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Flashcards.Core.Exceptions;
+using Flashcards.Domain;
+using Microsoft.EntityFrameworkCore;
 
-namespace Flashcards.Domain.Extensions
+namespace Flashcards.Infrastructure.Extensions
 {
     public static class DbSetExtensions
     {

@@ -1,8 +1,8 @@
-﻿using Flashcards.Domain.Data.Concrete.Configurations;
-using Flashcards.Domain.Entities;
+﻿using Flashcards.Domain.Entities;
+using Flashcards.Infrastructure.DataAccess.Configurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Flashcards.Domain.Data.Concrete
+namespace Flashcards.Infrastructure.DataAccess
 {
     public class EFContext : DbContext
     {

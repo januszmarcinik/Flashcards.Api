@@ -1,10 +1,10 @@
 ﻿using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Entities;
-using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System;
 using System.Threading.Tasks;
-using Flashcards.Domain.Data.Concrete;
+using Flashcards.Infrastructure.DataAccess;
+using Flashcards.Infrastructure.Extensions;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Commands
 {

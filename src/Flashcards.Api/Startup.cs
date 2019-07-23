@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Flashcards.Api.Middleware;
-using Flashcards.Domain.Data.Concrete;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +17,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Text;
 using Flashcards.Infrastructure.ContainerModules;
+using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Settings;
 
