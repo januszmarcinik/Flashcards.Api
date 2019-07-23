@@ -3,17 +3,17 @@ using Flashcards.Domain.Enums;
 using Flashcards.Infrastructure.Managers.Abstract;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Flashcards.Domain.Data.Abstract;
 using System;
+using Flashcards.Domain.Data.Concrete;
 
 namespace Flashcards.Infrastructure.Managers.Concrete
 {
     internal class TestDataSeedingManager : ITestDataSeedingManager
     {
         private readonly IEncryptionManager _encryptionManager;
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
 
-        public TestDataSeedingManager(IEncryptionManager encryptionManager, IDbContext dbContext)
+        public TestDataSeedingManager(IEncryptionManager encryptionManager, EFContext dbContext)
         {
             _encryptionManager = encryptionManager;
             _dbContext = dbContext;

@@ -4,7 +4,6 @@ using Flashcards.Api.Middleware;
 using Flashcards.Core.Extensions;
 using Flashcards.Core.Modules;
 using Flashcards.Core.Settings;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Data.Concrete;
 using Flashcards.Infrastructure.Modules;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -48,7 +47,6 @@ namespace Flashcards.Api
                 options.UseSqlServer(Configuration.GetSettings<DatabaseSettings>().ConnectionString);
                 options.UseLazyLoadingProxies();
             });
-            services.AddScoped<IDbContext>(provider => provider.GetService<EFContext>());
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

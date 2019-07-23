@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Dto.Categories;
@@ -9,15 +8,16 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Flashcards.Domain.Data.Concrete;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Queries
 {
     internal class CategoriesQueryService : ICategoriesQueryService
     {
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
         private readonly IMapper _mapper;
 
-        public CategoriesQueryService(IDbContext dbContext, IMapper mapper)
+        public CategoriesQueryService(EFContext dbContext, IMapper mapper)
         {
             _mapper = mapper;
             _dbContext = dbContext;

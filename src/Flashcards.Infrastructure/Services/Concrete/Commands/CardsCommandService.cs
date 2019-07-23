@@ -1,21 +1,21 @@
 ﻿using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flashcards.Domain.Data.Concrete;
 using Flashcards.Infrastructure.Managers.Abstract;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Commands
 {
     internal class CardsCommandService : ICardsCommandService
     {
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
         private readonly IImagesManager _imagesManager;
 
-        public CardsCommandService(IDbContext dbContext, IImagesManager imagesManager)
+        public CardsCommandService(EFContext dbContext, IImagesManager imagesManager)
         {
             _dbContext = dbContext;
             _imagesManager = imagesManager;

@@ -1,18 +1,18 @@
 ﻿using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System;
 using System.Threading.Tasks;
+using Flashcards.Domain.Data.Concrete;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Commands
 {
     internal class CommentsCommandService : ICommentsCommandService
     {
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
 
-        public CommentsCommandService(IDbContext dbContext)
+        public CommentsCommandService(EFContext dbContext)
         {
             _dbContext = dbContext;
         }

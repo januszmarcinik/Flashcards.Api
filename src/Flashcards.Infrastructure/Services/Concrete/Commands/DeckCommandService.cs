@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Abstract;
+using Flashcards.Domain.Data.Concrete;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Services.Abstract.Commands;
-using Microsoft.EntityFrameworkCore;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Commands
 {
     internal class DeckCommandService : IDeckCommandService
     {
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
         private readonly IMapper _mapper;
 
-        public DeckCommandService(IDbContext dbContext, IMapper mapper)
+        public DeckCommandService(EFContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

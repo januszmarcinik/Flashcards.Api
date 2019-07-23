@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Dto.Users;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
@@ -8,15 +7,16 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Flashcards.Domain.Data.Concrete;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Queries
 {
     internal class UsersQueryService : IUsersQueryService
     {
         private IMapper _mapper;
-        private IDbContext _dbContext;
+        private EFContext _dbContext;
 
-        public UsersQueryService(IMapper mapper, IDbContext dbContext)
+        public UsersQueryService(IMapper mapper, EFContext dbContext)
         {
             _mapper = mapper;
             _dbContext = dbContext;

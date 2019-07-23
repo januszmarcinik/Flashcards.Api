@@ -1,24 +1,23 @@
 ﻿using AutoMapper;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Dto.Cards;
-using Flashcards.Infrastructure.Dto.Comments;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Flashcards.Domain.Data.Concrete;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Queries
 {
     internal class CardsQueryService : ICardsQueryService
     {
         private readonly IMapper _mapper;
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
 
-        public CardsQueryService(IMapper mapper, IDbContext dbContext)
+        public CardsQueryService(IMapper mapper, EFContext dbContext)
         {
             _mapper = mapper;
             _dbContext = dbContext;

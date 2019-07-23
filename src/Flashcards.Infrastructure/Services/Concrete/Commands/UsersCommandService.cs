@@ -1,5 +1,4 @@
 ﻿using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Entities;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Extensions;
@@ -7,15 +6,16 @@ using Flashcards.Infrastructure.Managers.Abstract;
 using Flashcards.Infrastructure.Services.Abstract.Commands;
 using System;
 using System.Threading.Tasks;
+using Flashcards.Domain.Data.Concrete;
 
 namespace Flashcards.Infrastructure.Services.Concrete.Commands
 {
     internal class UsersCommandService : IUsersCommandService
     {
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
         private readonly IEncryptionManager _encryptionManager;
 
-        public UsersCommandService(IDbContext dbContext, IEncryptionManager encryptionManager)
+        public UsersCommandService(EFContext dbContext, IEncryptionManager encryptionManager)
         {
             _dbContext = dbContext;
             _encryptionManager = encryptionManager;

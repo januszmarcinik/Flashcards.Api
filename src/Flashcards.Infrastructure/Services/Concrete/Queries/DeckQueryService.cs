@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Data.Abstract;
+using Flashcards.Domain.Data.Concrete;
 using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.Dto.Decks;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
@@ -14,10 +14,10 @@ namespace Flashcards.Infrastructure.Services.Concrete.Queries
 {
     internal class DeckQueryService : IDeckQueryService
     {
-        private readonly IDbContext _dbContext;
+        private readonly EFContext _dbContext;
         private readonly IMapper _mapper;
 
-        public DeckQueryService(IDbContext dbContext, IMapper mapper)
+        public DeckQueryService(EFContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

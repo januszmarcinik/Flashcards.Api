@@ -1,11 +1,10 @@
-﻿using Flashcards.Domain.Data.Abstract;
-using Flashcards.Domain.Data.Concrete.Configurations;
+﻿using Flashcards.Domain.Data.Concrete.Configurations;
 using Flashcards.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Flashcards.Domain.Data.Concrete
 {
-    public class EFContext : DbContext, IDbContext
+    public class EFContext : DbContext
     {
         public virtual DbSet<Card> Cards { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
