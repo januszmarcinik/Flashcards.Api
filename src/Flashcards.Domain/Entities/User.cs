@@ -1,16 +1,16 @@
 ﻿using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Enums;
 using System;
 using System.Collections.Generic;
 
 namespace Flashcards.Domain.Entities
 {
-    public class User : Entity
+    public class User : IEntity
     {
         private List<Comment> _comments = new List<Comment>();
 
+        public Guid Id { get; protected set; }
         public string Email { get; protected set; }
         public Role Role { get; set; }
         public string Password { get; protected set; }

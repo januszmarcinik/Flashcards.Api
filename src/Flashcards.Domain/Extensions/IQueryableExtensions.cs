@@ -1,5 +1,4 @@
-﻿using Flashcards.Domain.Data.Abstract;
-using System;
+﻿using System;
 using System.Linq;
 
 namespace Flashcards.Domain.Extensions
@@ -12,7 +11,7 @@ namespace Flashcards.Domain.Extensions
         }
 
         public static bool ExistsSingleExceptFor<T>(this IQueryable<T> query, Func<T, bool> property, Guid id)
-            where T : Entity
+            where T : IEntity
         {
             return query
                 .Where(property)

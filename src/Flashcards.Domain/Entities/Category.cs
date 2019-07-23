@@ -1,16 +1,16 @@
 ﻿using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Data.Abstract;
 using Flashcards.Domain.Enums;
 using System;
 using System.Collections.Generic;
 
 namespace Flashcards.Domain.Entities
 {
-    public class Category : Entity
+    public class Category : IEntity
     {
         private readonly List<Deck> _decks = new List<Deck>();
 
+        public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public Topic Topic { get; protected set; }
         public string Description { get; protected set; }

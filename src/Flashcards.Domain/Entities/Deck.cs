@@ -1,15 +1,15 @@
 ﻿using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Data.Abstract;
 using System;
 using System.Collections.Generic;
 
 namespace Flashcards.Domain.Entities
 {
-    public class Deck : Entity
+    public class Deck : IEntity
     {
         private List<Card> _cards = new List<Card>();
 
+        public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
         public virtual Category Category { get; protected set; }

@@ -1,12 +1,12 @@
 ﻿using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Data.Abstract;
 using System;
 
 namespace Flashcards.Domain.Entities
 {
-    public class Comment : Entity
+    public class Comment : IEntity
     {
+        public Guid Id { get; protected set; }
         public string Text { get; protected set; }
         public DateTime Date { get; protected set; }
 
