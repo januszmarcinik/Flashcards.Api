@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Flashcards.Core.Extensions;
-using Flashcards.Core.Settings;
+using Flashcards.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 
 namespace Flashcards.Infrastructure.ContainerModules

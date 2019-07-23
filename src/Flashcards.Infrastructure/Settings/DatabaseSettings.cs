@@ -1,4 +1,4 @@
-﻿namespace Flashcards.Core.Settings
+﻿namespace Flashcards.Infrastructure.Settings
 {
     public class DatabaseSettings
     {

@@ -2,7 +2,6 @@
 using Autofac.Extensions.DependencyInjection;
 using Flashcards.Api.Middleware;
 using Flashcards.Core.Extensions;
-using Flashcards.Core.Settings;
 using Flashcards.Domain.Data.Concrete;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -20,6 +19,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Text;
 using Flashcards.Infrastructure.ContainerModules;
+using Flashcards.Infrastructure.Settings;
 
 namespace Flashcards.Api
 {

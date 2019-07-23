@@ -4,10 +4,10 @@ using Flashcards.Infrastructure.Managers.Abstract;
 using System;
 using System.IO;
 using Flashcards.Core.Exceptions;
-using Flashcards.Core.Settings;
 using Microsoft.AspNetCore.Hosting;
 using System.Collections.Generic;
 using System.Net;
+using Flashcards.Infrastructure.Settings;
 
 namespace Flashcards.Infrastructure.Managers.Concrete
 {

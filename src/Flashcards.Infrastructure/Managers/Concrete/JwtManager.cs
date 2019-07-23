@@ -1,5 +1,4 @@
 ﻿using Flashcards.Core.Extensions;
-using Flashcards.Core.Settings;
 using Flashcards.Domain.Enums;
 using Flashcards.Infrastructure.Dto.Tokens;
 using Flashcards.Infrastructure.Managers.Abstract;
@@ -8,6 +7,7 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Flashcards.Infrastructure.Settings;
 
 namespace Flashcards.Infrastructure.Managers.Concrete
 {
