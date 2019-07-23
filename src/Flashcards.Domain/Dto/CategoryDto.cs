@@ -5,10 +5,19 @@ namespace Flashcards.Domain.Dto
 {
     public class CategoryDto
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Topic Topic { get; set; }
-        public string TopicName { get; set; }
+        public CategoryDto(Guid id, string name, string description, Topic topic, string topicName)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            Topic = topic;
+            TopicName = topicName;
+        }
+
+        public Guid Id { get; }
+        public string Name { get; }
+        public string Description { get; }
+        public Topic Topic { get; }
+        public string TopicName { get; }
     }
 }

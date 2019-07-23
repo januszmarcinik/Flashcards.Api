@@ -2,6 +2,7 @@
 using Flashcards.Core.Extensions;
 using System;
 using System.Collections.Generic;
+using Flashcards.Domain.Dto;
 
 namespace Flashcards.Domain.Entities
 {
@@ -80,5 +81,11 @@ namespace Flashcards.Domain.Entities
         {
             Confirmed = confirmed;
         }
+
+        public CardDto ToDto()
+            => ToDto(Guid.Empty, Guid.Empty);
+
+        public CardDto ToDto(Guid previousCardId, Guid nextCardId)
+            => new CardDto(Id, Title, Question, Answer, Confirmed, previousCardId, nextCardId);
     }
 }

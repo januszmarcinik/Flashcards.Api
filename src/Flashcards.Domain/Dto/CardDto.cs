@@ -4,12 +4,23 @@ namespace Flashcards.Domain.Dto
 {
     public class CardDto
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Question { get; set; }
-        public string Answer { get; set; }
-        public bool Confirmed { get; set; }
-        public Guid PreviousCardId { get; set; }
-        public Guid NextCardId { get; set; }
+        public CardDto(Guid id, string title, string question, string answer, bool confirmed, Guid previousCardId, Guid nextCardId)
+        {
+            Id = id;
+            Title = title;
+            Question = question;
+            Answer = answer;
+            Confirmed = confirmed;
+            PreviousCardId = previousCardId;
+            NextCardId = nextCardId;
+        }
+
+        public Guid Id { get; }
+        public string Title { get; }
+        public string Question { get; }
+        public string Answer { get; }
+        public bool Confirmed { get; }
+        public Guid PreviousCardId { get; }
+        public Guid NextCardId { get; }
     }
 }

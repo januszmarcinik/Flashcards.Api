@@ -4,9 +4,17 @@ namespace Flashcards.Domain.Dto
 {
     public class CommentDto
     {
-        public Guid Id { get; set; }
-        public string Text { get; set; }
-        public DateTime Date { get; set; }
-        public string User { get; set; }
+        public CommentDto(Guid id, string text, DateTime date, string user)
+        {
+            Id = id;
+            Text = text;
+            Date = date;
+            User = user;
+        }
+
+        public Guid Id { get; }
+        public string Text { get; }
+        public DateTime Date { get; }
+        public string User { get; }
     }
 }

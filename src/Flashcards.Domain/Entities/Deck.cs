@@ -2,6 +2,7 @@
 using Flashcards.Core.Extensions;
 using System;
 using System.Collections.Generic;
+using Flashcards.Domain.Dto;
 
 namespace Flashcards.Domain.Entities
 {
@@ -55,6 +56,9 @@ namespace Flashcards.Domain.Entities
         public void AddCard(Card card)
         {
             _cards.Add(card);
-        }      
+        }
+
+        public DeckDto ToDto()
+            => new DeckDto(Id, Name, Description);
     }
 }

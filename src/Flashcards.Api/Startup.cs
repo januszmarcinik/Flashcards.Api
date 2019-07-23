@@ -66,7 +66,6 @@ namespace Flashcards.Api
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
-            builder.RegisterModule<MapperModule>();
             builder.RegisterModule<ManagerModule>();
             builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule<ServiceModule>();

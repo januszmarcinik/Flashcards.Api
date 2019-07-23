@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using Flashcards.Core.Exceptions;
+﻿using Flashcards.Core.Exceptions;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Flashcards.Domain.Dto;
 using Flashcards.Infrastructure.DataAccess;
@@ -13,22 +13,20 @@ namespace Flashcards.Infrastructure.Services.Concrete.Queries
 {
     internal class UsersQueryService : IUsersQueryService
     {
-        private IMapper _mapper;
-        private EFContext _dbContext;
+        private readonly EFContext _dbContext;
 
-        public UsersQueryService(IMapper mapper, EFContext dbContext)
+        public UsersQueryService(EFContext dbContext)
         {
-            _mapper = mapper;
             _dbContext = dbContext;
         }
 
         public async Task<List<UserDto>> GetListAsync()
-            => _mapper.Map<List<UserDto>>(await _dbContext.Users.ToListAsync());
+            => await _dbContext.Users.Select(x => x.ToDto()).ToListAsync();
 
         public async Task<UserDto> GetByIdAsync(Guid id)
-            => _mapper.Map<UserDto>(await _dbContext.Users.FindAndEnsureExistsAsync(id, ErrorCode.UserDoesNotExist));
+            => (await _dbContext.Users.FindAndEnsureExistsAsync(id, ErrorCode.UserDoesNotExist)).ToDto();
 
         public async Task<UserDto> GetByEmailAsync(string email)
-            => await Task.FromResult(_mapper.Map<UserDto>(_dbContext.Users.SingleAndEnsureExists(x => x.Email == email, ErrorCode.UserWithGivenEmailDoesNotExist)));
+            => await Task.FromResult(_dbContext.Users.SingleAndEnsureExists(x => x.Email == email, ErrorCode.UserWithGivenEmailDoesNotExist).ToDto());
     }
 }

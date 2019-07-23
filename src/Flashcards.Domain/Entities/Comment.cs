@@ -1,6 +1,7 @@
 ﻿using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
 using System;
+using Flashcards.Domain.Dto;
 
 namespace Flashcards.Domain.Entities
 {
@@ -31,5 +32,8 @@ namespace Flashcards.Domain.Entities
 
             Text = text;
         }
+
+        public CommentDto ToDto()
+            => new CommentDto(Id, Text, Date, User.Email);
     }
 }

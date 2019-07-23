@@ -3,6 +3,7 @@ using Flashcards.Core.Extensions;
 using Flashcards.Domain.Enums;
 using System;
 using System.Collections.Generic;
+using Flashcards.Domain.Dto;
 
 namespace Flashcards.Domain.Entities
 {
@@ -79,5 +80,8 @@ namespace Flashcards.Domain.Entities
         {
             _comments.Add(comment);
         }
+
+        public UserDto ToDto()
+            => new UserDto(Id, Email, Role);
     }
 }

@@ -5,8 +5,15 @@ namespace Flashcards.Domain.Dto
 {
     public class UserDto
     {
-        public Guid Id { get; set; }
-        public string Email { get; set; }
-        public Role Role { get; set; }
+        public UserDto(Guid id, string email, Role role)
+        {
+            Id = id;
+            Email = email;
+            Role = role;
+        }
+
+        public Guid Id { get; }
+        public string Email { get; }
+        public Role Role { get; }
     }
 }

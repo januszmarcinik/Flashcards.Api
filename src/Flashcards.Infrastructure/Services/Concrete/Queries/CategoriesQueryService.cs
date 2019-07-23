@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Flashcards.Core.Exceptions;
+﻿using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Enums;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using Microsoft.EntityFrameworkCore;
@@ -15,21 +14,22 @@ namespace Flashcards.Infrastructure.Services.Concrete.Queries
     internal class CategoriesQueryService : ICategoriesQueryService
     {
         private readonly EFContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public CategoriesQueryService(EFContext dbContext, IMapper mapper)
+        public CategoriesQueryService(EFContext dbContext)
         {
-            _mapper = mapper;
             _dbContext = dbContext;
         }
 
         public async Task<List<CategoryDto>> GetByTopic(Topic topic)
-            => _mapper.Map<List<CategoryDto>>(await _dbContext.Categories.Where(x => x.Topic == topic).ToListAsync());
+            => await _dbContext.Categories
+                .Where(x => x.Topic == topic)
+                .Select(x => x.ToDto())
+                .ToListAsync();
 
         public async Task<CategoryDto> GetByName(string name)
         {
             var category = _dbContext.Categories.SingleAndEnsureExists(x => x.Name == name, ErrorCode.CategoryDoesNotExist);
-            return await Task.FromResult(_mapper.Map<CategoryDto>(category));
+            return await Task.FromResult(category.ToDto());
         }
     }
 }

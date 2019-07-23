@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Flashcards.Core.Exceptions;
+﻿using Flashcards.Core.Exceptions;
 using Flashcards.Infrastructure.Services.Abstract.Queries;
 using System;
 using System.Collections.Generic;
@@ -14,22 +13,23 @@ namespace Flashcards.Infrastructure.Services.Concrete.Queries
     internal class CommentsQueryService : ICommentsQueryService
     {
         private readonly EFContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public CommentsQueryService(EFContext dbContext, IMapper mapper)
+        public CommentsQueryService(EFContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
         }
 
         public async Task<List<CommentDto>> GetByCardAsync(Guid cardId)
         {
             var card = await _dbContext.Cards.FindAndEnsureExistsAsync(cardId, ErrorCode.CardDoesNotExist);
-            var comments = card.Comments.OrderByDescending(x => x.Date);
-            return _mapper.Map<List<CommentDto>>(comments);
+            var comments = card.Comments
+                .OrderByDescending(x => x.Date)
+                .Select(x => x.ToDto())
+                .ToList();
+            return comments;
         }
 
         public async Task<CommentDto> GetByIdAsync(Guid id)
-            => _mapper.Map<CommentDto>(await _dbContext.Comments.FindAndEnsureExistsAsync(id, ErrorCode.InvalidCommentText));
+            => (await _dbContext.Comments.FindAndEnsureExistsAsync(id, ErrorCode.InvalidCommentText)).ToDto();
     }
 }
