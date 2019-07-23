@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Repositories;
@@ -23,27 +22,27 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string topic, string category, string deck)
-            => Ok(await _cardsRepository.GetListAsync(deck));
+        public IActionResult Get(string topic, string category, string deck)
+            => Ok(_cardsRepository.GetByDeckName(deck));
 
         [HttpGet("{card}")]
-        public async Task<IActionResult> Get(string topic, string category, string deck, Guid card)
-            => Ok(await _cardsRepository.GetAsync(card));
+        public IActionResult Get(string topic, string category, string deck, Guid card)
+            => Ok(_cardsRepository.GetById(card));
 
         [HttpPost]
-        public async Task<IActionResult> Post(string topic, string category, string deck, [FromBody] AddCardCommandModel command)
-            => await DispatchAsync(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck));
+        public IActionResult Post(string topic, string category, string deck, [FromBody] AddCardCommandModel command)
+            => Dispatch(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck));
 
         [HttpPut]
-        public async Task<IActionResult> Put(string topic, string category, string deck, [FromBody] EditCardCommandModel command)
-            => await DispatchAsync(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck, Guid.Parse(User.Identity.Name)));
+        public IActionResult Put(string topic, string category, string deck, [FromBody] EditCardCommandModel command)
+            => Dispatch(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck, Guid.Parse(User.Identity.Name)));
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put([FromRoute] ConfirmCardCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Put([FromRoute] ConfirmCardCommandModel command)
+            => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] RemoveCardCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Delete([FromRoute] RemoveCardCommandModel command)
+            => Dispatch(command);
     }
 }

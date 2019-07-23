@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Flashcards.Core.Exceptions;
 using Flashcards.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +8,9 @@ namespace Flashcards.Infrastructure.Extensions
 {
     public static class DbSetExtensions
     {
-        public static async Task<T> FindAndEnsureExistsAsync<T>(this DbSet<T> dbSet, Guid id, ErrorCode errorCode) where T : class, IEntity
+        public static T FindAndEnsureExists<T>(this DbSet<T> dbSet, Guid id, ErrorCode errorCode) where T : class, IEntity
         {
-            var entity = await dbSet.FindAsync(id);
+            var entity = dbSet.Find(id);
             if (entity == null)
             {
                 throw new FlashcardsException(errorCode);

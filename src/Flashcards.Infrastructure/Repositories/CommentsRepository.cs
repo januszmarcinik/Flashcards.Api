@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Dto;
 using Flashcards.Domain.Entities;
@@ -20,23 +19,26 @@ namespace Flashcards.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<List<CommentDto>> GetByCardAsync(Guid cardId)
+        public List<CommentDto> GetByCard(Guid cardId)
         {
-            var card = await _dbContext.Cards.FindAndEnsureExistsAsync(cardId, ErrorCode.CardDoesNotExist);
+            var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
             var comments = card.Comments
                 .OrderByDescending(x => x.Date)
                 .Select(x => x.ToDto())
                 .ToList();
+
             return comments;
         }
 
-        public async Task<CommentDto> GetByIdAsync(Guid id)
-            => (await _dbContext.Comments.FindAndEnsureExistsAsync(id, ErrorCode.InvalidCommentText)).ToDto();
+        public CommentDto GetById(Guid id)
+            => _dbContext.Comments
+                .FindAndEnsureExists(id, ErrorCode.InvalidCommentText)
+                .ToDto();
 
-        public async Task AddAsync(Guid cardId, Guid userId, string text)
+        public void Add(Guid cardId, Guid userId, string text)
         {
-            var user = await _dbContext.Users.FindAndEnsureExistsAsync(userId, ErrorCode.UserDoesNotExist);
-            var card = await _dbContext.Cards.FindAndEnsureExistsAsync(cardId, ErrorCode.CardDoesNotExist);
+            var user = _dbContext.Users.FindAndEnsureExists(userId, ErrorCode.UserDoesNotExist);
+            var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
 
             var comment = new Comment(text);
             user.AddComment(comment);
@@ -44,7 +46,7 @@ namespace Flashcards.Infrastructure.Repositories
 
             _dbContext.Cards.Update(card);
             _dbContext.Users.Update(user);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
     }
 }

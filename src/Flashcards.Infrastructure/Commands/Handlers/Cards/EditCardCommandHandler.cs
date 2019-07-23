@@ -1,7 +1,6 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 using Flashcards.Infrastructure.Managers.Abstract;
-using System.Threading.Tasks;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
@@ -17,7 +16,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _imagesManager = imagesManager;
         }
 
-        public async Task HandleAsync(EditCardCommandModel command)
+        public void Handle(EditCardCommandModel command)
         {
             var path = _imagesManager.GetPhysicalPath(command.Topic, command.Category, command.Deck, command.Id);
 
@@ -27,7 +26,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _imagesManager.RemoveDirectory(path);
             _imagesManager.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
 
-            await _cardsRepository.EditAsync(command.Id, command.Title, command.Question, command.Answer);
+            _cardsRepository.Update(command.Id, command.Title, command.Question, command.Answer);
         }
     }
 }

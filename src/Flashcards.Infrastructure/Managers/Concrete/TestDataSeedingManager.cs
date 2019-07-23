@@ -2,7 +2,6 @@
 using Flashcards.Domain.Enums;
 using Flashcards.Infrastructure.Managers.Abstract;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System;
 using Flashcards.Infrastructure.DataAccess;
 
@@ -91,11 +90,10 @@ namespace Flashcards.Infrastructure.Managers.Concrete
                 index = 1;
             }
 
-            Task.WaitAll(
-                _dbContext.Users.AddRangeAsync(users),
-                _dbContext.SaveChangesAsync(),
-                _dbContext.Categories.AddRangeAsync(categories),
-                _dbContext.SaveChangesAsync());
+            _dbContext.Users.AddRange(users);
+            _dbContext.SaveChanges();
+            _dbContext.Categories.AddRange(categories);
+            _dbContext.SaveChanges();
         }
     }
 }

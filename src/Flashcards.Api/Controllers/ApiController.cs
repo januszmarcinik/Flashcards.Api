@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Flashcards.Core.Exceptions;
 
 namespace Flashcards.Api.Controllers
@@ -15,7 +14,7 @@ namespace Flashcards.Api.Controllers
             _commandDispatcher = commandDispatcher;
         }
 
-        protected async Task<IActionResult> DispatchAsync<T>(T command) where T : ICommandModel
+        protected IActionResult Dispatch<T>(T command) where T : ICommandModel
         {
             if (!ModelState.IsValid)
             {
@@ -23,7 +22,7 @@ namespace Flashcards.Api.Controllers
                 throw new FlashcardsException(ErrorCode.InvalidCommand, errors);
             }
 
-            await _commandDispatcher.DispatchAsync(command);
+            _commandDispatcher.Dispatch(command);
             return Accepted();
         }
     }

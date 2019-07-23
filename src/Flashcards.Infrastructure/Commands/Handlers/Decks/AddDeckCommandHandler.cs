@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Domain.Repositories;
+﻿using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Decks;
 
@@ -14,9 +13,9 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Decks
             _decksRepository = decksRepository;
         }
 
-        public async Task HandleAsync(AddDeckCommandModel command)
+        public void Handle(AddDeckCommandModel command)
         {
-            await _decksRepository.CreateAsync(command.CategoryName, command.Name, command.Description);
+            _decksRepository.Add(command.CategoryName, command.Name, command.Description);
         }
     }
 }

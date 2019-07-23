@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Flashcards.Domain.Dto;
 using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Managers.Abstract;
@@ -20,18 +19,18 @@ namespace Flashcards.Infrastructure.Managers.Concrete
             _cardsRepository = cardsRepository;
         }
 
-        public async Task<SessionStateDto> GetSessionAsync(Guid userId, string deck)
+        public SessionStateDto GetSession(Guid userId, string deck)
         {
             var session = _cache.Get<SessionStateDto>(GetSessionStateKey(userId, deck));
             if (session == null)
             {
-                session = await InitializeAsync(userId, deck);
+                session = Initialize(userId, deck);
             }
 
             return session;
         }
 
-        public async Task ApplySessionCardAsync(Guid userId, string deck, Guid cardId, SessionCardStatus status)
+        public void ApplySessionCard(Guid userId, string deck, Guid cardId, SessionCardStatus status)
         {
             var session = _cache.Get<SessionStateDto>(GetSessionStateKey(userId, deck));
             var cards = _cache.Get<List<SessionCardDto>>(GetSessionCardsKey(session.Id));
@@ -71,13 +70,11 @@ namespace Flashcards.Infrastructure.Managers.Concrete
                 _cache.Set(GetSessionStateKey(userId, deck), session, TimeSpan.FromSeconds(1));
                 _cache.Remove(GetSessionCardsKey(session.Id));
             }
-
-            await Task.CompletedTask;
         }
 
-        private async Task<SessionStateDto> InitializeAsync(Guid userId, string deck)
+        private SessionStateDto Initialize(Guid userId, string deck)
         {
-            var cards = await _cardsRepository.GetListAsync(deck);
+            var cards = _cardsRepository.GetByDeckName(deck);
             var sessionCards = cards.Select(x => new SessionCardDto(x.Id, x.Title, x.Answer, x.Question)).ToList();
             var sessionState = new SessionStateDto(userId, deck, sessionCards.Count);
 

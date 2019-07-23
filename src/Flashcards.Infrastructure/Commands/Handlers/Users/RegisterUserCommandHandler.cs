@@ -1,6 +1,5 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
-using System.Threading.Tasks;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
@@ -14,9 +13,9 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
             _usersRepository = usersRepository;
         }
 
-        public async Task HandleAsync(RegisterUserCommandModel command)
+        public void Handle(RegisterUserCommandModel command)
         {
-            await _usersRepository.RegisterAsync(command.Id, command.Email, command.Role, command.Password);
+            _usersRepository.Register(command.Id, command.Email, command.Role, command.Password);
         }
     }
 }

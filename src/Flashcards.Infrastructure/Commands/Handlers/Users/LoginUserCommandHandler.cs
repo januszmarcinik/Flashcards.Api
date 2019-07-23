@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
@@ -23,15 +22,15 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
             _cache = cache;
         }
 
-        public async Task HandleAsync(LoginUserCommandModel command)
+        public void Handle(LoginUserCommandModel command)
         {
             if (command.TokenId.IsEmpty())
             {
                 command.TokenId = Guid.NewGuid();
             }
 
-            await _usersRepository.LoginAsync(command.Email, command.Password);
-            var user = await _usersRepository.GetByEmailAsync(command.Email);
+            _usersRepository.Login(command.Email, command.Password);
+            var user = _usersRepository.GetByEmail(command.Email);
 
             var jwt = _jwtManager.CreateToken(user.Id, user.Email, user.Role);
             _cache.SetJwt(command.TokenId, jwt);

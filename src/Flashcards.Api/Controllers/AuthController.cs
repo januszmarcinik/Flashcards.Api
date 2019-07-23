@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Flashcards.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -19,9 +18,9 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] LoginUserCommandModel command)
+        public IActionResult Post([FromBody] LoginUserCommandModel command)
         {
-            await DispatchAsync(command);
+            Dispatch(command);
             return Ok(_cache.GetJwt(command.TokenId));
         }
     }

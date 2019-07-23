@@ -1,6 +1,5 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
-using System.Threading.Tasks;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
@@ -14,7 +13,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _cardsRepository = cardsRepository;
         }
 
-        public async Task HandleAsync(RemoveCardCommandModel command)
-            => await _cardsRepository.RemoveAsync(command.Id);
+        public void Handle(RemoveCardCommandModel command)
+            => _cardsRepository.Delete(command.Id);
     }
 }

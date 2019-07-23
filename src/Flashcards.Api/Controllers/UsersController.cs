@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Domain.Repositories;
+﻿using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Microsoft.AspNetCore.Authorization;
@@ -20,24 +19,24 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
-            => Ok(await _usersRepository.GetListAsync());
+        public IActionResult Get()
+            => Ok(_usersRepository.GetAll());
 
         [HttpGet("{email}")]
-        public async Task<IActionResult> Get(string email)
-            => Ok(await _usersRepository.GetByEmailAsync(email));
+        public IActionResult Get(string email)
+            => Ok(_usersRepository.GetByEmail(email));
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] RegisterUserCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Post([FromBody] RegisterUserCommandModel command)
+            => Dispatch(command);
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] EditUserCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Put([FromBody] EditUserCommandModel command)
+            => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] RemoveUserCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Delete([FromRoute] RemoveUserCommandModel command)
+            => Dispatch(command);
     }
 }

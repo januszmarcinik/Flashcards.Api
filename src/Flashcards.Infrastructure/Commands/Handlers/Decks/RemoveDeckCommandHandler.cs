@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Domain.Repositories;
+﻿using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Decks;
 
@@ -14,7 +13,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Decks
             _decksRepository = decksRepository;
         }
 
-        public async Task HandleAsync(RemoveDeckCommandModel command)
-            => await _decksRepository.RemoveAsync(command.Id);
+        public void Handle(RemoveDeckCommandModel command)
+            => _decksRepository.Delete(command.Id);
     }
 }

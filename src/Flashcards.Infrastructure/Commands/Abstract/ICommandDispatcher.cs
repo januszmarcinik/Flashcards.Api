@@ -4,6 +4,6 @@ namespace Flashcards.Infrastructure.Commands.Abstract
 {
     public interface ICommandDispatcher
     {
-        Task DispatchAsync<T>(T command) where T : ICommandModel;
+        void Dispatch<T>(T command) where T : ICommandModel;
     }
 }

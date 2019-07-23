@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Core.Extensions;
+﻿using Flashcards.Core.Extensions;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
@@ -22,23 +21,23 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string topic)
-            => Ok(await _categoriesRepository.GetByTopic(topic.ToEnum<Topic>()));
+        public IActionResult Get(string topic)
+            => Ok(_categoriesRepository.GetByTopic(topic.ToEnum<Topic>()));
 
         [HttpGet("{category}")]
-        public async Task<IActionResult> Get(string topic, string category)
-            => Ok(await _categoriesRepository.GetByName(category));
+        public IActionResult Get(string topic, string category)
+            => Ok(_categoriesRepository.GetByName(category));
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddCategoryCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Post([FromBody] AddCategoryCommandModel command)
+            => Dispatch(command);
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] EditCategoryCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Put([FromBody] EditCategoryCommandModel command)
+            => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] RemoveCategoryCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Delete([FromRoute] RemoveCategoryCommandModel command)
+            => Dispatch(command);
     }
 }

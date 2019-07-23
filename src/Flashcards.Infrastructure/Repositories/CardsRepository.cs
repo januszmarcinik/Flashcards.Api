@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Dto;
@@ -21,9 +20,9 @@ namespace Flashcards.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<CardDto> GetAsync(Guid id)
+        public CardDto GetById(Guid id)
         {
-            var current = await _dbContext.Cards.FindAndEnsureExistsAsync(id, ErrorCode.CardDoesNotExist);
+            var current = _dbContext.Cards.FindAndEnsureExists(id, ErrorCode.CardDoesNotExist);
             var ids = current.Deck.Cards
                 .OrderBy(x => x.Title)
                 .Select(x => x.Id)
@@ -33,49 +32,50 @@ namespace Flashcards.Infrastructure.Repositories
             return dto;
         }
 
-        public async Task<List<CardDto>> GetListAsync(string deckName)
+        public List<CardDto> GetByDeckName(string deckName)
         {
             var deck = _dbContext.Decks.SingleAndEnsureExists(x => x.Name == deckName, ErrorCode.DeckDoesNotExist);
             var cards = deck.Cards
                 .OrderBy(x => x.Title)
                 .Select(x => x.ToDto())
                 .ToList();
-            return await Task.FromResult(cards);
+            
+            return cards;
         }
 
-        public async Task AddAsync(string deckName, string title, string question, string answer)
+        public void Add(string deckName, string title, string question, string answer)
         {
             var deck = _dbContext.Decks.SingleAndEnsureExists(x => x.Name == deckName, ErrorCode.DeckDoesNotExist);
             deck.AddCard(new Card(title, question, answer));
             _dbContext.Decks.Update(deck);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
-        public async Task EditAsync(Guid cardId, string title, string question, string answer)
+        public void Update(Guid cardId, string title, string question, string answer)
         {
-            var card = await _dbContext.Cards.FindAndEnsureExistsAsync(cardId, ErrorCode.CardDoesNotExist);
+            var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
 
             card.SetTitle(title);
             card.SetQuestion(question);
             card.SetAnswer(answer);
 
             _dbContext.Cards.Update(card);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
-        public async Task RemoveAsync(Guid id)
+        public void Delete(Guid id)
         {
-            var card = await _dbContext.Cards.FindAndEnsureExistsAsync(id, ErrorCode.CardDoesNotExist);
+            var card = _dbContext.Cards.FindAndEnsureExists(id, ErrorCode.CardDoesNotExist);
             _dbContext.Cards.Remove(card);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
-        public async Task ConfirmAsync(Guid id)
+        public void Confirm(Guid id)
         {
-            var card = await _dbContext.Cards.FindAndEnsureExistsAsync(id, ErrorCode.CardDoesNotExist);
+            var card = _dbContext.Cards.FindAndEnsureExists(id, ErrorCode.CardDoesNotExist);
             card.SetConfirmed(!card.Confirmed);
             _dbContext.Cards.Update(card);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
     }
 }

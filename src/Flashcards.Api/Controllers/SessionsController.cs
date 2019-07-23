@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Sessions;
 using Flashcards.Infrastructure.Managers.Abstract;
@@ -21,15 +20,15 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string deck)
-            => Ok(await _sessionsManager.GetSessionAsync(Guid.Parse(User.Identity.Name), deck));
+        public IActionResult Get(string deck)
+            => Ok(_sessionsManager.GetSession(Guid.Parse(User.Identity.Name), deck));
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ApplySessionCardCommandModel command, string deck)
+        public IActionResult Post([FromBody] ApplySessionCardCommandModel command, string deck)
         {
             var userId = Guid.Parse(User.Identity.Name);
-            await DispatchAsync(command.SetFromRoute(userId, deck));
-            return Ok(await _sessionsManager.GetSessionAsync(userId, deck));
+            Dispatch(command.SetFromRoute(userId, deck));
+            return Ok(_sessionsManager.GetSession(userId, deck));
         }
     }
 }

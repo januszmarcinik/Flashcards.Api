@@ -3,7 +3,6 @@ using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 using Flashcards.Infrastructure.Managers.Abstract;
 using System;
-using System.Threading.Tasks;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
@@ -19,7 +18,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _imagesManager = imagesManager;
         }
 
-        public async Task HandleAsync(AddCardCommandModel command)
+        public void Handle(AddCardCommandModel command)
         {
             if (command.Id.IsEmpty())
             {
@@ -31,7 +30,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 
             _imagesManager.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
 
-            await _cardsRepository.AddAsync(command.Deck, command.Title, command.Question, command.Answer);
+            _cardsRepository.Add(command.Deck, command.Title, command.Question, command.Answer);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Domain.Repositories;
+﻿using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Decks;
 using Microsoft.AspNetCore.Authorization;
@@ -20,23 +19,23 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(string category)
-            => Ok(await _decksRepository.GetListAsync(category));
+        public IActionResult Get(string category)
+            => Ok(_decksRepository.GetByCategoryName(category));
 
         [HttpGet("{deck}")]
-        public async Task<IActionResult> Get(string topic, string category, string deck)
-            => Ok(await _decksRepository.GetAsync(deck));
+        public IActionResult Get(string topic, string category, string deck)
+            => Ok(_decksRepository.GetByName(deck));
 
         [HttpPost]
-        public async Task<IActionResult> Post(string category, [FromBody] AddDeckCommandModel command)
-            => await DispatchAsync(command.SetCategory(category));
+        public IActionResult Post(string category, [FromBody] AddDeckCommandModel command)
+            => Dispatch(command.SetCategory(category));
 
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] EditDeckCommandModel command)
-            => await DispatchAsync(command);
+        public IActionResult Put([FromBody] EditDeckCommandModel command)
+            => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete([FromRoute] RemoveDeckCommandModel command)
-            => await DispatchAsync(command);  
+        public IActionResult Delete([FromRoute] RemoveDeckCommandModel command)
+            => Dispatch(command);  
     }
 }

@@ -2,7 +2,6 @@
 using Flashcards.Core.Exceptions;
 using Flashcards.Infrastructure.Commands.Abstract;
 using NLog;
-using System.Threading.Tasks;
 
 namespace Flashcards.Infrastructure.Commands.Dispatchers
 {
@@ -17,7 +16,7 @@ namespace Flashcards.Infrastructure.Commands.Dispatchers
             _logger = logger;
         }
 
-        public async Task DispatchAsync<T>(T command) where T : ICommandModel
+        public void Dispatch<T>(T command) where T : ICommandModel
         {
             _logger.Trace($"Command has been run: '{typeof(T)}'");
 
@@ -27,7 +26,7 @@ namespace Flashcards.Infrastructure.Commands.Dispatchers
             }
 
             var handler = _context.Resolve<ICommandHandler<T>>();
-            await handler.HandleAsync(command);
+            handler.Handle(command);
         }
     }
 }

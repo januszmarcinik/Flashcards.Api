@@ -21,15 +21,15 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(Guid card)
-            => Ok(await _commentsRepository.GetByCardAsync(card));
+        public IActionResult Get(Guid card)
+            => Ok(_commentsRepository.GetByCard(card));
 
         [HttpGet("id")]
-        public async Task<IActionResult> Get(Guid card, Guid id)
-            => Ok(await _commentsRepository.GetByIdAsync(id));
+        public IActionResult Get(Guid card, Guid id)
+            => Ok(_commentsRepository.GetById(id));
 
         [HttpPost]
-        public async Task<IActionResult> Post(Guid card, [FromBody] AddCommentCommandModel command)
-            => await DispatchAsync(command.SetCard(card).SetUser(Guid.Parse(User.Identity.Name)));
+        public IActionResult Post(Guid card, [FromBody] AddCommentCommandModel command)
+            => Dispatch(command.SetCard(card).SetUser(Guid.Parse(User.Identity.Name)));
     }
 }

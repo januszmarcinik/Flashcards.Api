@@ -1,6 +1,5 @@
 ﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Categories;
-using System.Threading.Tasks;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Categories
@@ -14,7 +13,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Categories
             _categoriesRepository = categoriesRepository;
         }
 
-        public async Task HandleAsync(EditCategoryCommandModel command)
-            => await _categoriesRepository.EditAsync(command.Id, command.Name, command.Topic.Value, command.Description);
+        public void Handle(EditCategoryCommandModel command)
+            => _categoriesRepository.Update(command.Id, command.Name, command.Topic.Value, command.Description);
     }
 }

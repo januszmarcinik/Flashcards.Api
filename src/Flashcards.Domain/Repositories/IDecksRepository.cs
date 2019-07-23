@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Flashcards.Domain.Dto;
 
 namespace Flashcards.Domain.Repositories
 {
     public interface IDecksRepository
     {
-        Task<DeckDto> GetAsync(string name);
-        Task<List<DeckDto>> GetListAsync(string categoryName);
+        DeckDto GetByName(string name);
+        List<DeckDto> GetByCategoryName(string categoryName);
 
-        Task CreateAsync(string categoryName, string deckName, string description);
-        Task RemoveAsync(Guid id);
-        Task EditAsync(Guid deckId, string deckName, string description);
+        void Add(string categoryName, string deckName, string description);
+        void Delete(Guid id);
+        void Update(Guid deckId, string deckName, string description);
     }
 }

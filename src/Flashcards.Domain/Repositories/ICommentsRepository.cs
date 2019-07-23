@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Flashcards.Domain.Dto;
 
 namespace Flashcards.Domain.Repositories
 {
     public interface ICommentsRepository
     {
-        Task<List<CommentDto>> GetByCardAsync(Guid cardId);
-        Task<CommentDto> GetByIdAsync(Guid id);
+        List<CommentDto> GetByCard(Guid cardId);
+        CommentDto GetById(Guid id);
 
-        Task AddAsync(Guid cardId, Guid userId, string text);
+        void Add(Guid cardId, Guid userId, string text);
     }
 }

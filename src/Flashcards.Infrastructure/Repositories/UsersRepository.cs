@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Dto;
 using Flashcards.Domain.Entities;
@@ -11,7 +10,6 @@ using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Managers.Abstract;
-using Microsoft.EntityFrameworkCore;
 
 namespace Flashcards.Infrastructure.Repositories
 {
@@ -26,16 +24,15 @@ namespace Flashcards.Infrastructure.Repositories
             _encryptionManager = encryptionManager;
         }
 
-        public async Task<List<UserDto>> GetListAsync()
-            => await _dbContext.Users.Select(x => x.ToDto()).ToListAsync();
+        public List<UserDto> GetAll()
+            => _dbContext.Users.Select(x => x.ToDto()).ToList();
 
-        public async Task<UserDto> GetByEmailAsync(string email)
-            => await Task.FromResult(_dbContext.Users
+        public UserDto GetByEmail(string email)
+            => _dbContext.Users
                 .SingleAndEnsureExists(x => x.Email == email, ErrorCode.UserWithGivenEmailDoesNotExist)
-                .ToDto()
-            );
+                .ToDto();
 
-        public async Task EditAsync(Guid id, string email)
+        public void Update(Guid id, string email)
         {
             if (_dbContext.Users.ExistsSingleExceptFor(x => x.Email == email, id))
             {
@@ -45,10 +42,10 @@ namespace Flashcards.Infrastructure.Repositories
             user.SetEmail(email);
 
             _dbContext.Users.Update(user);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
 
-        public async Task LoginAsync(string email, string password)
+        public void Login(string email, string password)
         {
             var user = _dbContext.Users.SingleAndEnsureExists(x => x.Email == email, ErrorCode.UserWithGivenEmailDoesNotExist);
             var hash = _encryptionManager.GetHash(password, user.Salt);
@@ -57,11 +54,9 @@ namespace Flashcards.Infrastructure.Repositories
             {
                 throw new FlashcardsException(ErrorCode.InvalidCredentials, "Invalid email or password");
             }
-
-            await Task.CompletedTask;
         }
 
-        public async Task RegisterAsync(Guid id, string email, Role role, string password)
+        public void Register(Guid id, string email, Role role, string password)
         {
             if (_dbContext.Users.ExistsSingle(x => x.Email == email))
             {
@@ -76,15 +71,15 @@ namespace Flashcards.Infrastructure.Repositories
                 id = Guid.NewGuid();
             }
 
-            await _dbContext.Users.AddAsync(new User(id, email, role, hash, salt));
-            await _dbContext.SaveChangesAsync();
+            _dbContext.Users.Add(new User(id, email, role, hash, salt));
+            _dbContext.SaveChanges();
         }
 
-        public async Task RemoveAsync(Guid id)
+        public void Delete(Guid id)
         {
-            var user = await _dbContext.Users.FindAndEnsureExistsAsync(id, ErrorCode.UserDoesNotExist);
+            var user = _dbContext.Users.FindAndEnsureExists(id, ErrorCode.UserDoesNotExist);
             _dbContext.Users.Remove(user);
-            await _dbContext.SaveChangesAsync();
+            _dbContext.SaveChanges();
         }
     }
 }

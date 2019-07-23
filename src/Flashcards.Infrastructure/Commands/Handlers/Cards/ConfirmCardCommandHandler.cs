@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Domain.Repositories;
+﻿using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 
@@ -14,9 +13,9 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _cardsRepository = cardsRepository;
         }
 
-        public async Task HandleAsync(ConfirmCardCommandModel command)
+        public void Handle(ConfirmCardCommandModel command)
         {
-            await _cardsRepository.ConfirmAsync(command.Id);
+            _cardsRepository.Confirm(command.Id);
         }
     }
 }

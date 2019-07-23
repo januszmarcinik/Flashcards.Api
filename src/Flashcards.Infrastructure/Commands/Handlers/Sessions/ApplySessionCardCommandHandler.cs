@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Sessions;
 using Flashcards.Infrastructure.Managers.Abstract;
 
@@ -14,7 +13,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Sessions
             _sessionsManager = sessionsManager;
         }
 
-        public async Task HandleAsync(ApplySessionCardCommandModel command) 
-            => await _sessionsManager.ApplySessionCardAsync(command.UserId, command.Deck, command.CardId, command.Status);
+        public void Handle(ApplySessionCardCommandModel command) 
+            => _sessionsManager.ApplySessionCard(command.UserId, command.Deck, command.CardId, command.Status);
     }
 }
