@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
 {
-    internal class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommandModel>
+    internal class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand>
     {
         private readonly IUsersRepository _usersRepository;
 
@@ -13,9 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
             _usersRepository = usersRepository;
         }
 
-        public void Handle(RegisterUserCommandModel command)
+        public Result Handle(RegisterUserCommand command)
         {
             _usersRepository.Register(command.Id, command.Email, command.Role, command.Password);
+            return Result.Ok();
         }
     }
 }

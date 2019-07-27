@@ -1,13 +1,12 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Domain.Enums;
 using System;
 using System.ComponentModel.DataAnnotations;
-using Flashcards.Domain.Enums;
+using Flashcards.Core;
 
 namespace Flashcards.Infrastructure.Commands.Models.Cards
 {
-    public class EditCardCommandModel : ICommandModel
+    public class AddCardCommand : ICommand
     {
-        [Required]
         public Guid Id { get; set; }
 
         [Required]
@@ -20,18 +19,15 @@ namespace Flashcards.Infrastructure.Commands.Models.Cards
         [Required]
         public string Answer { get; set; }
 
-        public Guid UserId { get; set; }
-
         public Topic Topic { get; set; }
         public string Category { get; set; }
         public string Deck { get; set; }
 
-        public EditCardCommandModel SetFromRoute(Topic topic, string category, string deck, Guid userId)
+        public AddCardCommand SetFromRoute(Topic topic, string category, string deck)
         {
             Topic = topic;
             Category = category;
             Deck = deck;
-            UserId = userId;
             return this;
         }
     }

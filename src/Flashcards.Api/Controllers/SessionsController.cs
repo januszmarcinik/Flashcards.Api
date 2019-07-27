@@ -1,6 +1,6 @@
 ﻿using System;
+using Flashcards.Core;
 using Flashcards.Domain.Services;
-using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Sessions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,8 +13,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly ISessionsService _sessionsService;
 
-        public SessionsController(ISessionsService sessionsService, ICommandDispatcher commandDispatcher)
-            : base(commandDispatcher)
+        public SessionsController(ISessionsService sessionsService, IMediator mediator)
+            : base(mediator)
         {
             _sessionsService = sessionsService;
         }
@@ -24,7 +24,7 @@ namespace Flashcards.Api.Controllers
             => Ok(_sessionsService.GetSession(Guid.Parse(User.Identity.Name), deck));
 
         [HttpPost]
-        public IActionResult Post([FromBody] ApplySessionCardCommandModel command, string deck)
+        public IActionResult Post([FromBody] ApplySessionCardCommand command, string deck)
         {
             var userId = Guid.Parse(User.Identity.Name);
             Dispatch(command.SetFromRoute(userId, deck));

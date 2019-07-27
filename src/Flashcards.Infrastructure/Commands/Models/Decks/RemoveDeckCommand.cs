@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
-using Flashcards.Infrastructure.Commands.Abstract;
+using Flashcards.Core;
 
 namespace Flashcards.Infrastructure.Commands.Models.Decks
 {
-    public class RemoveDeckCommandModel : ICommandModel
+    public class RemoveDeckCommand : ICommand
     {
         [Required]
         public Guid Id { get; set; }

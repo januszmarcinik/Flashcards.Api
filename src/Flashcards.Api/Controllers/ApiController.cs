@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Flashcards.Infrastructure.Commands.Abstract;
+using Flashcards.Core;
 using Microsoft.AspNetCore.Mvc;
 using Flashcards.Core.Exceptions;
 
@@ -7,14 +7,14 @@ namespace Flashcards.Api.Controllers
 {
     public class ApiController : Controller
     {
-        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IMediator _mediator;
 
-        public ApiController(ICommandDispatcher commandDispatcher)
+        public ApiController(IMediator mediator)
         {
-            _commandDispatcher = commandDispatcher;
+            _mediator = mediator;
         }
 
-        protected IActionResult Dispatch<T>(T command) where T : ICommandModel
+        protected IActionResult Dispatch<T>(T command) where T : ICommand
         {
             if (!ModelState.IsValid)
             {
@@ -22,7 +22,7 @@ namespace Flashcards.Api.Controllers
                 throw new FlashcardsException(ErrorCode.InvalidCommand, errors);
             }
 
-            _commandDispatcher.Dispatch(command);
+            _mediator.Command(command);
             return Accepted();
         }
     }

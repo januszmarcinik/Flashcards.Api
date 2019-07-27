@@ -1,5 +1,5 @@
-﻿using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Models.Decks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +12,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly IDecksRepository _decksRepository;
 
-        public DecksController(ICommandDispatcher commandDispatcher, IDecksRepository decksRepository) 
-            : base(commandDispatcher)
+        public DecksController(IMediator mediator, IDecksRepository decksRepository) 
+            : base(mediator)
         {
             _decksRepository = decksRepository;
         }
@@ -27,15 +27,15 @@ namespace Flashcards.Api.Controllers
             => Ok(_decksRepository.GetByName(deck));
 
         [HttpPost]
-        public IActionResult Post(string category, [FromBody] AddDeckCommandModel command)
+        public IActionResult Post(string category, [FromBody] AddDeckCommand command)
             => Dispatch(command.SetCategory(category));
 
         [HttpPut]
-        public IActionResult Put([FromBody] EditDeckCommandModel command)
+        public IActionResult Put([FromBody] EditDeckCommand command)
             => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] RemoveDeckCommandModel command)
+        public IActionResult Delete([FromRoute] RemoveDeckCommand command)
             => Dispatch(command);  
     }
 }

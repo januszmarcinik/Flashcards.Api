@@ -1,12 +1,11 @@
 ﻿using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Commands.Abstract;
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
+using Flashcards.Core;
 
 namespace Flashcards.Infrastructure.Commands.Models.Users
 {
-    public class RegisterUserCommandModel : ICommandModel
+    public class RegisterUserCommand : ICommand
     {
         public Guid Id { get; set; }
 

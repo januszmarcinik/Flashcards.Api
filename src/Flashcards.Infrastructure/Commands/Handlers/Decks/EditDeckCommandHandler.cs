@@ -1,10 +1,10 @@
-﻿using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Models.Decks;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Decks
 {
-    public class EditDeckCommandHandler : ICommandHandler<EditDeckCommandModel>
+    public class EditDeckCommandHandler : ICommandHandler<EditDeckCommand>
     {
         private readonly IDecksRepository _decksRepository;
 
@@ -13,7 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Decks
             _decksRepository = decksRepository;
         }
 
-        public void Handle(EditDeckCommandModel command)
-            => _decksRepository.Update(command.Id, command.Name, command.Description);
+        public Result Handle(EditDeckCommand command)
+        {
+            _decksRepository.Update(command.Id, command.Name, command.Description);
+            return Result.Ok();
+        }
     }
 }

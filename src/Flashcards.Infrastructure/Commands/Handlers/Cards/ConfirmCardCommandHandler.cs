@@ -1,10 +1,10 @@
-﻿using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 {
-    public class ConfirmCardCommandHandler : ICommandHandler<ConfirmCardCommandModel>
+    public class ConfirmCardCommandHandler : ICommandHandler<ConfirmCardCommand>
     {
         private readonly ICardsRepository _cardsRepository;
 
@@ -13,9 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _cardsRepository = cardsRepository;
         }
 
-        public void Handle(ConfirmCardCommandModel command)
+        public Result Handle(ConfirmCardCommand command)
         {
             _cardsRepository.Confirm(command.Id);
+            return Result.Ok();
         }
     }
 }

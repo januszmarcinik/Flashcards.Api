@@ -1,12 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Flashcards.Core;
 using Flashcards.Domain.Dto;
-using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Commands.Abstract;
 
 namespace Flashcards.Infrastructure.Commands.Models.Sessions
 {
-    public class ApplySessionCardCommandModel : ICommandModel
+    public class ApplySessionCardCommand : ICommand
     {
         [Required]
         public Guid CardId { get; set; }
@@ -17,7 +16,7 @@ namespace Flashcards.Infrastructure.Commands.Models.Sessions
         public Guid UserId { get; private set; }
         public string Deck { get; private set; }
 
-        public ApplySessionCardCommandModel SetFromRoute(Guid userId, string deck)
+        public ApplySessionCardCommand SetFromRoute(Guid userId, string deck)
         {
             UserId = userId;
             Deck = deck;

@@ -1,5 +1,5 @@
-﻿using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
+using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,8 +12,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly IUsersRepository _usersRepository;
 
-        public UsersController(IUsersRepository usersRepository, ICommandDispatcher commandDispatcher)
-            : base(commandDispatcher)
+        public UsersController(IUsersRepository usersRepository, IMediator mediator)
+            : base(mediator)
         {
             _usersRepository = usersRepository;
         }
@@ -28,15 +28,15 @@ namespace Flashcards.Api.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult Post([FromBody] RegisterUserCommandModel command)
+        public IActionResult Post([FromBody] RegisterUserCommand command)
             => Dispatch(command);
 
         [HttpPut]
-        public IActionResult Put([FromBody] EditUserCommandModel command)
+        public IActionResult Put([FromBody] EditUserCommand command)
             => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] RemoveUserCommandModel command)
+        public IActionResult Delete([FromRoute] RemoveUserCommand command)
             => Dispatch(command);
     }
 }

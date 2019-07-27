@@ -1,7 +1,7 @@
-﻿using Flashcards.Core.Extensions;
+﻿using Flashcards.Core;
+using Flashcards.Core.Extensions;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +14,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly ICategoriesRepository _categoriesRepository;
 
-        public CategoriesController(ICommandDispatcher commandDispatcher, ICategoriesRepository categoriesRepository)
-            : base(commandDispatcher)
+        public CategoriesController(IMediator mediator, ICategoriesRepository categoriesRepository)
+            : base(mediator)
         {
             _categoriesRepository = categoriesRepository;
         }
@@ -29,15 +29,15 @@ namespace Flashcards.Api.Controllers
             => Ok(_categoriesRepository.GetByName(category));
 
         [HttpPost]
-        public IActionResult Post([FromBody] AddCategoryCommandModel command)
+        public IActionResult Post([FromBody] AddCategoryCommand command)
             => Dispatch(command);
 
         [HttpPut]
-        public IActionResult Put([FromBody] EditCategoryCommandModel command)
+        public IActionResult Put([FromBody] EditCategoryCommand command)
             => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] RemoveCategoryCommandModel command)
+        public IActionResult Delete([FromRoute] RemoveCategoryCommand command)
             => Dispatch(command);
     }
 }

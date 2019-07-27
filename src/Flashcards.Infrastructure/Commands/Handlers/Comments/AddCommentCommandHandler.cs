@@ -1,12 +1,12 @@
 ﻿using Flashcards.Core.Extensions;
-using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Comments;
 using System;
+using Flashcards.Core;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Comments
 {
-    internal class AddCommentCommandHandler : ICommandHandler<AddCommentCommandModel>
+    internal class AddCommentCommandHandler : ICommandHandler<AddCommentCommand>
     {
         private readonly ICommentsRepository _commentsRepository;
 
@@ -15,7 +15,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Comments
             _commentsRepository = commentsRepository;
         }
 
-        public void Handle(AddCommentCommandModel command)
+        public Result Handle(AddCommentCommand command)
         {
             if (command.Id.IsEmpty())
             {
@@ -23,6 +23,8 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Comments
             }
 
             _commentsRepository.Add(command.CardId, command.UserId, command.Text);
+
+            return Result.Ok();
         }
     }
 }

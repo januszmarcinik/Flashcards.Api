@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Flashcards.Core;
 
 namespace Flashcards.Infrastructure.Commands.Models.Comments
 {
-    public class AddCommentCommandModel : ICommandModel
+    public class AddCommentCommand : ICommand
     {
         public Guid Id { get; set; }
 
@@ -15,13 +15,13 @@ namespace Flashcards.Infrastructure.Commands.Models.Comments
         public Guid CardId { get; set; }
         public Guid UserId { get; set; }
 
-        public AddCommentCommandModel SetCard(Guid cardId)
+        public AddCommentCommand SetCard(Guid cardId)
         {
             CardId = cardId;
             return this;
         }
 
-        public AddCommentCommandModel SetUser(Guid userId)
+        public AddCommentCommand SetUser(Guid userId)
         {
             UserId = userId;
             return this;

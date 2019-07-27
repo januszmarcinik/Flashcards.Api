@@ -1,10 +1,10 @@
-﻿using Flashcards.Domain.Services;
-using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
+using Flashcards.Domain.Services;
 using Flashcards.Infrastructure.Commands.Models.Sessions;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Sessions
 {
-    internal class ApplySessionCardCommandHandler : ICommandHandler<ApplySessionCardCommandModel>
+    internal class ApplySessionCardCommandHandler : ICommandHandler<ApplySessionCardCommand>
     {
         private readonly ISessionsService _sessionsService;
 
@@ -13,7 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Sessions
             _sessionsService = sessionsService;
         }
 
-        public void Handle(ApplySessionCardCommandModel command) 
-            => _sessionsService.ApplySessionCard(command.UserId, command.Deck, command.CardId, command.Status);
+        public Result Handle(ApplySessionCardCommand command)
+        {
+            _sessionsService.ApplySessionCard(command.UserId, command.Deck, command.CardId, command.Status);
+            return Result.Ok();
+        }
     }
 }

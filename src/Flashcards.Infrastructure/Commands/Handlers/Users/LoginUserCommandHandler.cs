@@ -1,15 +1,15 @@
 ﻿using System;
+using Flashcards.Core;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Repositories;
 using Flashcards.Domain.Services;
-using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Flashcards.Infrastructure.Extensions;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
 {
-    internal class LoginUserCommandHandler : ICommandHandler<LoginUserCommandModel>
+    internal class LoginUserCommandHandler : ICommandHandler<LoginUserCommand>
     {
         private readonly IUsersRepository _usersRepository;
         private readonly ITokenService _tokenService;
@@ -22,7 +22,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
             _cache = cache;
         }
 
-        public void Handle(LoginUserCommandModel command)
+        public Result Handle(LoginUserCommand command)
         {
             if (command.TokenId.IsEmpty())
             {
@@ -34,6 +34,8 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
 
             var jwt = _tokenService.CreateToken(user.Id, user.Email, user.Role);
             _cache.SetJwt(command.TokenId, jwt);
+
+            return Result.Ok();
         }
     }
 }

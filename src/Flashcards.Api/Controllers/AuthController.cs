@@ -1,4 +1,4 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Flashcards.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +11,14 @@ namespace Flashcards.Api.Controllers
     {
         private readonly IMemoryCache _cache;
 
-        public AuthController(ICommandDispatcher commandDispatcher, IMemoryCache cache) 
-            : base(commandDispatcher)
+        public AuthController(IMediator mediator, IMemoryCache cache) 
+            : base(mediator)
         {
             _cache = cache;
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] LoginUserCommandModel command)
+        public IActionResult Post([FromBody] LoginUserCommand command)
         {
             Dispatch(command);
             return Ok(_cache.GetJwt(command.TokenId));

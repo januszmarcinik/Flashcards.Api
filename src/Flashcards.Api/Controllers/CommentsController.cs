@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
+using Flashcards.Core;
 using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Comments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +13,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly ICommentsRepository _commentsRepository;
 
-        public CommentsController(ICommandDispatcher commandDispatcher, ICommentsRepository commentsRepository)
-            : base(commandDispatcher)
+        public CommentsController(IMediator mediator, ICommentsRepository commentsRepository)
+            : base(mediator)
         {
             _commentsRepository = commentsRepository;
         }
@@ -29,7 +28,7 @@ namespace Flashcards.Api.Controllers
             => Ok(_commentsRepository.GetById(id));
 
         [HttpPost]
-        public IActionResult Post(Guid card, [FromBody] AddCommentCommandModel command)
+        public IActionResult Post(Guid card, [FromBody] AddCommentCommand command)
             => Dispatch(command.SetCard(card).SetUser(Guid.Parse(User.Identity.Name)));
     }
 }

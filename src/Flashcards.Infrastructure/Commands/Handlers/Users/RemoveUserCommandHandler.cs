@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
 using Flashcards.Infrastructure.Commands.Models.Users;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Users
 {
-    internal class RemoveUserCommandHandler : ICommandHandler<RemoveUserCommandModel>
+    internal class RemoveUserCommandHandler : ICommandHandler<RemoveUserCommand>
     {
         private readonly IUsersRepository _usersRepository;
 
@@ -13,9 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Users
             _usersRepository = usersRepository;
         }
 
-        public void Handle(RemoveUserCommandModel command)
+        public Result Handle(RemoveUserCommand command)
         {
             _usersRepository.Delete(command.Id);
+            return Result.Ok();
         }
     }
 }

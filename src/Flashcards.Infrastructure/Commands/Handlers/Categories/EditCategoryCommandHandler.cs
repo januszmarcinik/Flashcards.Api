@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
 using Flashcards.Infrastructure.Commands.Models.Categories;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Categories
 {
-    internal class EditCategoryCommandHandler : ICommandHandler<EditCategoryCommandModel>
+    internal class EditCategoryCommandHandler : ICommandHandler<EditCategoryCommand>
     {
         private readonly ICategoriesRepository _categoriesRepository;
 
@@ -13,7 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Categories
             _categoriesRepository = categoriesRepository;
         }
 
-        public void Handle(EditCategoryCommandModel command)
-            => _categoriesRepository.Update(command.Id, command.Name, command.Topic.Value, command.Description);
+        public Result Handle(EditCategoryCommand command)
+        {
+            _categoriesRepository.Update(command.Id, command.Name, command.Topic.Value, command.Description);
+            return Result.Ok();
+        }
     }
 }

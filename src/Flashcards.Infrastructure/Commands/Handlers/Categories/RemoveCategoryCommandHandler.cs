@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
 using Flashcards.Infrastructure.Commands.Models.Categories;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Categories
 {
-    internal class RemoveCategoryCommandHandler : ICommandHandler<RemoveCategoryCommandModel>
+    internal class RemoveCategoryCommandHandler : ICommandHandler<RemoveCategoryCommand>
     {
         private readonly ICategoriesRepository _categoriesRepository;
 
@@ -13,7 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Categories
             _categoriesRepository = categoriesRepository;
         }
 
-        public void Handle(RemoveCategoryCommandModel command)
-            => _categoriesRepository.Delete(command.Id);
+        public Result Handle(RemoveCategoryCommand command)
+        {
+            _categoriesRepository.Delete(command.Id);
+            return Result.Ok();
+        }
     }
 }

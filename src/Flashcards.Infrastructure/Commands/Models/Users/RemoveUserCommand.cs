@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Flashcards.Core;
 
 namespace Flashcards.Infrastructure.Commands.Models.Users
 {
-    public class RemoveUserCommandModel : ICommandModel
+    public class RemoveUserCommand : ICommand
     {
         [Required]
         public Guid Id { get; set; }

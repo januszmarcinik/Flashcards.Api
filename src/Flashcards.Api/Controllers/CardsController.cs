@@ -1,8 +1,8 @@
 ﻿using System;
+using Flashcards.Core;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,8 +15,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly ICardsRepository _cardsRepository;
 
-        public CardsController(ICommandDispatcher commandDispatcher, ICardsRepository cardsRepository) 
-            : base(commandDispatcher)
+        public CardsController(IMediator mediator, ICardsRepository cardsRepository) 
+            : base(mediator)
         {
             _cardsRepository = cardsRepository;
         }
@@ -30,19 +30,19 @@ namespace Flashcards.Api.Controllers
             => Ok(_cardsRepository.GetById(card));
 
         [HttpPost]
-        public IActionResult Post(string topic, string category, string deck, [FromBody] AddCardCommandModel command)
+        public IActionResult Post(string topic, string category, string deck, [FromBody] AddCardCommand command)
             => Dispatch(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck));
 
         [HttpPut]
-        public IActionResult Put(string topic, string category, string deck, [FromBody] EditCardCommandModel command)
+        public IActionResult Put(string topic, string category, string deck, [FromBody] EditCardCommand command)
             => Dispatch(command.SetFromRoute(topic.ToEnum<Topic>(), category, deck, Guid.Parse(User.Identity.Name)));
 
         [HttpPut("{id}")]
-        public IActionResult Put([FromRoute] ConfirmCardCommandModel command)
+        public IActionResult Put([FromRoute] ConfirmCardCommand command)
             => Dispatch(command);
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] RemoveCardCommandModel command)
+        public IActionResult Delete([FromRoute] RemoveCardCommand command)
             => Dispatch(command);
     }
 }

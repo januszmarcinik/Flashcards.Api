@@ -1,11 +1,11 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
 using Flashcards.Infrastructure.Commands.Models.Cards;
 using Flashcards.Domain.Repositories;
 using Flashcards.Domain.Services;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 {
-    internal class EditCardCommandHandler : ICommandHandler<EditCardCommandModel>
+    internal class EditCardCommandHandler : ICommandHandler<EditCardCommand>
     {
         private readonly ICardsRepository _cardsRepository;
         private readonly IImagesService _imagesService;
@@ -16,7 +16,7 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _imagesService = imagesService;
         }
 
-        public void Handle(EditCardCommandModel command)
+        public Result Handle(EditCardCommand command)
         {
             var path = _imagesService.GetPhysicalPath(command.Topic, command.Category, command.Deck, command.Id);
 
@@ -27,6 +27,8 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
             _imagesService.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
 
             _cardsRepository.Update(command.Id, command.Title, command.Question, command.Answer);
+
+            return Result.Ok();
         }
     }
 }

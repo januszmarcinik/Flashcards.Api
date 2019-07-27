@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using Flashcards.Infrastructure.Commands.Abstract;
+using Flashcards.Core;
 
 namespace Flashcards.Infrastructure.Commands.Models.Users
 {
-    public class LoginUserCommandModel : ICommandModel
+    public class LoginUserCommand : ICommand
     {
         public Guid TokenId { get; set; }
         [Required]

@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Core;
 using Flashcards.Infrastructure.Commands.Models.Categories;
 using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Categories
 {
-    internal class AddCategoryCommandHandler : ICommandHandler<AddCategoryCommandModel>
+    internal class AddCategoryCommandHandler : ICommandHandler<AddCategoryCommand>
     {
         private readonly ICategoriesRepository _categoriesRepository;
 
@@ -13,7 +13,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Categories
             _categoriesRepository = categoriesRepository;
         }
 
-        public void Handle(AddCategoryCommandModel command)
-            => _categoriesRepository.Add(command.Name, command.Topic.Value, command.Description);
+        public Result Handle(AddCategoryCommand command)
+        {
+            _categoriesRepository.Add(command.Name, command.Topic.Value, command.Description);
+            return Result.Ok();
+        }
     }
 }
