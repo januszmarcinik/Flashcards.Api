@@ -1,10 +1,9 @@
-﻿using Flashcards.Domain.Enums;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using Flashcards.Domain.Enums;
 
-namespace Flashcards.Infrastructure.Managers.Abstract
+namespace Flashcards.Domain.Services
 {
-    public interface IImagesManager
+    public interface IImagesService
     {
         string GetVirtualPath(Topic topic, string category, string deck);
         string GetVirtualPath(Topic topic, string category, string deck, Guid cardId);

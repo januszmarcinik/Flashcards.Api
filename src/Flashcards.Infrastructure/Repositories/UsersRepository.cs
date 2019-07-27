@@ -7,21 +7,21 @@ using Flashcards.Domain.Entities;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Extensions;
 using Flashcards.Domain.Repositories;
+using Flashcards.Domain.Services;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
-using Flashcards.Infrastructure.Managers.Abstract;
 
 namespace Flashcards.Infrastructure.Repositories
 {
     internal class UsersRepository : IUsersRepository
     {
         private readonly EFContext _dbContext;
-        private readonly IEncryptionManager _encryptionManager;
+        private readonly EncryptionService _encryptionService;
 
-        public UsersRepository(EFContext dbContext, IEncryptionManager encryptionManager)
+        public UsersRepository(EFContext dbContext, EncryptionService encryptionService)
         {
             _dbContext = dbContext;
-            _encryptionManager = encryptionManager;
+            _encryptionService = encryptionService;
         }
 
         public List<UserDto> GetAll()
@@ -48,7 +48,7 @@ namespace Flashcards.Infrastructure.Repositories
         public void Login(string email, string password)
         {
             var user = _dbContext.Users.SingleAndEnsureExists(x => x.Email == email, ErrorCode.UserWithGivenEmailDoesNotExist);
-            var hash = _encryptionManager.GetHash(password, user.Salt);
+            var hash = _encryptionService.GetHash(password, user.Salt);
 
             if (user.Password != hash)
             {
@@ -63,8 +63,8 @@ namespace Flashcards.Infrastructure.Repositories
                 throw new FlashcardsException(ErrorCode.UserWithGivenEmailAlreadyExist);
             }
 
-            var salt = _encryptionManager.GetSalt(password);
-            var hash = _encryptionManager.GetHash(password, salt);
+            var salt = _encryptionService.GetSalt(password);
+            var hash = _encryptionService.GetHash(password, salt);
 
             if (id == Guid.Empty)
             {

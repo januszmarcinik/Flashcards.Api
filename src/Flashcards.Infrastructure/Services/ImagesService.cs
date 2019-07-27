@@ -1,24 +1,24 @@
-﻿using Flashcards.Core.Extensions;
-using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Managers.Abstract;
-using System;
-using System.IO;
-using Flashcards.Core.Exceptions;
-using Microsoft.AspNetCore.Hosting;
+﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
+using Flashcards.Core.Exceptions;
+using Flashcards.Core.Extensions;
+using Flashcards.Domain.Enums;
+using Flashcards.Domain.Services;
 using Flashcards.Infrastructure.Settings;
+using Microsoft.AspNetCore.Hosting;
 
-namespace Flashcards.Infrastructure.Managers.Concrete
+namespace Flashcards.Infrastructure.Services
 {
-    internal class ImagesManager : IImagesManager
+    internal class ImagesService : IImagesService
     {
         private readonly AppSettings _appSettings;
         private readonly IHostingEnvironment _hostingEnvironment;
         private List<SaveImageHelper> _imagesData;
         private readonly WebClient _webClient;
 
-        public ImagesManager(AppSettings appSettings, IHostingEnvironment hostingEnvironment)
+        public ImagesService(AppSettings appSettings, IHostingEnvironment hostingEnvironment)
         {
             _appSettings = appSettings;
             _hostingEnvironment = hostingEnvironment;

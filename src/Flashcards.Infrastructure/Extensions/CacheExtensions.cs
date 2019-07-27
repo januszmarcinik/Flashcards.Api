@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using System;
-using Flashcards.Infrastructure.Managers.Abstract;
-using Flashcards.Infrastructure.Managers.Concrete;
+using Flashcards.Domain.Services;
 
 namespace Flashcards.Infrastructure.Extensions
 {

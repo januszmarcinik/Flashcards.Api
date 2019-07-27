@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using Flashcards.Domain.Dto;
 using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Managers.Abstract;
+using Flashcards.Domain.Services;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Flashcards.Infrastructure.Managers.Concrete
+namespace Flashcards.Infrastructure.Services
 {
-    internal class SessionsManager : ISessionsManager
+    internal class SessionsService : ISessionsService
     {
         private readonly IMemoryCache _cache;
         private readonly ICardsRepository _cardsRepository;
 
-        public SessionsManager(IMemoryCache cache, ICardsRepository cardsRepository)
+        public SessionsService(IMemoryCache cache, ICardsRepository cardsRepository)
         {
             _cache = cache;
             _cardsRepository = cardsRepository;

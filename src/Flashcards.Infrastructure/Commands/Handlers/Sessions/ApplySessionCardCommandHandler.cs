@@ -1,19 +1,19 @@
-﻿using Flashcards.Infrastructure.Commands.Abstract;
+﻿using Flashcards.Domain.Services;
+using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Sessions;
-using Flashcards.Infrastructure.Managers.Abstract;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Sessions
 {
     internal class ApplySessionCardCommandHandler : ICommandHandler<ApplySessionCardCommandModel>
     {
-        private readonly ISessionsManager _sessionsManager;
+        private readonly ISessionsService _sessionsService;
 
-        public ApplySessionCardCommandHandler(ISessionsManager sessionsManager)
+        public ApplySessionCardCommandHandler(ISessionsService sessionsService)
         {
-            _sessionsManager = sessionsManager;
+            _sessionsService = sessionsService;
         }
 
         public void Handle(ApplySessionCardCommandModel command) 
-            => _sessionsManager.ApplySessionCard(command.UserId, command.Deck, command.CardId, command.Status);
+            => _sessionsService.ApplySessionCard(command.UserId, command.Deck, command.CardId, command.Status);
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using Flashcards.Domain.Dto;
 
-namespace Flashcards.Infrastructure.Managers.Abstract
+namespace Flashcards.Domain.Services
 {
-    public interface ISessionsManager
+    public interface ISessionsService
     {
         SessionStateDto GetSession(Guid userId, string deck);
         void ApplySessionCard(Guid userId, string deck, Guid cardId, SessionCardStatus status);

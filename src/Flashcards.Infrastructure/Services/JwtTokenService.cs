@@ -1,20 +1,20 @@
-﻿using Flashcards.Core.Extensions;
-using Flashcards.Domain.Enums;
-using Flashcards.Infrastructure.Managers.Abstract;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Flashcards.Core.Extensions;
+using Flashcards.Domain.Enums;
+using Flashcards.Domain.Services;
 using Flashcards.Infrastructure.Settings;
+using Microsoft.IdentityModel.Tokens;
 
-namespace Flashcards.Infrastructure.Managers.Concrete
+namespace Flashcards.Infrastructure.Services
 {
-    internal class JwtManager : IJwtManager
+    internal class JwtTokenService : ITokenService
     {
-        private JwtSettings _jwtSettings;
+        private readonly JwtSettings _jwtSettings;
 
-        public JwtManager(JwtSettings jwtSettings)
+        public JwtTokenService(JwtSettings jwtSettings)
         {
             _jwtSettings = jwtSettings;
         }
@@ -22,7 +22,7 @@ namespace Flashcards.Infrastructure.Managers.Concrete
         public JwtDto CreateToken(Guid id, string email, Role role)
         {
             var now = DateTime.UtcNow;
-            var claims = new Claim[]
+            var claims = new []
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, email),

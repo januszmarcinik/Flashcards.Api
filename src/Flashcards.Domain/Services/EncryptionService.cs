@@ -1,14 +1,13 @@
-﻿using Flashcards.Core.Exceptions;
-using Flashcards.Infrastructure.Managers.Abstract;
-using System;
+﻿using System;
 using System.Security.Cryptography;
+using Flashcards.Core.Exceptions;
 
-namespace Flashcards.Infrastructure.Managers.Concrete
+namespace Flashcards.Domain.Services
 {
-    internal class EncryptionManager : IEncryptionManager
+    public class EncryptionService
     {
-        private const int _deriveBytesIterationsCount = 10000;
-        private const int _saltSize = 40;
+        private const int DeriveBytesIterationsCount = 10000;
+        private const int SaltSize = 40;
 
         public string GetSalt(string value)
         {
@@ -17,7 +16,7 @@ namespace Flashcards.Infrastructure.Managers.Concrete
                 throw new FlashcardsException(ErrorCode.EmptyPasswordForGenerateSalt);
             }
 
-            var saltBytes = new byte[_saltSize];
+            var saltBytes = new byte[SaltSize];
             var rng = RandomNumberGenerator.Create();
             rng.GetBytes(saltBytes);
 
@@ -35,12 +34,12 @@ namespace Flashcards.Infrastructure.Managers.Concrete
                 throw new FlashcardsException(ErrorCode.EmptySaltForGenerateHash);
             }
 
-            var pbkdf2 = new Rfc2898DeriveBytes(value, GetBytes(salt), _deriveBytesIterationsCount);
+            var pbkdf2 = new Rfc2898DeriveBytes(value, GetBytes(salt), DeriveBytesIterationsCount);
 
-            return Convert.ToBase64String(pbkdf2.GetBytes(_saltSize));
+            return Convert.ToBase64String(pbkdf2.GetBytes(SaltSize));
         }
 
-        private byte[] GetBytes(string value)
+        private static byte[] GetBytes(string value)
         {
             var bytes = new byte[value.Length * sizeof(char)];
 

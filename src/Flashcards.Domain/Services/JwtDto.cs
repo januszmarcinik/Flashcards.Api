@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Infrastructure.Managers.Abstract
+namespace Flashcards.Domain.Services
 {
     public class JwtDto
     {

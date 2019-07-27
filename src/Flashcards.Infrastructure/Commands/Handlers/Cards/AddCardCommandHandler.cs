@@ -1,21 +1,21 @@
 ﻿using Flashcards.Core.Extensions;
 using Flashcards.Infrastructure.Commands.Abstract;
 using Flashcards.Infrastructure.Commands.Models.Cards;
-using Flashcards.Infrastructure.Managers.Abstract;
 using System;
 using Flashcards.Domain.Repositories;
+using Flashcards.Domain.Services;
 
 namespace Flashcards.Infrastructure.Commands.Handlers.Cards
 {
     internal class AddCardCommandHandler : ICommandHandler<AddCardCommandModel>
     {
         private readonly ICardsRepository _cardsRepository;
-        private readonly IImagesManager _imagesManager;
+        private readonly IImagesService _imagesService;
 
-        public AddCardCommandHandler(ICardsRepository cardsRepository, IImagesManager imagesManager)
+        public AddCardCommandHandler(ICardsRepository cardsRepository, IImagesService imagesService)
         {
             _cardsRepository = cardsRepository;
-            _imagesManager = imagesManager;
+            _imagesService = imagesService;
         }
 
         public void Handle(AddCardCommandModel command)
@@ -25,10 +25,10 @@ namespace Flashcards.Infrastructure.Commands.Handlers.Cards
                 command.Id = Guid.NewGuid();
             }
 
-            command.Question = _imagesManager.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Question);
-            command.Answer = _imagesManager.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Answer);
+            command.Question = _imagesService.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Question);
+            command.Answer = _imagesService.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Answer);
 
-            _imagesManager.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
+            _imagesService.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
 
             _cardsRepository.Add(command.Deck, command.Title, command.Question, command.Answer);
         }
