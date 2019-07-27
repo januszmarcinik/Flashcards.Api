@@ -1,5 +1,4 @@
 ﻿using Flashcards.Core;
-using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Domain.Users
 {

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Flashcards.Core;
-using Flashcards.Domain.Dto;
 
 namespace Flashcards.Domain.Sessions
 {

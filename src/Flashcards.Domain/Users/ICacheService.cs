@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Domain.Services
+namespace Flashcards.Domain.Users
 {
     public interface ICacheService
     {

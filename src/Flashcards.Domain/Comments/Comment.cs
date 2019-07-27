@@ -1,9 +1,10 @@
-﻿using Flashcards.Core.Exceptions;
+﻿using System;
+using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using System;
-using Flashcards.Domain.Dto;
+using Flashcards.Domain.Cards;
+using Flashcards.Domain.Users;
 
-namespace Flashcards.Domain.Entities
+namespace Flashcards.Domain.Comments
 {
     public class Comment : IEntity
     {

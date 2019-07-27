@@ -1,7 +1,6 @@
 ﻿using System;
 using Flashcards.Core;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Repositories;
 
 namespace Flashcards.Domain.Comments
 {

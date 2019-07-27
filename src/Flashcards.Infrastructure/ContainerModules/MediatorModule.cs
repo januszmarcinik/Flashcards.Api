@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Flashcards.Core;
+using Flashcards.Domain.Cards;
 
 namespace Flashcards.Infrastructure.ContainerModules
 {
@@ -18,7 +19,7 @@ namespace Flashcards.Infrastructure.ContainerModules
                 .As<IDependencyResolver>()
                 .InstancePerLifetimeScope();
 
-            var handlersAssembly = typeof(Flashcards.Domain.Entities.Card).Assembly;
+            var handlersAssembly = typeof(Card).Assembly;
 
             builder
                 .RegisterAssemblyTypes(handlersAssembly)

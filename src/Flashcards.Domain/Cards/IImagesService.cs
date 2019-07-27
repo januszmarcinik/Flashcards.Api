@@ -1,7 +1,7 @@
 ﻿using System;
-using Flashcards.Domain.Enums;
+using Flashcards.Domain.Categories;
 
-namespace Flashcards.Domain.Services
+namespace Flashcards.Domain.Cards
 {
     public interface IImagesService
     {

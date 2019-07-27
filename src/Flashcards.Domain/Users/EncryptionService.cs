@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using Flashcards.Core.Exceptions;
 
-namespace Flashcards.Domain.Services
+namespace Flashcards.Domain.Users
 {
     public class EncryptionService
     {

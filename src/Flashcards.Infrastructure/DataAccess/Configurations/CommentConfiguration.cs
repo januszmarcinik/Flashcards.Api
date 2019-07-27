@@ -1,4 +1,4 @@
-﻿using Flashcards.Domain.Entities;
+﻿using Flashcards.Domain.Comments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

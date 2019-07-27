@@ -1,5 +1,4 @@
 ﻿using Flashcards.Core;
-using Flashcards.Domain.Services;
 
 namespace Flashcards.Domain.Sessions
 {

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Dto;
-using Flashcards.Domain.Entities;
-using Flashcards.Domain.Repositories;
+using Flashcards.Domain.Cards;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 

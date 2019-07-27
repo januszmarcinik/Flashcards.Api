@@ -1,7 +1,6 @@
 ﻿using System;
-using Flashcards.Domain.Dto;
 
-namespace Flashcards.Domain.Services
+namespace Flashcards.Domain.Sessions
 {
     public interface ISessionsService
     {

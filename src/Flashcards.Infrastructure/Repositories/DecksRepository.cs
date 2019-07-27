@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Dto;
-using Flashcards.Domain.Entities;
+using Flashcards.Domain.Decks;
 using Flashcards.Domain.Extensions;
-using Flashcards.Domain.Repositories;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 

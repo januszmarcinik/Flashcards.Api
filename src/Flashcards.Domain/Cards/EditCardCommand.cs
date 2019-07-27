@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Flashcards.Core;
-using Flashcards.Domain.Enums;
+using Flashcards.Domain.Categories;
 
 namespace Flashcards.Domain.Cards
 {

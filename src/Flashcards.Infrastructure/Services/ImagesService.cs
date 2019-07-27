@@ -4,8 +4,8 @@ using System.IO;
 using System.Net;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Enums;
-using Flashcards.Domain.Services;
+using Flashcards.Domain.Cards;
+using Flashcards.Domain.Categories;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Hosting;
 

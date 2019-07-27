@@ -1,7 +1,6 @@
 ﻿using System;
-using Flashcards.Domain.Enums;
 
-namespace Flashcards.Domain.Services
+namespace Flashcards.Domain.Users
 {
     public interface ITokenService
     {

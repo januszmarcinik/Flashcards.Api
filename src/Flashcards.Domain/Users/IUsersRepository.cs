@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Flashcards.Domain.Dto;
-using Flashcards.Domain.Enums;
 
-namespace Flashcards.Domain.Repositories
+namespace Flashcards.Domain.Users
 {
     public interface IUsersRepository
     {

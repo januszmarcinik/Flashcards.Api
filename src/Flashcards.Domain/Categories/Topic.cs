@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Flashcards.Domain.Enums
+namespace Flashcards.Domain.Categories
 {
     public enum Topic
     {

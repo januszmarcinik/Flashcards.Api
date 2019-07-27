@@ -1,7 +1,6 @@
 ﻿using System;
-using Flashcards.Domain.Enums;
 
-namespace Flashcards.Domain.Dto
+namespace Flashcards.Domain.Users
 {
     public class UserDto
     {

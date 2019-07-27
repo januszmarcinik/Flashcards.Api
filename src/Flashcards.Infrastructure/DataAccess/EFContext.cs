@@ -1,4 +1,8 @@
-﻿using Flashcards.Domain.Entities;
+﻿using Flashcards.Domain.Cards;
+using Flashcards.Domain.Categories;
+using Flashcards.Domain.Comments;
+using Flashcards.Domain.Decks;
+using Flashcards.Domain.Users;
 using Flashcards.Infrastructure.DataAccess.Configurations;
 using Microsoft.EntityFrameworkCore;
 

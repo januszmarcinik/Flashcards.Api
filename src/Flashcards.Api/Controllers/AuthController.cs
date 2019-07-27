@@ -1,6 +1,5 @@
 ﻿using Flashcards.Core;
 using Flashcards.Domain.Extensions;
-using Flashcards.Domain.Services;
 using Flashcards.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
 

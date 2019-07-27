@@ -1,4 +1,4 @@
-﻿namespace Flashcards.Domain.Enums
+﻿namespace Flashcards.Domain.Users
 {
     public enum Role
     {

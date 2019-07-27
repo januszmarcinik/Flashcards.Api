@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Flashcards.Domain.Dto;
 
-namespace Flashcards.Domain.Repositories
+namespace Flashcards.Domain.Decks
 {
     public interface IDecksRepository
     {

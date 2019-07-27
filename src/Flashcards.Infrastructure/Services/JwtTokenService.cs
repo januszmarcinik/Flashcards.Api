@@ -3,8 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Enums;
-using Flashcards.Domain.Services;
+using Flashcards.Domain.Users;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.IdentityModel.Tokens;
 

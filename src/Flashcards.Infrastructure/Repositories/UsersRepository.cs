@@ -2,12 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Flashcards.Core.Exceptions;
-using Flashcards.Domain.Dto;
-using Flashcards.Domain.Entities;
-using Flashcards.Domain.Enums;
 using Flashcards.Domain.Extensions;
-using Flashcards.Domain.Repositories;
-using Flashcards.Domain.Services;
+using Flashcards.Domain.Users;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 

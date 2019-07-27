@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Flashcards.Core;
-using Flashcards.Domain.Enums;
 
 namespace Flashcards.Domain.Categories
 {

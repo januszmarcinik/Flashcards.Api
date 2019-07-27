@@ -1,10 +1,11 @@
-﻿using Flashcards.Core.Exceptions;
-using Flashcards.Core.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Flashcards.Domain.Dto;
+using Flashcards.Core.Exceptions;
+using Flashcards.Core.Extensions;
+using Flashcards.Domain.Cards;
+using Flashcards.Domain.Categories;
 
-namespace Flashcards.Domain.Entities
+namespace Flashcards.Domain.Decks
 {
     public class Deck : IEntity
     {

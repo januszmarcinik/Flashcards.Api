@@ -1,6 +1,5 @@
 ﻿using System;
-using Flashcards.Domain.Entities;
-using Flashcards.Domain.Enums;
+using Flashcards.Domain.Users;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Flashcards.Infrastructure.DataAccess.Migrations

@@ -1,6 +1,4 @@
 ﻿using Flashcards.Core;
-using Flashcards.Domain.Repositories;
-using Flashcards.Domain.Services;
 
 namespace Flashcards.Domain.Cards
 {

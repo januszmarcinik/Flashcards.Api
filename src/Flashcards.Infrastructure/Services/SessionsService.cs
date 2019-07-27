@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flashcards.Domain.Dto;
-using Flashcards.Domain.Repositories;
-using Flashcards.Domain.Services;
+using Flashcards.Domain.Cards;
+using Flashcards.Domain.Sessions;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Flashcards.Infrastructure.Services

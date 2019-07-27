@@ -2,8 +2,6 @@
 using Flashcards.Core;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Extensions;
-using Flashcards.Domain.Repositories;
-using Flashcards.Domain.Services;
 
 namespace Flashcards.Domain.Users
 {
