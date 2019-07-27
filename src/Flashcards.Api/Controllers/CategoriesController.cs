@@ -1,8 +1,8 @@
 ﻿using Flashcards.Core;
 using Flashcards.Core.Extensions;
+using Flashcards.Domain.Categories;
 using Flashcards.Domain.Enums;
 using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Models.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,17 +1,17 @@
 ﻿using Flashcards.Core;
-using Flashcards.Infrastructure.Commands.Models.Users;
-using Flashcards.Infrastructure.Extensions;
+using Flashcards.Domain.Extensions;
+using Flashcards.Domain.Services;
+using Flashcards.Domain.Users;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Flashcards.Api.Controllers
 {
     [Route("api/auth")]
     public class AuthController : ApiController
     {
-        private readonly IMemoryCache _cache;
+        private readonly ICacheService _cache;
 
-        public AuthController(IMediator mediator, IMemoryCache cache) 
+        public AuthController(IMediator mediator, ICacheService cache) 
             : base(mediator)
         {
             _cache = cache;

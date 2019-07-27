@@ -1,6 +1,6 @@
 ﻿using Flashcards.Core;
+using Flashcards.Domain.Decks;
 using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Models.Decks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

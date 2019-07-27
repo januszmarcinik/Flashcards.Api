@@ -1,7 +1,7 @@
 ﻿using System;
 using Flashcards.Core;
+using Flashcards.Domain.Comments;
 using Flashcards.Domain.Repositories;
-using Flashcards.Infrastructure.Commands.Models.Comments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

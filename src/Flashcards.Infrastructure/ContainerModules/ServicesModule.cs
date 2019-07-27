@@ -12,6 +12,7 @@ namespace Flashcards.Infrastructure.ContainerModules
             builder.RegisterType<ImagesService>().As<IImagesService>().InstancePerLifetimeScope();
             builder.RegisterType<JwtTokenService>().As<ITokenService>().SingleInstance();
             builder.RegisterType<SessionsService>().As<ISessionsService>().InstancePerLifetimeScope();
+            builder.RegisterType<MemoryCacheService>().As<ICacheService>().InstancePerLifetimeScope();
         }
     }
 }

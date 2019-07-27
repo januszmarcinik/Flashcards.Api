@@ -1,7 +1,7 @@
 ﻿using System;
 using Flashcards.Core;
 using Flashcards.Domain.Services;
-using Flashcards.Infrastructure.Commands.Models.Sessions;
+using Flashcards.Domain.Sessions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
