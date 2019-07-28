@@ -14,8 +14,6 @@ import {CommentsService} from '../../../services/comments.service';
 })
 export class CommentAddComponent implements OnInit {
 
-  @Input() topic: string;
-  @Input() category: string;
   @Input() deck: string;
   @Output() onSave = new EventEmitter();
 
@@ -44,7 +42,7 @@ export class CommentAddComponent implements OnInit {
   }
 
   save() {
-    this.commentsService.add(this.topic, this.category, this.deck, this.cardId, this.commentForm.value)
+    this.commentsService.add(this.deck, this.cardId, this.commentForm.value)
       .subscribe((response) => {
         if (response.ok) {
           this.onSave.emit();

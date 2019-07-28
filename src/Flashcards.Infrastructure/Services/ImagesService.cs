@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Flashcards.Core.Exceptions;
-using Flashcards.Core.Extensions;
 using Flashcards.Domain.Cards;
-using Flashcards.Domain.Categories;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Hosting;
 
@@ -26,29 +24,29 @@ namespace Flashcards.Infrastructure.Services
             _imagesData = new List<SaveImageHelper>();
         }
 
-        public string GetVirtualPath(Topic topic, string category, string deck)
+        public string GetVirtualPath(string deck)
         {
-            return Path.Combine(_appSettings.ImagesContainerFullPath, topic.GetDescription(), category, deck);
+            return Path.Combine(_appSettings.ImagesContainerFullPath, deck);
         }
 
-        public string GetVirtualPath(Topic topic, string category, string deck, Guid cardId)
+        public string GetVirtualPath(string deck, Guid cardId)
         {
-            return Path.Combine(GetVirtualPath(topic, category, deck), cardId.ToString());
+            return Path.Combine(GetVirtualPath(deck), cardId.ToString());
         }
 
-        public string GetVirtualPath(Topic topic, string category, string deck, Guid cardId, Guid imageId, string extension)
+        public string GetVirtualPath(string deck, Guid cardId, Guid imageId, string extension)
         {
-            return Path.Combine(GetVirtualPath(topic, category, deck, cardId), GetFileName(imageId, extension));
+            return Path.Combine(GetVirtualPath(deck, cardId), GetFileName(imageId, extension));
         }
 
-        public string GetPhysicalPath(Topic topic, string category, string deck, Guid cardId)
+        public string GetPhysicalPath(string deck, Guid cardId)
         {
-            return Path.Combine(_hostingEnvironment.WebRootPath, "images", topic.GetDescription(), category, deck, cardId.ToString());
+            return Path.Combine(_hostingEnvironment.WebRootPath, "images", deck, cardId.ToString());
         }
 
-        public void SaveTo(Topic topic, string category, string deck, Guid card, Guid imageId, byte[] bytes, string extension)
+        public void SaveTo(string deck, Guid card, Guid imageId, byte[] bytes, string extension)
         {
-            var path = Path.Combine("wwwroot", "images", topic.GetDescription(), category, deck, card.ToString(), GetFileName(imageId, extension));
+            var path = Path.Combine("wwwroot", "images", deck, card.ToString(), GetFileName(imageId, extension));
             CreateDirectoryIfNotExists(path);
             File.WriteAllBytes(path, bytes);
         }
@@ -81,10 +79,9 @@ namespace Flashcards.Infrastructure.Services
             }
         }
 
-        public string ProcessTextForEdit(Topic topic, string category, string deck, Guid cardId, string stringToAnalyze)
+        public string ProcessTextForEdit(string deck, Guid cardId, string stringToAnalyze)
         {
             var startIndex = 0;
-            var extension = string.Empty;
 
             while (startIndex >= 0 && startIndex <= stringToAnalyze.Length)
             {
@@ -98,6 +95,7 @@ namespace Flashcards.Infrastructure.Services
                 var endIndex = stringToAnalyze.IndexOf('"', startIndex);
 
                 var baseIndex = stringToAnalyze.IndexOf("base64", startIndex);
+                string extension;
                 if (baseIndex >= 0)
                 {
                     var slashIndex = stringToAnalyze.IndexOf('/', startIndex);
@@ -108,7 +106,7 @@ namespace Flashcards.Infrastructure.Services
                     var bytes = Convert.FromBase64String(bytesString);
                     var imageId = Guid.NewGuid();
                     _imagesData.Add(new SaveImageHelper(imageId, bytes, extension));
-                    var path = GetVirtualPath(topic, category, deck, cardId, imageId, extension);
+                    var path = GetVirtualPath(deck, cardId, imageId, extension);
                     stringToAnalyze = stringToAnalyze.Replace(stringToAnalyze.Substring(startIndex, endIndex - startIndex), path);
                 }
                 else
@@ -121,7 +119,7 @@ namespace Flashcards.Infrastructure.Services
                         var bytes = _webClient.DownloadData(imageSrc);
                         var imageId = Guid.NewGuid();
                         _imagesData.Add(new SaveImageHelper(imageId, bytes, extension));
-                        var path = GetVirtualPath(topic, category, deck, cardId, imageId, extension);
+                        var path = GetVirtualPath(deck, cardId, imageId, extension);
                         stringToAnalyze = stringToAnalyze.Replace(stringToAnalyze.Substring(startIndex, endIndex - startIndex), path);
                     }
                     catch (Exception ex)
@@ -134,13 +132,13 @@ namespace Flashcards.Infrastructure.Services
             return stringToAnalyze;
         }
 
-        public void SaveImages(Topic topic, string category, string deck, Guid cardId)
+        public void SaveImages(string deck, Guid cardId)
         {
             if (_imagesData != null)
             {
                 foreach (var image in _imagesData)
                 {
-                    SaveTo(topic, category, deck, cardId, image.ImageId, image.Data, image.Extension);
+                    SaveTo(deck, cardId, image.ImageId, image.Data, image.Extension);
                 }
             }
         }

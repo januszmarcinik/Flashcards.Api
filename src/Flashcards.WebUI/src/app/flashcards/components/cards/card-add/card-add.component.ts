@@ -14,8 +14,6 @@ import {QUILL_EDITOR_MODULES} from '../../../../../constans/constans';
 })
 export class CardAddComponent implements OnInit {
 
-  topic: string;
-  category: string;
   deck: string;
 
   modules: any;
@@ -31,8 +29,6 @@ export class CardAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = this.route.snapshot.paramMap.get('topic');
-    this.category = this.route.snapshot.paramMap.get('category');
     this.deck = this.route.snapshot.paramMap.get('deck');
     this.cardForm = this.buildForm();
     this.modules = QUILL_EDITOR_MODULES;
@@ -47,11 +43,11 @@ export class CardAddComponent implements OnInit {
   }
 
   save() {
-    this.cardsService.add(this.topic, this.category, this.deck, this.cardForm.value)
+    this.cardsService.add(this.deck, this.cardForm.value)
       .subscribe((response) => {
         if (response.ok) {
           this.router.navigate(
-            [`/flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards`]);
+            [`/flashcards/decks/${this.deck}/cards`]);
         }
       }, (ex: HttpErrorResponse) => {
         this.errors = ex.error.message;
@@ -60,8 +56,8 @@ export class CardAddComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(
-      [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards`]
-    )
+      [`flashcards/decks/${this.deck}/cards`]
+    );
   }
 
 }

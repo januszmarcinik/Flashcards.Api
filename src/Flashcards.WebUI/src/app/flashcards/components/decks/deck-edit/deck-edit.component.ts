@@ -15,8 +15,6 @@ export class DeckEditComponent implements OnInit {
   deck: Deck;
   deckForm: FormGroup;
   deckName: string;
-  category: string;
-  topic: string;
   errors: any;
 
   constructor(private router: Router,
@@ -26,15 +24,13 @@ export class DeckEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = this.route.snapshot.paramMap.get('topic');
-    this.category = this.route.snapshot.paramMap.get('category');
     this.deckName = this.route.snapshot.paramMap.get('deck');
     this.createForm();
     this.getDeck();
   }
 
   getDeck() {
-    this.deckService.getByName(this.topic, this.category, this.deckName).subscribe(resp => {
+    this.deckService.getByName(this.deckName).subscribe(resp => {
       if (resp.ok) {
         this.deck = resp.body;
         this.deckForm.controls['name'].setValue(this.deck.name);
@@ -48,9 +44,9 @@ export class DeckEditComponent implements OnInit {
   save() {
     this.deck.name = this.deckForm.value['name'];
     this.deck.description = this.deckForm.value['description'];
-    this.deckService.edit(this.topic, this.category, this.deck).subscribe(resp => {
+    this.deckService.edit(this.deck).subscribe(resp => {
         if (resp.ok) {
-          this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
+          this.router.navigate([`/flashcards/decks`]);
         }
       }, (err: HttpErrorResponse) => {
       }
@@ -65,8 +61,8 @@ export class DeckEditComponent implements OnInit {
   }
 
   goBack() {
-    let url = `/flashcards/topics/${this.topic}/categories/${this.category}/decks`;
+    let url = `/flashcards/decks`;
     console.log(url);
-    this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
+    this.router.navigate([`/flashcards/decks`]);
   }
 }

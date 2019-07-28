@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Cards;
-using Flashcards.Domain.Categories;
 
 namespace Flashcards.Domain.Decks
 {
@@ -14,7 +13,6 @@ namespace Flashcards.Domain.Decks
         public Guid Id { get; protected set; }
         public string Name { get; protected set; }
         public string Description { get; protected set; }
-        public virtual Category Category { get; protected set; }
         public virtual IReadOnlyCollection<Card> Cards => _cards;
 
         protected Deck() { }

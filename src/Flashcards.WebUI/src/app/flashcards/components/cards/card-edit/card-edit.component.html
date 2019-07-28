@@ -1,6 +1,6 @@
 <app-header>
   <p navigation>
-    Flashcards / Topics / {{topic}} / Categories / {{category}} / Decks / {{deck}} / Cards / Edit
+    Flashcards / Decks / {{deck}} / Cards / Edit
   </p>
   <div content>
     <p>
@@ -73,8 +73,6 @@
 </div>
 
 <app-comment-list
-  [topic]="topic"
-  [category]="category"
   [deck]="deck"
   [cardId]="cardId"
   #commentList>

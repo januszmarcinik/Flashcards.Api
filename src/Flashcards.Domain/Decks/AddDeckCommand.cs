@@ -13,13 +13,6 @@ namespace Flashcards.Domain.Decks
         [RegularExpression(@"([A-Za-z\d\-]+)", ErrorMessage = "Name can contains only letters from a-z and \"-\" not case sensitive.")]
         public string Name { get; set; }
 
-        public string CategoryName { get; set; }
         public string Description { get; set; }
-
-        public AddDeckCommand SetCategory(string categoryName)
-        {
-            CategoryName = categoryName;
-            return this;
-        }
     }
 }

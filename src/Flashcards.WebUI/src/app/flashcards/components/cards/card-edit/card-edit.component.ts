@@ -16,8 +16,6 @@ import {CommentListComponent} from '../../comments/comment-list/comment-list.com
 })
 export class CardEditComponent implements OnInit {
 
-  topic: string;
-  category: string;
   deck: string;
   cardId: string;
 
@@ -42,8 +40,6 @@ export class CardEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = this.route.snapshot.paramMap.get('topic');
-    this.category = this.route.snapshot.paramMap.get('category');
     this.deck = this.route.snapshot.paramMap.get('deck');
     this.cardId = this.route.snapshot.paramMap.get('card');
 
@@ -63,7 +59,7 @@ export class CardEditComponent implements OnInit {
   }
 
   loadCard(id: string): void {
-    this.cardsService.getById(this.topic, this.category, this.deck, id)
+    this.cardsService.getById(this.deck, id)
       .subscribe((card) => {
         this.card = card.body;
         this.previousExists = this.card.previousCardId != GUID_EMPTY;
@@ -80,7 +76,7 @@ export class CardEditComponent implements OnInit {
   }
 
   save() {
-    this.cardsService.edit(this.topic, this.category, this.deck, this.cardForm.value)
+    this.cardsService.edit(this.deck, this.cardForm.value)
       .subscribe((response) => {
         if (response.ok) {
           this.isReadOnly = true;
@@ -120,14 +116,14 @@ export class CardEditComponent implements OnInit {
   }
 
   confirmCard(): void {
-    this.cardsService.confirmCard(this.topic, this.category, this.deck, this.card.id).subscribe(resp => {
+    this.cardsService.confirmCard(this.deck, this.card.id).subscribe(resp => {
       this.card.confirmed = !this.card.confirmed;
     });
   }
 
   goBack(): void {
     this.router.navigate(
-      [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards`]
+      [`flashcards/decks/${this.deck}/cards`]
     );
   }
 

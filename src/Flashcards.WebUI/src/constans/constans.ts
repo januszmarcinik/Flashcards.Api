@@ -1,8 +1,3 @@
-import {Topic} from '../app/flashcards/models/topic';
-export const TOPICS: Topic[] = [
-  {name: 'IT', value: 1, route: 'It'},
-  {name: 'English-Polish', value: 2, route: 'EnPl'}
-];
 export const QUILL_EDITOR_MODULES = {
   toolbar: [
     ['bold', 'italic', 'underline', 'strike'],

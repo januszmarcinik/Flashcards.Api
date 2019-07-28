@@ -13,8 +13,6 @@ import {SessionCardStatus} from "../../models/session/sessionCardStatus";
 })
 export class SessionComponent implements OnInit {
 
-  topic: string;
-  category: string;
   deck: string;
   sessionState: SessionState;
   isAnswerShown: boolean;
@@ -26,14 +24,12 @@ export class SessionComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = this.route.snapshot.paramMap.get('topic');
-    this.category = this.route.snapshot.paramMap.get('category');
     this.deck = this.route.snapshot.paramMap.get('deck');
     this.getSessionState();
   }
 
   getSessionState(): void {
-    this.sessionService.getSessionState(this.topic, this.category, this.deck)
+    this.sessionService.getSessionState(this.deck)
       .subscribe((result) => {
         this.sessionState = result.body;
       }, (ex: HttpErrorResponse) => {
@@ -47,7 +43,7 @@ export class SessionComponent implements OnInit {
       cardId: this.sessionState.card.cardId,
       status: status
     };
-    this.sessionService.applySessionCard(this.topic, this.category, this.deck, command)
+    this.sessionService.applySessionCard(this.deck, command)
       .subscribe((result) => {
         this.sessionState = result.body;
         if (this.sessionState.isFinished) {
@@ -76,7 +72,7 @@ export class SessionComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(
-      [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards`]
+      [`flashcards/decks/${this.deck}/cards`]
     );
   }
 

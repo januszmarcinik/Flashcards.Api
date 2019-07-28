@@ -1,5 +1,4 @@
 ﻿using Flashcards.Domain.Cards;
-using Flashcards.Domain.Categories;
 using Flashcards.Domain.Comments;
 using Flashcards.Domain.Decks;
 using Flashcards.Domain.Users;
@@ -11,7 +10,6 @@ namespace Flashcards.Infrastructure.DataAccess
     public class EFContext : DbContext
     {
         public virtual DbSet<Card> Cards { get; set; }
-        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
         public virtual DbSet<Deck> Decks { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -24,7 +22,6 @@ namespace Flashcards.Infrastructure.DataAccess
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new CardConfiguration());
-            builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new DeckConfiguration());
             builder.ApplyConfiguration(new UserConfiguration());
         }

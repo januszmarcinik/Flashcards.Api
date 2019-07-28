@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Flashcards.Api.Controllers
 {
     [Authorize]
-    [Route("api/topics/{topic}/categories/{category}/decks")]
+    [Route("api/decks")]
     public class DecksController : ApiController
     {
         private readonly IDecksRepository _decksRepository;
@@ -18,16 +18,16 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string category)
-            => Ok(_decksRepository.GetByCategoryName(category));
+        public IActionResult Get()
+            => Ok(_decksRepository.GetAll());
 
         [HttpGet("{deck}")]
-        public IActionResult Get(string topic, string category, string deck)
+        public IActionResult Get(string deck)
             => Ok(_decksRepository.GetByName(deck));
 
         [HttpPost]
-        public IActionResult Post(string category, [FromBody] AddDeckCommand command)
-            => Dispatch(command.SetCategory(category));
+        public IActionResult Post([FromBody] AddDeckCommand command)
+            => Dispatch(command);
 
         [HttpPut]
         public IActionResult Put([FromBody] EditDeckCommand command)

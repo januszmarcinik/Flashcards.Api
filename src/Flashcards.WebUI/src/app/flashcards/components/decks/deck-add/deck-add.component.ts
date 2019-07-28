@@ -11,8 +11,6 @@ import {HttpErrorResponse} from '@angular/common/http';
 })
 export class DeckAddComponent implements OnInit {
 
-  category: string;
-  topic: string;
   deckForm: FormGroup;
   errors: any;
 
@@ -23,8 +21,6 @@ export class DeckAddComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = this.route.snapshot.paramMap.get('topic');
-    this.category = this.route.snapshot.paramMap.get('category');
     this.createForm();
   }
 
@@ -36,9 +32,9 @@ export class DeckAddComponent implements OnInit {
   }
 
   save() {
-    this.deckService.add(this.topic, this.category, this.deckForm.value).subscribe(resp => {
+    this.deckService.add(this.deckForm.value).subscribe(resp => {
       if (resp.ok) {
-        this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
+        this.router.navigate([`/flashcards/decks`]);
       }
     }, (err: HttpErrorResponse) => {
       console.log(err);
@@ -47,7 +43,7 @@ export class DeckAddComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate([`/flashcards/topics/${this.topic}/categories/${this.category}/decks`]);
+    this.router.navigate([`/flashcards/decks`]);
   }
 
 }

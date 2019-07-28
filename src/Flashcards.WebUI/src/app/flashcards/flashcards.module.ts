@@ -1,11 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CategoryListComponent} from './components/categories/category-list/category-list.component';
 import {RouterModule} from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
-import {CategoriesService} from './services/categories.service';
-import {CategoryAddComponent} from './components/categories/category-add/category-add.component';
-import {CategoryEditComponent} from './components/categories/category-edit/category-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MaterialModule} from '../material.module';
 import {DeckListComponent} from './components/decks/deck-list/deck-list.component';
@@ -37,9 +33,6 @@ import {SessionService} from './services/session.service';
     NgxUploaderModule
   ],
   declarations: [
-    CategoryListComponent,
-    CategoryEditComponent,
-    CategoryAddComponent,
     DeckListComponent,
     CardListComponent,
     DeckAddComponent,
@@ -51,7 +44,7 @@ import {SessionService} from './services/session.service';
     BlockCutDirective,
     SessionComponent
   ],
-  providers: [CategoriesService, DecksService, CardsService, CommentsService, SessionService]
+  providers: [DecksService, CardsService, CommentsService, SessionService]
 })
 export class FlashcardsModule {
 }

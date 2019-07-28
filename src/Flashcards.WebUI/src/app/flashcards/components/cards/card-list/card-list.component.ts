@@ -15,8 +15,6 @@ import {ConfirmDeleteComponent} from '../../../../shared/components/confirm-dele
 })
 export class CardListComponent implements OnInit {
 
-  topic: string;
-  category: string;
   deck: string;
 
   displayedColumns = ['no', 'title', 'confirmed', 'question', 'id'];
@@ -32,14 +30,12 @@ export class CardListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = this.route.snapshot.paramMap.get('topic');
-    this.category = this.route.snapshot.paramMap.get('category');
     this.deck = this.route.snapshot.paramMap.get('deck');
     this.loadCards();
   }
 
   loadCards(): void {
-    this.cardsService.getByDeck(this.topic, this.category, this.deck)
+    this.cardsService.getByDeck(this.deck)
       .subscribe((cards) => {
         this.dataSource = new MatTableDataSource(cards.body);
         this.dataSource.paginator = this.paginator;
@@ -51,13 +47,13 @@ export class CardListComponent implements OnInit {
 
   add(): void {
     this.router.navigate(
-      [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards/add`]
+      [`flashcards/decks/${this.deck}/cards/add`]
     );
   }
 
   edit(card: Card): void {
     this.router.navigate(
-      [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/cards/${card.id}`]
+      [`flashcards/decks/${this.deck}/cards/${card.id}`]
     );
   }
 
@@ -68,7 +64,7 @@ export class CardListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.cardsService.remove(this.topic, this.category, this.deck, card)
+        this.cardsService.remove(this.deck, card)
           .subscribe((response) => {
             if (response.ok) {
               this.loadCards();
@@ -82,7 +78,7 @@ export class CardListComponent implements OnInit {
 
   session(): void {
     this.router.navigate(
-      [`flashcards/topics/${this.topic}/categories/${this.category}/decks/${this.deck}/session`]
+      [`flashcards/decks/${this.deck}/session`]
     );
   }
 
@@ -94,7 +90,7 @@ export class CardListComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(
-      [`flashcards/topics/${this.topic}/categories/${this.category}/decks`]
+      [`flashcards/decks`]
     );
   }
 

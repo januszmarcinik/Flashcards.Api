@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Flashcards.Core;
-using Flashcards.Domain.Categories;
 
 namespace Flashcards.Domain.Cards
 {
@@ -22,14 +21,10 @@ namespace Flashcards.Domain.Cards
 
         public Guid UserId { get; set; }
 
-        public Topic Topic { get; set; }
-        public string Category { get; set; }
         public string Deck { get; set; }
 
-        public EditCardCommand SetFromRoute(Topic topic, string category, string deck, Guid userId)
+        public EditCardCommand SetFromRoute(string deck, Guid userId)
         {
-            Topic = topic;
-            Category = category;
             Deck = deck;
             UserId = userId;
             return this;

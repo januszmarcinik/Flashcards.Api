@@ -12,8 +12,6 @@ import {CommentAddComponent} from '../comment-add/comment-add.component';
 })
 export class CommentListComponent implements OnInit {
 
-  @Input() topic: string;
-  @Input() category: string;
   @Input() deck: string;
   @Input() cardId: string;
 
@@ -31,7 +29,7 @@ export class CommentListComponent implements OnInit {
   }
 
   loadComments(): void {
-    this.commentsService.getByCard(this.topic, this.category, this.deck, this.cardId)
+    this.commentsService.getByCard(this.deck, this.cardId)
       .subscribe((comments) => {
         this.comments = comments.body;
       }, (ex: HttpErrorResponse) => {

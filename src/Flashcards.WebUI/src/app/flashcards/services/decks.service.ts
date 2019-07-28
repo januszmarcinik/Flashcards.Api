@@ -13,8 +13,8 @@ export class DecksService {
               private authService: AuthService) {
   }
 
-  getByCategory(topic: string, category: string): Observable<HttpResponse<Deck[]>> {
-    return this.http.get<Deck[]>(`${environment.API_URL}/topics/${topic}/categories/${category}/decks`, {
+  getAll(): Observable<HttpResponse<Deck[]>> {
+    return this.http.get<Deck[]>(`${environment.API_URL}/decks`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -22,8 +22,8 @@ export class DecksService {
     });
   }
 
-  getByName(topic: string, category: string, deck: string): Observable<HttpResponse<Deck>> {
-    return this.http.get<Deck>(`${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}`, {
+  getByName(deck: string): Observable<HttpResponse<Deck>> {
+    return this.http.get<Deck>(`${environment.API_URL}/decks/${deck}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -31,8 +31,8 @@ export class DecksService {
     });
   }
 
-  add(topic: string, category: string, deck: Deck): Observable<HttpResponse<any>> {
-    return this.http.post<any>(`${environment.API_URL}/topics/${topic}/categories/${category}/decks`, deck, {
+  add(deck: Deck): Observable<HttpResponse<any>> {
+    return this.http.post<any>(`${environment.API_URL}/decks`, deck, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -40,8 +40,8 @@ export class DecksService {
     });
   }
 
-  edit(topic: string, category: string, deck: Deck): Observable<HttpResponse<any>> {
-    return this.http.put(`${environment.API_URL}/topics/${topic}/categories/${category}/decks`, deck, {
+  edit(deck: Deck): Observable<HttpResponse<any>> {
+    return this.http.put(`${environment.API_URL}/decks`, deck, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -49,8 +49,8 @@ export class DecksService {
     });
   }
 
-  delete(topic: string, category: string, deck: Deck): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck.id}`, {
+  delete(deck: Deck): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(`${environment.API_URL}/decks/${deck.id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`

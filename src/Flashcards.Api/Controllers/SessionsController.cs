@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Flashcards.Api.Controllers
 {
     [Authorize]
-    [Route("api/topics/{topic}/categories/{category}/decks/{deck}/sessions")]
+    [Route("api/decks/{deck}/sessions")]
     public class SessionsController : ApiController
     {
         public SessionsController(IMediator mediator)

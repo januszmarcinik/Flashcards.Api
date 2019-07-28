@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Flashcards.Api.Controllers
 {
     [Authorize]
-    [Route("api/topics/{topic}/categories/{category}/decks/{deck}/cards/{card}/comments")]
+    [Route("api/decks/{deck}/cards/{card}/comments")]
     public class CommentsController : ApiController
     {
         private readonly ICommentsRepository _commentsRepository;

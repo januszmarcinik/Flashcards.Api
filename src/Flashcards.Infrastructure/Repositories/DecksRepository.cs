@@ -23,22 +23,20 @@ namespace Flashcards.Infrastructure.Repositories
                 .SingleAndEnsureExists(x => x.Name == name, ErrorCode.DeckDoesNotExist)
                 .ToDto();
 
-        public List<DeckDto> GetByCategoryName(string categoryName)
+        public List<DeckDto> GetAll()
             => _dbContext.Decks
-                .Where(x => x.Category.Name == categoryName)
                 .Select(x => x.ToDto())
                 .ToList();
 
-        public void Add(string categoryName, string deckName, string description)
+        public void Add(string deckName, string description)
         {
             if (_dbContext.Decks.ExistsSingle(x => x.Name == deckName))
             {
                 throw new FlashcardsException(ErrorCode.DeckAlreadyExist);
             }
 
-            var category = _dbContext.Categories.SingleAndEnsureExists(x => x.Name == categoryName, ErrorCode.CategoryDoesNotExist);
-            category.AddDeck(new Deck(deckName, description));
-            _dbContext.Categories.Update(category);
+            var deck = new Deck(deckName, description);
+            _dbContext.Decks.Add(deck);
             _dbContext.SaveChanges();
         }
 

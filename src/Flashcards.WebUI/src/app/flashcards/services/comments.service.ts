@@ -13,9 +13,9 @@ export class CommentsService {
               private authService: AuthService) {
   }
 
-  getByCard(topic: string, category: string, deck: string, card: string): Observable<HttpResponse<Comment[]>> {
+  getByCard(deck: string, card: string): Observable<HttpResponse<Comment[]>> {
     return this.http.get<Comment[]>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments`, {
+      `${environment.API_URL}/decks/${deck}/cards/${card}/comments`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`
@@ -23,9 +23,9 @@ export class CommentsService {
       });
   }
 
-  getById(topic: string, category: string, deck: string, card: string, id: string): Observable<HttpResponse<Comment>> {
+  getById(deck: string, card: string, id: string): Observable<HttpResponse<Comment>> {
     return this.http.get<Comment>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments/${id}`, {
+      `${environment.API_URL}/decks/${deck}/cards/${card}/comments/${id}`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`
@@ -33,9 +33,9 @@ export class CommentsService {
       });
   }
 
-  add(topic: string, category: string, deck: string, card: string, comment: Comment): Observable<HttpResponse<any>> {
+  add(deck: string, card: string, comment: Comment): Observable<HttpResponse<any>> {
     return this.http.post<any>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card}/comments`, comment, {
+      `${environment.API_URL}/decks/${deck}/cards/${card}/comments`, comment, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`

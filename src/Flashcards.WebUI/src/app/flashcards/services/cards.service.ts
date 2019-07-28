@@ -12,9 +12,9 @@ export class CardsService {
               private authService: AuthService) {
   }
 
-  getByDeck(topic: string, category: string, deck: string): Observable<HttpResponse<Card[]>> {
+  getByDeck(deck: string): Observable<HttpResponse<Card[]>> {
     return this.http.get<Card[]>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, {
+      `${environment.API_URL}/decks/${deck}/cards`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -22,9 +22,9 @@ export class CardsService {
     });
   }
 
-  getById(topic: string, category: string, deck: string, id: string): Observable<HttpResponse<Card>> {
+  getById(deck: string, id: string): Observable<HttpResponse<Card>> {
     return this.http.get<Card>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${id}`, {
+      `${environment.API_URL}/decks/${deck}/cards/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -32,9 +32,9 @@ export class CardsService {
     });
   }
 
-  add(topic: string, category: string, deck: string, card: Card): Observable<HttpResponse<any>> {
+  add(deck: string, card: Card): Observable<HttpResponse<any>> {
     return this.http.post<any>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, card, {
+      `${environment.API_URL}/decks/${deck}/cards`, card, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -42,9 +42,9 @@ export class CardsService {
     });
   }
 
-  edit(topic: string, category: string, deck: string, card: Card): Observable<HttpResponse<any>> {
+  edit(deck: string, card: Card): Observable<HttpResponse<any>> {
     return this.http.put<any>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards`, card, {
+      `${environment.API_URL}/decks/${deck}/cards`, card, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -52,9 +52,9 @@ export class CardsService {
     });
   }
 
-  remove(topic: string, category: string, deck: string, card: Card): Observable<HttpResponse<any>> {
+  remove(deck: string, card: Card): Observable<HttpResponse<any>> {
     return this.http.delete<any>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${card.id}`, {
+      `${environment.API_URL}/decks/${deck}/cards/${card.id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.authService.getToken()}`
@@ -62,8 +62,8 @@ export class CardsService {
     });
   }
 
-  confirmCard(topic: string, category: string, deck: string, cardId: string): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/cards/${cardId}`, null, {
+  confirmCard(deck: string, cardId: string): Observable<HttpResponse<any>> {
+    return this.http.put<any>(`${environment.API_URL}/decks/${deck}/cards/${cardId}`, null, {
       headers: {
         'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`

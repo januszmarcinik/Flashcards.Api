@@ -17,8 +17,6 @@ import {AlertService} from '../../../../shared/services/alert.service';
 export class DeckListComponent implements OnInit {
 
   decks: Deck[];
-  category: string;
-  topic: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -29,23 +27,21 @@ export class DeckListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.topic = this.route.snapshot.paramMap.get('topic');
-    this.category = this.route.snapshot.paramMap.get('category');
     this.getDecks();
   }
 
   add() {
     this.router.navigate(
-      [`/flashcards/topics/${this.topic}/categories/${this.category}/decks/add`]);
+      [`/flashcards/decks/add`]);
   }
 
   edit(deck: Deck) {
     this.router.navigate(
-      [`/flashcards/topics/${this.topic}/categories/${this.category}/decks/${deck.name}`]);
+      [`/flashcards/decks/${deck.name}`]);
   }
 
   delete(deck: Deck) {
-    this.cardService.getByDeck(this.topic, this.category, deck.name).subscribe(resp => {
+    this.cardService.getByDeck(deck.name).subscribe(resp => {
       const cardCount = resp.body.length;
       if (cardCount > 0) {
         const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
@@ -64,7 +60,7 @@ export class DeckListComponent implements OnInit {
   }
 
   getDecks() {
-    this.decksService.getByCategory(this.topic, this.category).subscribe(resp => {
+    this.decksService.getAll().subscribe(resp => {
       if (resp.ok) {
         this.decks = resp.body;
       }
@@ -75,19 +71,13 @@ export class DeckListComponent implements OnInit {
 
   goToCards(deck: Deck): void {
     this.router.navigate(
-      [`/flashcards/topics/${this.topic}/categories/${this.category}/decks/${deck.name}/cards`]);
-  }
-
-  goBack(): void {
-    this.router.navigate(
-      [`/flashcards/topics/${this.topic}/categories`]
-    );
+      [`/flashcards/decks/${deck.name}/cards`]);
   }
 
   private alertAndDeleteCard(dialogRef: any, deck: Deck) {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.decksService.delete(this.topic, this.category, deck).subscribe(delResp => {
+        this.decksService.delete(deck).subscribe(delResp => {
           if (delResp.ok) {
             this.ngOnInit();
           }

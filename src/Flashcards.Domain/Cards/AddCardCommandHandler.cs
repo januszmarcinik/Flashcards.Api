@@ -22,10 +22,10 @@ namespace Flashcards.Domain.Cards
                 command.Id = Guid.NewGuid();
             }
 
-            command.Question = _imagesService.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Question);
-            command.Answer = _imagesService.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Answer);
+            command.Question = _imagesService.ProcessTextForEdit(command.Deck, command.Id, command.Question);
+            command.Answer = _imagesService.ProcessTextForEdit(command.Deck, command.Id, command.Answer);
 
-            _imagesService.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
+            _imagesService.SaveImages(command.Deck, command.Id);
 
             _cardsRepository.Add(command.Deck, command.Title, command.Question, command.Answer);
 

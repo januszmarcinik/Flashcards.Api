@@ -13,9 +13,9 @@ export class SessionService {
   constructor(private http: HttpClient,
               private authService: AuthService) { }
 
-  getSessionState(topic: string, category: string, deck: string): Observable<HttpResponse<SessionState>> {
+  getSessionState(deck: string): Observable<HttpResponse<SessionState>> {
     return this.http.get<SessionState>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/sessions`, {
+      `${environment.API_URL}/decks/${deck}/sessions`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`
@@ -23,9 +23,9 @@ export class SessionService {
       });
   }
 
-  applySessionCard(topic: string, category: string, deck: string, card: any): Observable<HttpResponse<SessionState>> {
+  applySessionCard(deck: string, card: any): Observable<HttpResponse<SessionState>> {
     return this.http.post<SessionState>(
-      `${environment.API_URL}/topics/${topic}/categories/${category}/decks/${deck}/sessions`, card, {
+      `${environment.API_URL}/decks/${deck}/sessions`, card, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${this.authService.getToken()}`

@@ -13,7 +13,7 @@ namespace Flashcards.Domain.Decks
 
         public Result Handle(AddDeckCommand command)
         {
-            _decksRepository.Add(command.CategoryName, command.Name, command.Description);
+            _decksRepository.Add(command.Name, command.Description);
             return Result.Ok();
         }
     }

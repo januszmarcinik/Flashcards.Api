@@ -15,13 +15,13 @@ namespace Flashcards.Domain.Cards
 
         public Result Handle(EditCardCommand command)
         {
-            var path = _imagesService.GetPhysicalPath(command.Topic, command.Category, command.Deck, command.Id);
+            var path = _imagesService.GetPhysicalPath(command.Deck, command.Id);
 
-            command.Question = _imagesService.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Question);
-            command.Answer = _imagesService.ProcessTextForEdit(command.Topic, command.Category, command.Deck, command.Id, command.Answer);
+            command.Question = _imagesService.ProcessTextForEdit(command.Deck, command.Id, command.Question);
+            command.Answer = _imagesService.ProcessTextForEdit(command.Deck, command.Id, command.Answer);
 
             _imagesService.RemoveDirectory(path);
-            _imagesService.SaveImages(command.Topic, command.Category, command.Deck, command.Id);
+            _imagesService.SaveImages(command.Deck, command.Id);
 
             _cardsRepository.Update(command.Id, command.Title, command.Question, command.Answer);
 
