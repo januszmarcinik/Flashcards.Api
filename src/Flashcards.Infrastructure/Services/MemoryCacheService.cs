@@ -1,5 +1,5 @@
 ﻿using System;
-using Flashcards.Domain.Users;
+using Flashcards.Domain;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Flashcards.Infrastructure.Services
@@ -18,5 +18,8 @@ namespace Flashcards.Infrastructure.Services
 
         public void Set(string key, object value, TimeSpan expirationTime)
             => _memoryCache.Set(key, value, expirationTime);
+
+        public void Remove(string key)
+            => _memoryCache.Remove(key);
     }
 }

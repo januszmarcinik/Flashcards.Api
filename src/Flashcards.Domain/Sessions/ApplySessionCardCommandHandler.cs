@@ -1,19 +1,60 @@
-﻿using Flashcards.Core;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Flashcards.Core;
 
 namespace Flashcards.Domain.Sessions
 {
     internal class ApplySessionCardCommandHandler : ICommandHandler<ApplySessionCardCommand>
     {
-        private readonly ISessionsService _sessionsService;
+        private readonly ICacheService _cache;
 
-        public ApplySessionCardCommandHandler(ISessionsService sessionsService)
+        public ApplySessionCardCommandHandler(ICacheService cache)
         {
-            _sessionsService = sessionsService;
+            _cache = cache;
         }
 
         public Result Handle(ApplySessionCardCommand command)
         {
-            _sessionsService.ApplySessionCard(command.UserId, command.Deck, command.CardId, command.Status);
+            var session = _cache.Get<SessionStateDto>(CacheKeys.GetSessionStateKey(command.UserId, command.Deck));
+            var cards = _cache.Get<List<SessionCardDto>>(CacheKeys.GetSessionCardsKey(session.Id));
+
+            var card = cards.First(x => x.CardId == command.CardId);
+            cards.Remove(card);
+
+            if (command.Status == SessionCardStatus.DoNotYet)
+            {
+                if (cards.Count > 5)
+                {
+                    cards.Insert(5, card);
+                }
+                else
+                {
+                    cards.Add(card);
+                }
+            }
+            else if (command.Status == SessionCardStatus.NotSure)
+            {
+                cards.Add(card);
+            }
+            else
+            {
+                session.IncrementCounter();
+            }
+
+            if (cards.Count > 0)
+            {
+                session.SetCard(cards.First());
+                _cache.Set(CacheKeys.GetSessionStateKey(command.UserId, command.Deck), session, TimeSpan.FromHours(1));
+                _cache.Set(CacheKeys.GetSessionCardsKey(session.Id), cards, TimeSpan.FromHours(1));
+            }
+            else
+            {
+                session.Finish();
+                _cache.Set(CacheKeys.GetSessionStateKey(command.UserId, command.Deck), session, TimeSpan.FromSeconds(1));
+                _cache.Remove(CacheKeys.GetSessionCardsKey(session.Id));
+            }
+
             return Result.Ok();
         }
     }

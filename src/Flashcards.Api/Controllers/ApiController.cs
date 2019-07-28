@@ -14,7 +14,7 @@ namespace Flashcards.Api.Controllers
             _mediator = mediator;
         }
 
-        protected IActionResult Dispatch<T>(T command) where T : ICommand
+        protected IActionResult Dispatch<TCommand>(TCommand command) where TCommand : ICommand
         {
             if (!ModelState.IsValid)
             {
@@ -22,8 +22,30 @@ namespace Flashcards.Api.Controllers
                 throw new FlashcardsException(ErrorCode.InvalidCommand, errors);
             }
 
-            _mediator.Command(command);
+            var result = _mediator.Command(command);
+            if (result.IsSuccess == false)
+            {
+                return BadRequest(result.Message);
+            }
+
             return Accepted();
+        }
+
+        protected IActionResult Dispatch<T>(IQuery<T> query)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = string.Join(", ", ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage));
+                throw new FlashcardsException(ErrorCode.InvalidCommand, errors);
+            }
+
+            var result = _mediator.Query(query);
+            if (result.IsSuccess == false)
+            {
+                return BadRequest(result.Message);
+            }
+
+            return Ok(result.Value);
         }
     }
 }
