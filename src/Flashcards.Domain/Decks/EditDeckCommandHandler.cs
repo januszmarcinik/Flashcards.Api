@@ -2,7 +2,7 @@
 
 namespace Flashcards.Domain.Decks
 {
-    public class EditDeckCommandHandler : ICommandHandler<EditDeckCommand>
+    public class EditDeckCommandHandler : CommandHandlerBase<EditDeckCommand>
     {
         private readonly IDecksRepository _decksRepository;
 
@@ -11,9 +11,24 @@ namespace Flashcards.Domain.Decks
             _decksRepository = decksRepository;
         }
 
-        public Result Handle(EditDeckCommand command)
+        public override Result Handle(EditDeckCommand command)
         {
-            _decksRepository.Update(command.Id, command.Name, command.Description);
+            var deck = _decksRepository.GetById(command.Id);
+            if (deck == null)
+            {
+                return Fail("Deck with given ID does not exist.");
+            }
+
+            var possibleDuplicate = _decksRepository.GetByName(command.Name);
+            if (possibleDuplicate != null && possibleDuplicate.Id != deck.Id)
+            {
+                return Fail("Deck with given name already exist.");
+            }
+
+            deck.Name = command.Name;
+            deck.Description = command.Description;
+            _decksRepository.Update(deck);
+
             return Result.Ok();
         }
     }

@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Decks;
-using Flashcards.Domain.Extensions;
 using Flashcards.Infrastructure.DataAccess;
-using Flashcards.Infrastructure.Extensions;
 
 namespace Flashcards.Infrastructure.Repositories
 {
@@ -18,55 +15,30 @@ namespace Flashcards.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public DeckDto GetByName(string name)
-            => _dbContext.Decks
-                .SingleAndEnsureExists(x => x.Name == name, ErrorCode.DeckDoesNotExist)
-                .ToDto();
+        public Deck GetById(Guid id)
+            => _dbContext.Decks.SingleOrDefault(x => x.Id == id);
 
-        public List<DeckDto> GetAll()
-            => _dbContext.Decks
-                .Select(x => x.ToDto())
-                .ToList();
+        public Deck GetByName(string name)
+            => _dbContext.Decks.SingleOrDefault(x => x.Name == name);
 
-        public void Add(string deckName, string description)
+        public IEnumerable<Deck> GetAll()
+            => _dbContext.Decks.ToList();
+
+        public void Add(Deck deck)
         {
-            if (_dbContext.Decks.ExistsSingle(x => x.Name == deckName))
-            {
-                throw new FlashcardsException(ErrorCode.DeckAlreadyExist);
-            }
-
-            var deck = new Deck(deckName, description);
             _dbContext.Decks.Add(deck);
             _dbContext.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Update(Deck deck)
         {
-            var deckForRemove = _dbContext.Decks.Find(id);
-            if (deckForRemove == null)
-            {
-                throw new FlashcardsException(ErrorCode.DeckDoesNotExist);
-            }
-
-            _dbContext.Decks.Remove(deckForRemove);
+            _dbContext.Decks.Update(deck);
             _dbContext.SaveChanges();
         }
 
-        public void Update(Guid deckId, string deckName, string description)
+        public void Delete(Deck deck)
         {
-            var deck = _dbContext.Decks.Find(deckId);
-            if (deck == null)
-            {
-                throw new FlashcardsException(ErrorCode.DeckDoesNotExist);
-            }
-
-            if (_dbContext.Decks.ExistsSingleExceptFor(s => s.Name == deckName, deckId))
-            {
-                throw new FlashcardsException(ErrorCode.DeckAlreadyExist);
-            }
-
-            deck.SetName(deckName);
-            deck.SetDescription(description);
+            _dbContext.Decks.Remove(deck);
             _dbContext.SaveChanges();
         }
     }

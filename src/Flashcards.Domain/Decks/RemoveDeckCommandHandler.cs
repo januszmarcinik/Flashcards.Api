@@ -2,7 +2,7 @@
 
 namespace Flashcards.Domain.Decks
 {
-    public class RemoveDeckCommandHandler : ICommandHandler<RemoveDeckCommand>
+    public class RemoveDeckCommandHandler : CommandHandlerBase<RemoveDeckCommand>
     {
         private readonly IDecksRepository _decksRepository;
 
@@ -11,9 +11,16 @@ namespace Flashcards.Domain.Decks
             _decksRepository = decksRepository;
         }
 
-        public Result Handle(RemoveDeckCommand command)
+        public override Result Handle(RemoveDeckCommand command)
         {
-            _decksRepository.Delete(command.Id);
+            var deck = _decksRepository.GetById(command.Id);
+            if (deck == null)
+            {
+                return Fail("Deck with given ID does not exist.");
+            }
+
+            _decksRepository.Delete(deck);
+
             return Result.Ok();
         }
     }

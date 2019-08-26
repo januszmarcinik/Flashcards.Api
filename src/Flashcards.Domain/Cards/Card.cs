@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
 using Flashcards.Domain.Comments;
-using Flashcards.Domain.Decks;
 
 namespace Flashcards.Domain.Cards
 {
@@ -12,21 +11,19 @@ namespace Flashcards.Domain.Cards
         private List<Comment> _comments = new List<Comment>();
 
         public Guid Id { get; protected set; }
+        public Guid DeckId { get; protected set; }
         public string Title { get; protected set; }
         public string Question { get; protected set; }
         public string Answer { get; protected set; }
         public bool Confirmed { get; protected set; }
-        public virtual Deck Deck { get; protected set; }
         public virtual IReadOnlyCollection<Comment> Comments => _comments;
 
         protected Card() { }
 
-        public Card(string title, string question, string answer)
-            : this(Guid.NewGuid(), title, question, answer) { }
-
-        public Card(Guid id, string title, string question, string answer)
+        public Card(Guid deckId, string title, string question, string answer)
         {
-            SetId(id);
+            SetId(Guid.NewGuid());
+            DeckId = deckId;
             SetTitle(title);
             SetQuestion(question);
             SetAnswer(answer);

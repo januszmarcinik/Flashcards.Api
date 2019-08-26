@@ -1,8 +1,9 @@
-﻿using Flashcards.Core;
+﻿using System;
+using Flashcards.Core;
 
 namespace Flashcards.Domain.Decks
 {
-    internal class AddDeckCommandHandler : ICommandHandler<AddDeckCommand>
+    internal class AddDeckCommandHandler : CommandHandlerBase<AddDeckCommand>
     {
         private readonly IDecksRepository _decksRepository;
 
@@ -11,9 +12,16 @@ namespace Flashcards.Domain.Decks
             _decksRepository = decksRepository;
         }
 
-        public Result Handle(AddDeckCommand command)
+        public override Result Handle(AddDeckCommand command)
         {
-            _decksRepository.Add(command.Name, command.Description);
+            if (_decksRepository.GetByName(command.Name) != null)
+            {
+                return Fail("Deck with given name already exist.");
+            }
+
+            var deck = new Deck(Guid.NewGuid(), command.Name, command.Description);
+            _decksRepository.Add(deck);
+
             return Result.Ok();
         }
     }

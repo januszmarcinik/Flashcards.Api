@@ -15,7 +15,7 @@
         public static Result Fail(string message)
             => new Result(false, message);
 
-        public static Result Fail<T>(string message)
+        public static Result<T> Fail<T>(string message)
             => new Result<T>(false, message, default);
 
         public static Result Ok()

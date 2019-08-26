@@ -21,7 +21,8 @@ namespace Flashcards.Infrastructure.Repositories
         public CardDto GetById(Guid id)
         {
             var current = _dbContext.Cards.FindAndEnsureExists(id, ErrorCode.CardDoesNotExist);
-            var ids = current.Deck.Cards
+            var ids = _dbContext.Cards
+                .Where(x => x.DeckId == current.Id)
                 .OrderBy(x => x.Title)
                 .Select(x => x.Id)
                 .ToList();
@@ -33,7 +34,8 @@ namespace Flashcards.Infrastructure.Repositories
         public List<CardDto> GetByDeckName(string deckName)
         {
             var deck = _dbContext.Decks.SingleAndEnsureExists(x => x.Name == deckName, ErrorCode.DeckDoesNotExist);
-            var cards = deck.Cards
+            var cards = _dbContext.Cards
+                .Where(x => x.DeckId == deck.Id)
                 .OrderBy(x => x.Title)
                 .Select(x => x.ToDto())
                 .ToList();
@@ -44,8 +46,8 @@ namespace Flashcards.Infrastructure.Repositories
         public void Add(string deckName, string title, string question, string answer)
         {
             var deck = _dbContext.Decks.SingleAndEnsureExists(x => x.Name == deckName, ErrorCode.DeckDoesNotExist);
-            deck.AddCard(new Card(title, question, answer));
-            _dbContext.Decks.Update(deck);
+            var card = new Card(deck.Id, title, question, answer);
+            _dbContext.Cards.Add(card);
             _dbContext.SaveChanges();
         }
 
