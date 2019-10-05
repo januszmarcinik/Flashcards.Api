@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {SessionService} from "../../services/session.service";
-import {SessionState} from "../../models/session/sessionState";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AlertService} from "../../../shared/services/alert.service";
-import {HttpErrorResponse} from "@angular/common/http";
-import {SessionCardStatus} from "../../models/session/sessionCardStatus";
+import {SessionService} from '../../services/session.service';
+import {SessionState} from '../../models/session/sessionState';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AlertService} from '../../../shared/services/alert.service';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-session',
@@ -37,11 +36,11 @@ export class SessionComponent implements OnInit {
       });
   }
 
-  applySessionCard(status: SessionCardStatus): void {
+  applySessionCard(isOk: boolean): void {
     this.isAnswerShown = false;
-    let command = {
+    const command = {
       cardId: this.sessionState.card.cardId,
-      status: status
+      isOk
     };
     this.sessionService.applySessionCard(this.deck, command)
       .subscribe((result) => {
@@ -52,18 +51,6 @@ export class SessionComponent implements OnInit {
       }, (ex: HttpErrorResponse) => {
         this.alertService.handleError(ex);
       });
-  }
-
-  doNotYet(): void {
-    this.applySessionCard(SessionCardStatus.doNotYet);
-  }
-
-  notSure(): void {
-    this.applySessionCard(SessionCardStatus.notSure);
-  }
-
-  alreadyDone(): void {
-    this.applySessionCard(SessionCardStatus.alreadyDone);
   }
 
   toggleShowAnswer(): void {

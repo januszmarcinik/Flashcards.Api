@@ -12,9 +12,8 @@
   <div class="col-sm-8 offset-sm-2">
     <mat-card>
       <mat-card-content>
-        <button class="btn btn-danger" (click)="doNotYet()">I can't do it yet</button>
-        <button class="btn btn-warning" (click)="notSure()">I'm not sure</button>
-        <button class="btn btn-success" (click)="alreadyDone()">I can do it already</button>
+        <button class="btn btn-danger" (click)="applySessionCard(false)">I can't do it yet</button>
+        <button class="btn btn-success" (click)="applySessionCard(true)">I can do it already</button>
         <span class="float-right">{{sessionState?.actualCount}} / {{sessionState?.totalCount}}</span>
 
         <mat-progress-bar

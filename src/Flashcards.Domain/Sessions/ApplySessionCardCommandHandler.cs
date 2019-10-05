@@ -5,7 +5,7 @@ using Flashcards.Core;
 
 namespace Flashcards.Domain.Sessions
 {
-    internal class ApplySessionCardCommandHandler : ICommandHandler<ApplySessionCardCommand>
+    internal class ApplySessionCardCommandHandler : CommandHandlerBase<ApplySessionCardCommand>
     {
         private readonly ICacheService _cache;
 
@@ -14,7 +14,7 @@ namespace Flashcards.Domain.Sessions
             _cache = cache;
         }
 
-        public Result Handle(ApplySessionCardCommand command)
+        public override Result Handle(ApplySessionCardCommand command)
         {
             var session = _cache.Get<SessionStateDto>(CacheKeys.GetSessionStateKey(command.UserId, command.Deck));
             var cards = _cache.Get<List<SessionCardDto>>(CacheKeys.GetSessionCardsKey(session.Id));
@@ -22,24 +22,13 @@ namespace Flashcards.Domain.Sessions
             var card = cards.First(x => x.CardId == command.CardId);
             cards.Remove(card);
 
-            if (command.Status == SessionCardStatus.DoNotYet)
+            if (command.IsOk)
             {
-                if (cards.Count > 5)
-                {
-                    cards.Insert(5, card);
-                }
-                else
-                {
-                    cards.Add(card);
-                }
-            }
-            else if (command.Status == SessionCardStatus.NotSure)
-            {
-                cards.Add(card);
+                session.IncrementCounter();
             }
             else
             {
-                session.IncrementCounter();
+                cards.Add(card);
             }
 
             if (cards.Count > 0)
@@ -55,7 +44,7 @@ namespace Flashcards.Domain.Sessions
                 _cache.Remove(CacheKeys.GetSessionCardsKey(session.Id));
             }
 
-            return Result.Ok();
+            return Ok();
         }
     }
 }

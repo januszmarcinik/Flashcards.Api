@@ -10,7 +10,7 @@ namespace Flashcards.Domain.Sessions
         public Guid CardId { get; set; }
 
         [Required]
-        public SessionCardStatus Status { get; set; }
+        public bool IsOk { get; set; }
 
         public Guid UserId { get; private set; }
         public string Deck { get; private set; }
