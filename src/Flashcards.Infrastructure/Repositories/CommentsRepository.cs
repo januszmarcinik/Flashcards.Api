@@ -20,7 +20,8 @@ namespace Flashcards.Infrastructure.Repositories
         public List<CommentDto> GetByCard(Guid cardId)
         {
             var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
-            var comments = card.Comments
+            var comments = _dbContext.Comments
+                .Where(x => x.CardId == card.Id)
                 .OrderByDescending(x => x.Date)
                 .Select(x => x.ToDto())
                 .ToList();
@@ -38,12 +39,10 @@ namespace Flashcards.Infrastructure.Repositories
             var user = _dbContext.Users.FindAndEnsureExists(userId, ErrorCode.UserDoesNotExist);
             var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
 
-            var comment = new Comment(text);
+            var comment = new Comment(card.Id, text);
             user.AddComment(comment);
-            card.AddComment(comment);
 
-            _dbContext.Cards.Update(card);
-            _dbContext.Users.Update(user);
+            _dbContext.Comments.Add(comment);
             _dbContext.SaveChanges();
         }
     }

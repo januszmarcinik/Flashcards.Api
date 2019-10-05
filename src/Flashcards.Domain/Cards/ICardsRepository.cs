@@ -5,12 +5,11 @@ namespace Flashcards.Domain.Cards
 {
     public interface ICardsRepository
     {
-        CardDto GetById(Guid id);
-        List<CardDto> GetByDeckName(string deckName);
+        Card GetById(Guid id);
+        IEnumerable<Card> GetByDeck(Guid deckId);
 
-        void Add(string deckName, string title, string question, string answer);
-        void Update(Guid cardId, string title, string question, string answer);
-        void Delete(Guid id);
-        void Confirm(Guid id);
+        void Add(Card card);
+        void Update(Card card);
+        void Delete(Card card);
     }
 }

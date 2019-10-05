@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flashcards.Core.Exceptions;
-using Flashcards.Core.Extensions;
 using Flashcards.Domain.Cards;
 using Flashcards.Infrastructure.DataAccess;
-using Flashcards.Infrastructure.Extensions;
 
 namespace Flashcards.Infrastructure.Repositories
 {
@@ -18,63 +15,34 @@ namespace Flashcards.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public CardDto GetById(Guid id)
-        {
-            var current = _dbContext.Cards.FindAndEnsureExists(id, ErrorCode.CardDoesNotExist);
-            var ids = _dbContext.Cards
-                .Where(x => x.DeckId == current.Id)
-                .OrderBy(x => x.Title)
-                .Select(x => x.Id)
-                .ToList();
+        public Card GetById(Guid id)
+            => _dbContext.Cards.SingleOrDefault(x => x.Id == id);
 
-            var dto = current.ToDto(ids.NextOrDefault(current.Id), ids.PreviousOrDefault(current.Id));
-            return dto;
-        }
-
-        public List<CardDto> GetByDeckName(string deckName)
+        public IEnumerable<Card> GetByDeck(Guid deckId)
         {
-            var deck = _dbContext.Decks.SingleAndEnsureExists(x => x.Name == deckName, ErrorCode.DeckDoesNotExist);
             var cards = _dbContext.Cards
-                .Where(x => x.DeckId == deck.Id)
+                .Where(x => x.DeckId == deckId)
                 .OrderBy(x => x.Title)
-                .Select(x => x.ToDto())
                 .ToList();
-            
+
             return cards;
         }
 
-        public void Add(string deckName, string title, string question, string answer)
+        public void Add(Card card)
         {
-            var deck = _dbContext.Decks.SingleAndEnsureExists(x => x.Name == deckName, ErrorCode.DeckDoesNotExist);
-            var card = new Card(deck.Id, title, question, answer);
             _dbContext.Cards.Add(card);
             _dbContext.SaveChanges();
         }
 
-        public void Update(Guid cardId, string title, string question, string answer)
+        public void Update(Card card)
         {
-            var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
-
-            card.SetTitle(title);
-            card.SetQuestion(question);
-            card.SetAnswer(answer);
-
             _dbContext.Cards.Update(card);
             _dbContext.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(Card card)
         {
-            var card = _dbContext.Cards.FindAndEnsureExists(id, ErrorCode.CardDoesNotExist);
             _dbContext.Cards.Remove(card);
-            _dbContext.SaveChanges();
-        }
-
-        public void Confirm(Guid id)
-        {
-            var card = _dbContext.Cards.FindAndEnsureExists(id, ErrorCode.CardDoesNotExist);
-            card.SetConfirmed(!card.Confirmed);
-            _dbContext.Cards.Update(card);
             _dbContext.SaveChanges();
         }
     }

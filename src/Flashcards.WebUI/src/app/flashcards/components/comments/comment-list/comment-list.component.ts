@@ -34,7 +34,7 @@ export class CommentListComponent implements OnInit {
         this.comments = comments.body;
       }, (ex: HttpErrorResponse) => {
         this.alertService.handleError(ex);
-      })
+      });
   }
 
   changeCard(card: string): void {

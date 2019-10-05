@@ -2,7 +2,7 @@
 
 namespace Flashcards.Domain.Cards
 {
-    internal class EditCardCommandHandler : ICommandHandler<EditCardCommand>
+    internal class EditCardCommandHandler : CommandHandlerBase<EditCardCommand>
     {
         private readonly ICardsRepository _cardsRepository;
         private readonly IImagesService _imagesService;
@@ -13,7 +13,7 @@ namespace Flashcards.Domain.Cards
             _imagesService = imagesService;
         }
 
-        public Result Handle(EditCardCommand command)
+        public override Result Handle(EditCardCommand command)
         {
             var path = _imagesService.GetPhysicalPath(command.Deck, command.Id);
 
@@ -23,7 +23,17 @@ namespace Flashcards.Domain.Cards
             _imagesService.RemoveDirectory(path);
             _imagesService.SaveImages(command.Deck, command.Id);
 
-            _cardsRepository.Update(command.Id, command.Title, command.Question, command.Answer);
+            var card = _cardsRepository.GetById(command.Id);
+            if (card == null)
+            {
+                return Fail("Card with given ID does not exist.");
+            }
+
+            card.Title = command.Title;
+            card.Question = command.Question;
+            card.Answer = command.Answer;
+
+            _cardsRepository.Update(card);
 
             return Result.Ok();
         }

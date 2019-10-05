@@ -1,7 +1,6 @@
 ﻿using System;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Cards;
 using Flashcards.Domain.Users;
 
 namespace Flashcards.Domain.Comments
@@ -13,13 +12,14 @@ namespace Flashcards.Domain.Comments
         public DateTime Date { get; protected set; }
 
         public virtual User User { get; protected set; }
-        public virtual Card Card { get; protected set; }
+        public Guid CardId { get; protected set; }
 
         protected Comment() { }
 
-        public Comment(string text)
+        public Comment(Guid cardId, string text)
         {
             Id = Guid.NewGuid();
+            CardId = cardId;
             Date = DateTime.Now;
             SetText(text);
         }

@@ -2,7 +2,7 @@
 using System.Linq;
 using Flashcards.Core;
 using Flashcards.Domain.Cards;
-using Flashcards.Domain.Users;
+using Flashcards.Domain.Decks;
 
 namespace Flashcards.Domain.Sessions
 {
@@ -10,11 +10,13 @@ namespace Flashcards.Domain.Sessions
     {
         private readonly ICacheService _cache;
         private readonly ICardsRepository _cardsRepository;
+        private readonly IDecksRepository _decksRepository;
 
-        public GetSessionQueryHandler(ICacheService cache, ICardsRepository cardsRepository)
+        public GetSessionQueryHandler(ICacheService cache, ICardsRepository cardsRepository, IDecksRepository decksRepository)
         {
             _cache = cache;
             _cardsRepository = cardsRepository;
+            _decksRepository = decksRepository;
         }
 
         public Result<SessionStateDto> Handle(GetSessionQuery query)
@@ -28,14 +30,15 @@ namespace Flashcards.Domain.Sessions
             return Result.Ok(session);
         }
 
-        private SessionStateDto Initialize(Guid userId, string deck)
+        private SessionStateDto Initialize(Guid userId, string deckName)
         {
-            var cards = _cardsRepository.GetByDeckName(deck);
+            var deck = _decksRepository.GetByName(deckName);
+            var cards = _cardsRepository.GetByDeck(deck.Id);
             var sessionCards = cards.Select(x => new SessionCardDto(x.Id, x.Title, x.Answer, x.Question)).ToList();
-            var sessionState = new SessionStateDto(userId, deck, sessionCards.Count);
+            var sessionState = new SessionStateDto(userId, deckName, sessionCards.Count);
 
             sessionState.SetCard(sessionCards.First());
-            _cache.Set(CacheKeys.GetSessionStateKey(userId, deck), sessionState, TimeSpan.FromHours(1));
+            _cache.Set(CacheKeys.GetSessionStateKey(userId, deckName), sessionState, TimeSpan.FromHours(1));
             _cache.Set(CacheKeys.GetSessionCardsKey(sessionState.Id), sessionCards, TimeSpan.FromHours(1));
 
             return sessionState;
