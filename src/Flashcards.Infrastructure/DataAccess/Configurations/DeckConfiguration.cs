@@ -1,5 +1,6 @@
 ﻿using Flashcards.Domain.Cards;
 using Flashcards.Domain.Decks;
+using Flashcards.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,6 +15,11 @@ namespace Flashcards.Infrastructure.DataAccess.Configurations
             builder.HasIndex(x => x.Name).IsUnique();
 
             builder.HasMany<Card>()
+                .WithOne()
+                .HasForeignKey(x => x.DeckId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany<Session>()
                 .WithOne()
                 .HasForeignKey(x => x.DeckId)
                 .OnDelete(DeleteBehavior.Cascade);

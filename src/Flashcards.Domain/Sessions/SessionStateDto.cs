@@ -12,6 +12,7 @@ namespace Flashcards.Domain.Sessions
 
         public int TotalCount { get; }
         public int ActualCount { get; private set; }
+        public int TotalAttempts { get; private set; }
         public int Percentage => (int)(((double) ActualCount / (double) TotalCount) * 100);
 
         public SessionStateDto(Guid userId, string deck, int totalCount)
@@ -24,6 +25,7 @@ namespace Flashcards.Domain.Sessions
 
         public void SetCard(SessionCardDto card)
         {
+            TotalAttempts++;
             Card = card;
         }
 
