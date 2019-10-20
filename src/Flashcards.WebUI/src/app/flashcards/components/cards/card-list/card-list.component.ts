@@ -82,6 +82,12 @@ export class CardListComponent implements OnInit {
     );
   }
 
+  sessionHistory(): void {
+    this.router.navigate(
+      [`flashcards/decks/${this.deck}/session-history`]
+    );
+  }
+
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();

@@ -20,5 +20,8 @@ namespace Flashcards.Domain.Sessions
         public Guid UserId { get; protected set; }
         public decimal Result { get; protected set; }
         public DateTime Date { get; protected set; }
+
+        public SessionDto ToDto()
+            => new SessionDto(Date, Result);
     }
 }

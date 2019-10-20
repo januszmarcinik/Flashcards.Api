@@ -1,4 +1,7 @@
-﻿using Flashcards.Domain.Sessions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Flashcards.Domain.Sessions;
 using Flashcards.Infrastructure.DataAccess;
 
 namespace Flashcards.Infrastructure.Repositories
@@ -11,6 +14,13 @@ namespace Flashcards.Infrastructure.Repositories
         {
             _context = context;
         }
+
+        public IEnumerable<Session> GetBy(Guid deckId, Guid userId)
+            => _context.Sessions
+                .Where(x => x.UserId == userId)
+                .Where(x => x.DeckId == deckId)
+                .OrderByDescending(x => x.Date)
+                .ToList();
 
         public void Add(Session session)
         {

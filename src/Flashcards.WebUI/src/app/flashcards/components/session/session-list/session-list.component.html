@@ -1,0 +1,33 @@
+<app-header>
+  <p navigation>
+    Flashcards / Decks / {{deck}} / Session history
+  </p>
+  <div content>
+    <p>
+      <button class="btn btn-secondary" (click)="goToCards()"> Back </button>
+    </p>
+  </div>
+</app-header>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped app-table">
+        <thead>
+        <tr>
+          <th> # </th>
+          <th> Date </th>
+          <th> Result </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let session of sessions; let i = index">
+          <td> {{ i+1 }}</td>
+          <td> {{ session.date  | date }}</td>
+          <td> {{ session.result * 10 | percent }}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

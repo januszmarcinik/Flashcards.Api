@@ -8,6 +8,7 @@ import {CardListComponent} from './components/cards/card-list/card-list.componen
 import {CardAddComponent} from './components/cards/card-add/card-add.component';
 import {CardEditComponent} from './components/cards/card-edit/card-edit.component';
 import {ActiveSessionComponent} from './components/session/active-session/active-session.component';
+import {SessionListComponent} from './components/session/session-list/session-list.component';
 
 const USER_ROUTES: Route[] = [
   {path: 'flashcards/decks',
@@ -23,7 +24,9 @@ const USER_ROUTES: Route[] = [
   {path: 'flashcards/decks/:deck/cards/:card',
     component: CardEditComponent, canActivate: [AuthGuard]},
   {path: 'flashcards/decks/:deck/session',
-    component: ActiveSessionComponent, canActivate: [AuthGuard]}
+    component: ActiveSessionComponent, canActivate: [AuthGuard]},
+  {path: 'flashcards/decks/:deck/session-history',
+    component: SessionListComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

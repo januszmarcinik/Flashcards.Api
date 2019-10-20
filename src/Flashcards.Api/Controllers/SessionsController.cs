@@ -16,8 +16,12 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get(string deck)
+        public IActionResult GetActive(string deck)
             => Dispatch(new GetSessionQuery(Guid.Parse(User.Identity.Name), deck));
+
+        [HttpGet("history")]
+        public IActionResult GetHistory(string deck)
+            => Dispatch(new GetSessionsQuery(Guid.Parse(User.Identity.Name), deck));
 
         [HttpPost]
         public IActionResult Post([FromBody] ApplySessionCardCommand command, string deck)
