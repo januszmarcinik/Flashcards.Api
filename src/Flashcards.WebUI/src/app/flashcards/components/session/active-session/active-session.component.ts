@@ -1,16 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import {SessionService} from '../../services/session.service';
-import {SessionState} from '../../models/session/sessionState';
+import {SessionService} from '../../../services/session.service';
+import {SessionState} from '../../../models/session/sessionState';
 import {ActivatedRoute, Router} from '@angular/router';
-import {AlertService} from '../../../shared/services/alert.service';
+import {AlertService} from '../../../../shared/services/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-session',
-  templateUrl: './session.component.html',
-  styleUrls: ['./session.component.less']
+  templateUrl: './active-session.component.html',
+  styleUrls: ['./active-session.component.less']
 })
-export class SessionComponent implements OnInit {
+export class ActiveSessionComponent implements OnInit {
 
   deck: string;
   sessionState: SessionState;

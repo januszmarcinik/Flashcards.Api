@@ -18,7 +18,7 @@ import {CommentAddComponent} from './components/comments/comment-add/comment-add
 import {CommentsService} from './services/comments.service';
 import {NgxUploaderModule} from 'ngx-uploader';
 import {BlockCutDirective} from '../shared/directives/blockCutDirective';
-import {SessionComponent} from './components/session/session.component';
+import {ActiveSessionComponent} from './components/session/active-session/active-session.component';
 import {SessionService} from './services/session.service';
 
 @NgModule({
@@ -42,7 +42,7 @@ import {SessionService} from './services/session.service';
     CommentListComponent,
     CommentAddComponent,
     BlockCutDirective,
-    SessionComponent
+    ActiveSessionComponent
   ],
   providers: [DecksService, CardsService, CommentsService, SessionService]
 })
