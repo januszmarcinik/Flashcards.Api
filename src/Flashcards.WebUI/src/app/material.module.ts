@@ -9,7 +9,8 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatIconModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
@@ -26,7 +27,8 @@ const modules = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatProgressBarModule
+  MatProgressBarModule,
+  MatIconModule
 ];
 
 @NgModule({

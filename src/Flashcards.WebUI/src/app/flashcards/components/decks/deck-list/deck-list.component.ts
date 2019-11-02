@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 
 import {Deck} from '../../../models/deck';
 import {DecksService} from '../../../services/decks.service';
 import {CardsService} from '../../../services/cards.service';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {ConfirmDeleteComponent} from '../../../../shared/components/confirm-delete/confirm-delete.component';
 import {AlertService} from '../../../../shared/services/alert.service';
 
@@ -16,7 +16,10 @@ import {AlertService} from '../../../../shared/services/alert.service';
 })
 export class DeckListComponent implements OnInit {
 
-  decks: Deck[];
+  displayedColumns = ['no', 'name', 'description', 'id'];
+  dataSource: MatTableDataSource<Deck>;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -41,17 +44,18 @@ export class DeckListComponent implements OnInit {
   }
 
   delete(deck: Deck) {
+    event.stopPropagation();
     this.cardService.getByDeck(deck.name).subscribe(resp => {
       const cardCount = resp.body.length;
       if (cardCount > 0) {
         const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
-          data: {'title': `This deck has a ${cardCount} cards. Are you sure to remove everything?`}
+          data: {title: `This deck has a ${cardCount} cards. Are you sure to remove everything?`}
         });
         this.alertAndDeleteCard(dialogRef, deck);
 
       } else {
         const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
-          data: {'name': deck.name}
+          data: {name: deck.name}
         });
 
         this.alertAndDeleteCard(dialogRef, deck);
@@ -60,13 +64,14 @@ export class DeckListComponent implements OnInit {
   }
 
   getDecks() {
-    this.decksService.getAll().subscribe(resp => {
-      if (resp.ok) {
-        this.decks = resp.body;
-      }
-    }, (err: HttpErrorResponse) => {
-      console.log(err.message);
-    });
+    this.decksService.getAll()
+      .subscribe((decks) => {
+        this.dataSource = new MatTableDataSource(decks.body);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }, (ex: HttpErrorResponse) => {
+        this.alertService.handleError(ex);
+      });
   }
 
   goToCards(deck: Deck): void {
@@ -86,6 +91,12 @@ export class DeckListComponent implements OnInit {
         });
       }
     });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 
 }

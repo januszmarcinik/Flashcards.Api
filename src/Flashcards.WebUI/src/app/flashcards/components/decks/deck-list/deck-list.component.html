@@ -4,7 +4,10 @@
   </p>
   <div content>
     <p>
-      <button class="btn btn-success" (click)="add()"> Add </button>
+      <button mat-stroked-button color="primary" (click)="add()">
+        <mat-icon>add</mat-icon>
+        Add
+      </button>
     </p>
   </div>
 </app-header>
@@ -12,28 +15,50 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12">
-      <table class="table table-striped app-table">
-        <thead>
-        <tr>
-          <th> # </th>
-          <th> Name </th>
-          <th> Description </th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let deck of decks; let i = index">
-          <td> {{ i+1 }}</td>
-          <td> {{ deck.name }}</td>
-          <td> {{ deck.description }}</td>
-          <td class="float-right">
-            <button class="btn btn-primary" (click)="goToCards(deck)"> Cards </button>
-            <button class="btn btn-warning" (click)="edit(deck)"> Edit </button>
-            <button class="btn btn-danger" (click)="delete(deck)"> Delete </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+
+      <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container mat-elevation-z8">
+        <mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="no">
+            <mat-header-cell *matHeaderCellDef> # </mat-header-cell>
+            <mat-cell *matCellDef="let i = index"> {{i+1}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="id" class="float-right">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let row" class="float-right">
+              <div class="example-button-row">
+                <button mat-stroked-button (click)="edit(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-stroked-button (click)="delete(row)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToCards(row)"></mat-row>
+        </mat-table>
+
+        <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>
+      </div>
     </div>
   </div>
 </div>
