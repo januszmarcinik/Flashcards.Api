@@ -62,13 +62,4 @@ export class CardsService {
     });
   }
 
-  confirmCard(deck: string, cardId: string): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${environment.API_URL}/decks/${deck}/cards/${cardId}`, null, {
-      headers: {
-        'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.authService.getToken()}`
-      }, observe: 'response'
-    });
-  }
-
 }

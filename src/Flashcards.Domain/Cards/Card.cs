@@ -9,7 +9,7 @@ namespace Flashcards.Domain.Cards
         public string Title { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
-        public bool Confirmed { get; protected set; }
+        public bool Confirmed { get; set; }
 
         protected Card() { }
 
@@ -21,11 +21,6 @@ namespace Flashcards.Domain.Cards
             Question = question;
             Answer = answer;
             Confirmed = false;
-        }
-
-        public void ToggleConfirmed()
-        {
-            Confirmed = !Confirmed;
         }
 
         public CardDto ToDto()

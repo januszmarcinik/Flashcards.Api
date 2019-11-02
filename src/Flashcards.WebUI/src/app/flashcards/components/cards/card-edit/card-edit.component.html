@@ -4,7 +4,10 @@
   </p>
   <div content>
     <p>
-      <button class="btn btn-secondary" (click)="goBack()"> Back </button>
+      <button mat-stroked-button (click)="goBack()">
+        <mat-icon>undo</mat-icon>
+        Back
+      </button>
     </p>
   </div>
 </app-header>
@@ -12,12 +15,35 @@
   <div class="col-sm-8 offset-sm-2">
     <mat-card>
       <mat-card-content>
-        <button class="btn btn-info" [disabled]="!previousExists || !isReadOnly" (click)="prev()">Previous</button>
-        <button class="btn btn-info" [disabled]="!nextExists || !isReadOnly" (click)="next()">Next</button>
-        <button class="btn btn-warning" [disabled]="!isReadOnly" (click)="edit()">Edit</button>
-        <div class="float-right">
-          <button *ngIf="!isReadOnly" (click)="cancel()" class="btn btn-dark">Cancel</button>
-          <button [disabled]="cardForm.invalid" *ngIf="!isReadOnly" (click)="save()" class="btn btn-primary">Save</button>
+        <div class="row">
+          <div class="col-sm-4">
+            <button
+              mat-stroked-button
+              (click)="prev()"
+              [disabled]="!previousExists">
+              <mat-icon>skip_previous</mat-icon>
+              Previous
+            </button>
+          </div>
+
+          <div class="col-sm-4 text-center">
+            <button mat-stroked-button
+                    [disabled]="cardForm.invalid"
+                    (click)="save()">
+              <mat-icon>check</mat-icon>
+              Save
+            </button>
+          </div>
+
+          <div class="col-sm-4 text-right">
+            <button
+              mat-stroked-button
+              (click)="next()"
+              [disabled]="!nextExists">
+              <mat-icon>skip_next</mat-icon>
+              Next
+            </button>
+          </div>
         </div>
         <hr />
 
@@ -28,36 +54,22 @@
                 <input matInput formControlName="title" placeholder="Title"/>
               </mat-form-field>
             </div>
-            <div class="col-sm-2">
-              <mat-slide-toggle
-                [checked]="card?.confirmed"
-                (change)="confirmCard()">
+            <div class="col-sm-4">
+              <mat-checkbox formControlName="confirmed" color="primary">
                 Confirmed
-              </mat-slide-toggle>
-            </div>
-            <div class="col-sm-2">
-              <mat-slide-toggle
-                [checked]="isAnswerShown"
-                (change)="toggleShowAnswer()">
-                Answer shown
-              </mat-slide-toggle>
+              </mat-checkbox>
             </div>
           </div>
 
           <quill-editor
             [modules]="modules"
-            [readOnly]="isReadOnly"
-            [ngClass]="{'quill-editor-readonly': isReadOnly}"
             formControlName="question"
             appBlockCut
             (cut)="onCut($event)">
           </quill-editor>
 
           <quill-editor
-            *ngIf="isAnswerShown"
             [modules]="modules"
-            [readOnly]="isReadOnly"
-            [ngClass]="{'quill-editor-readonly': isReadOnly}"
             formControlName="answer"
             appBlockCut
             (cut)="onCut($event)">

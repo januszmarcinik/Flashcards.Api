@@ -31,10 +31,6 @@ namespace Flashcards.Api.Controllers
         public IActionResult Put(string deck, [FromBody] EditCardCommand command)
             => Dispatch(command.SetFromRoute(deck, Guid.Parse(User.Identity.Name)));
 
-        [HttpPut("{id}")]
-        public IActionResult Put([FromRoute] ConfirmCardCommand command)
-            => Dispatch(command);
-
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] RemoveCardCommand command)
             => Dispatch(command);

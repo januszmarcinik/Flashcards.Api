@@ -23,6 +23,8 @@ namespace Flashcards.Domain.Cards
 
         public string Deck { get; set; }
 
+        public bool Confirmed { get; set; }
+
         public EditCardCommand SetFromRoute(string deck, Guid userId)
         {
             Deck = deck;

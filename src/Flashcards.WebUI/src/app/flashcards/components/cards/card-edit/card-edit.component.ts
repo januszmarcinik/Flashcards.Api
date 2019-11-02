@@ -19,8 +19,6 @@ export class CardEditComponent implements OnInit {
   deck: string;
   cardId: string;
 
-  isReadOnly = true;
-  isAnswerShown = false;
   previousExists: boolean;
   nextExists: boolean;
   modules: any;
@@ -52,9 +50,10 @@ export class CardEditComponent implements OnInit {
   buildForm(): FormGroup {
     return this.formBuilder.group({
       id: new FormControl('', [Validators.required]),
-      title: new FormControl({value: '', disabled: true}, [Validators.required, Validators.maxLength(128)]),
+      title: new FormControl('', [Validators.required, Validators.maxLength(128)]),
       question: new FormControl('', Validators.required),
-      answer: new FormControl('', Validators.required)
+      answer: new FormControl('', Validators.required),
+      confirmed: new FormControl(false)
     });
   }
 
@@ -62,15 +61,15 @@ export class CardEditComponent implements OnInit {
     this.cardsService.getById(this.deck, id)
       .subscribe((card) => {
         this.card = card.body;
-        this.previousExists = this.card.previousCardId != GUID_EMPTY;
-        this.nextExists = this.card.nextCardId != GUID_EMPTY;
-        this.isAnswerShown = false;
+        this.previousExists = this.card.previousCardId !== GUID_EMPTY;
+        this.nextExists = this.card.nextCardId !== GUID_EMPTY;
 
         this.cardForm.setValue({
           id: this.card.id,
           title: this.card.title,
           question: this.card.question,
-          answer: this.card.answer
+          answer: this.card.answer,
+          confirmed: this.card.confirmed
         });
       });
   }
@@ -79,8 +78,6 @@ export class CardEditComponent implements OnInit {
     this.cardsService.edit(this.deck, this.cardForm.value)
       .subscribe((response) => {
         if (response.ok) {
-          this.isReadOnly = true;
-          this.cardForm.controls.title.disable();
           this.loadCard(this.cardForm.controls.id.value);
         }
       }, (ex: HttpErrorResponse) => {
@@ -88,37 +85,16 @@ export class CardEditComponent implements OnInit {
       });
   }
 
-  cancel(): void {
-    this.isReadOnly = true;
-    this.cardForm.controls.title.disable();
-  }
-
-  edit(): void {
-    this.isReadOnly = false;
-    this.isAnswerShown = true;
-    this.cardForm.controls.title.enable();
-  }
-
   prev(): void {
-    this.router.navigateByUrl(`/flashcards/topics/It/categories/Azure/decks/${this.deck}/cards/${this.card.previousCardId}`);
+    this.router.navigateByUrl(`/flashcards/decks/${this.deck}/cards/${this.card.previousCardId}/edit`);
     this.loadCard(this.card.previousCardId);
     this.commentList.changeCard(this.card.previousCardId);
   }
 
   next(): void {
-    this.router.navigateByUrl(`/flashcards/topics/It/categories/Azure/decks/${this.deck}/cards/${this.card.nextCardId}`);
+    this.router.navigateByUrl(`/flashcards/decks/${this.deck}/cards/${this.card.nextCardId}/edit`);
     this.loadCard(this.card.nextCardId);
     this.commentList.changeCard(this.card.nextCardId);
-  }
-
-  toggleShowAnswer(): void {
-    this.isAnswerShown = !this.isAnswerShown;
-  }
-
-  confirmCard(): void {
-    this.cardsService.confirmCard(this.deck, this.card.id).subscribe(resp => {
-      this.card.confirmed = !this.card.confirmed;
-    });
   }
 
   goBack(): void {

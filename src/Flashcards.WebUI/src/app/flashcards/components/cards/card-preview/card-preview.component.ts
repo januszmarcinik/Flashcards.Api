@@ -50,13 +50,13 @@ export class CardPreviewComponent implements OnInit {
   }
 
   prev(): void {
-    this.router.navigateByUrl(`/flashcards/topics/It/categories/Azure/decks/${this.deck}/cards/${this.card.previousCardId}`);
+    this.router.navigateByUrl(`/flashcards/decks/${this.deck}/cards/${this.card.previousCardId}`);
     this.loadCard(this.card.previousCardId);
     this.commentList.changeCard(this.card.previousCardId);
   }
 
   next(): void {
-    this.router.navigateByUrl(`/flashcards/topics/It/categories/Azure/decks/${this.deck}/cards/${this.card.nextCardId}`);
+    this.router.navigateByUrl(`/flashcards/decks/${this.deck}/cards/${this.card.nextCardId}`);
     this.loadCard(this.card.nextCardId);
     this.commentList.changeCard(this.card.nextCardId);
   }

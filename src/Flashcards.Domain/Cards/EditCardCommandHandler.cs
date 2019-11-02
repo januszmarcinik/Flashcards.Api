@@ -32,6 +32,7 @@ namespace Flashcards.Domain.Cards
             card.Title = command.Title;
             card.Question = command.Question;
             card.Answer = command.Answer;
+            card.Confirmed = command.Confirmed;
 
             _cardsRepository.Update(card);
 
