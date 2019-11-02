@@ -15,9 +15,9 @@ import {CommentsService} from '../../../services/comments.service';
 export class CommentAddComponent implements OnInit {
 
   @Input() deck: string;
+  @Input() cardId: string;
   @Output() onSave = new EventEmitter();
 
-  cardId: string;
   modules = QUILL_EDITOR_MODULES;
 
   commentForm: FormGroup;

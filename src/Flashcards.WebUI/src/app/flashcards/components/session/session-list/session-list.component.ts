@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AlertService} from '../../../../shared/services/alert.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {SessionListItem} from '../../../models/session/sessionListItem';
 import {SessionService} from '../../../services/session.service';
+import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 
 @Component({
   selector: 'app-session-list',
@@ -12,8 +13,11 @@ import {SessionService} from '../../../services/session.service';
 })
 export class SessionListComponent implements OnInit {
 
-  private sessions: SessionListItem[];
   private deck: string;
+  displayedColumns = ['no', 'date', 'result'];
+  dataSource: MatTableDataSource<SessionListItem>;
+  @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: false}) sort: MatSort;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -27,17 +31,24 @@ export class SessionListComponent implements OnInit {
   }
 
   getSessions() {
-    this.sessionsService.getMySessions(this.deck).subscribe(resp => {
-      if (resp.ok) {
-        this.sessions = resp.body;
-      }
-    }, (err: HttpErrorResponse) => {
-      this.alertService.handleError(err);
-    });
+    this.sessionsService.getMySessions(this.deck)
+      .subscribe((sessions) => {
+        this.dataSource = new MatTableDataSource(sessions.body);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }, (ex: HttpErrorResponse) => {
+        this.alertService.handleError(ex);
+      });
   }
 
   goToCards(): void {
     this.router.navigate(
       [`/flashcards/decks/${this.deck}/cards`]);
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
   }
 }

@@ -21,6 +21,7 @@ import {BlockCutDirective} from '../shared/directives/blockCutDirective';
 import {ActiveSessionComponent} from './components/session/active-session/active-session.component';
 import {SessionService} from './services/session.service';
 import { SessionListComponent } from './components/session/session-list/session-list.component';
+import { CardPreviewComponent } from './components/cards/card-preview/card-preview.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { SessionListComponent } from './components/session/session-list/session-
     CommentAddComponent,
     BlockCutDirective,
     ActiveSessionComponent,
-    SessionListComponent
+    SessionListComponent,
+    CardPreviewComponent
   ],
   providers: [DecksService, CardsService, CommentsService, SessionService]
 })

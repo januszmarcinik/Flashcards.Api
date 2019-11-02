@@ -9,6 +9,7 @@ import {CardAddComponent} from './components/cards/card-add/card-add.component';
 import {CardEditComponent} from './components/cards/card-edit/card-edit.component';
 import {ActiveSessionComponent} from './components/session/active-session/active-session.component';
 import {SessionListComponent} from './components/session/session-list/session-list.component';
+import {CardPreviewComponent} from './components/cards/card-preview/card-preview.component';
 
 const USER_ROUTES: Route[] = [
   {path: 'flashcards/decks',
@@ -22,6 +23,8 @@ const USER_ROUTES: Route[] = [
   {path: 'flashcards/decks/:deck/cards/add',
     component: CardAddComponent, canActivate: [AuthGuard]},
   {path: 'flashcards/decks/:deck/cards/:card',
+    component: CardPreviewComponent, canActivate: [AuthGuard]},
+  {path: 'flashcards/decks/:deck/cards/:card/edit',
     component: CardEditComponent, canActivate: [AuthGuard]},
   {path: 'flashcards/decks/:deck/session',
     component: ActiveSessionComponent, canActivate: [AuthGuard]},

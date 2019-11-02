@@ -10,7 +10,9 @@ import {
   MatPaginatorModule,
   MatSortModule,
   MatProgressBarModule,
-  MatIconModule
+  MatIconModule,
+  MatBadgeModule,
+  MatChipsModule
 } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatSelectModule} from '@angular/material/select';
@@ -28,7 +30,9 @@ const modules = [
   MatPaginatorModule,
   MatSortModule,
   MatProgressBarModule,
-  MatIconModule
+  MatIconModule,
+  MatBadgeModule,
+  MatChipsModule
 ];
 
 @NgModule({

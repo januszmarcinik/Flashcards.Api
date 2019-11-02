@@ -3,11 +3,23 @@
     Flashcards / Decks / {{deck}} / Cards
   </p>
   <div content>
-    <p>
-      <button class="btn btn-secondary" (click)="goBack()"> Back </button>
-      <button class="btn btn-success" (click)="add()"> Add </button>
-      <button class="btn btn-primary" (click)="session()"> Run Flashcards Session </button>
-      <button class="btn btn-primary" (click)="sessionHistory()"> Session history </button>
+    <p class="example-button-row">
+      <button mat-stroked-button (click)="goBack()">
+        <mat-icon>undo</mat-icon>
+        Back
+      </button>
+      <button mat-stroked-button (click)="add()">
+        <mat-icon>add</mat-icon>
+        Add
+      </button>
+      <button mat-stroked-button (click)="session()">
+        <mat-icon>play_circle_outline</mat-icon>
+        Play session
+      </button>
+      <button mat-stroked-button (click)="sessionHistory()">
+        <mat-icon>history</mat-icon>
+        Sessions history
+      </button>
     </p>
   </div>
 </app-header>
@@ -50,13 +62,19 @@
           <ng-container matColumnDef="id" class="float-right">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <button class="btn btn-warning" (click)="edit(row)"> Edit </button>
-              <button class="btn btn-danger" (click)="delete(row)"> Delete </button>
+              <div class="example-button-row">
+                <button mat-stroked-button (click)="edit(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-stroked-button (click)="delete(row)">
+                  <mat-icon>delete_outline</mat-icon>
+                </button>
+              </div>
             </mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="preview(row)"></mat-row>
         </mat-table>
 
         <mat-paginator [pageSizeOptions]="[10, 20, 50, 100]"></mat-paginator>

@@ -53,11 +53,18 @@ export class CardListComponent implements OnInit {
 
   edit(card: Card): void {
     this.router.navigate(
+      [`flashcards/decks/${this.deck}/cards/${card.id}/edit`]
+    );
+  }
+
+  preview(card: Card): void {
+    this.router.navigate(
       [`flashcards/decks/${this.deck}/cards/${card.id}`]
     );
   }
 
   delete(card: Card): void {
+    event.stopPropagation();
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       data: {name: card.title}
     });

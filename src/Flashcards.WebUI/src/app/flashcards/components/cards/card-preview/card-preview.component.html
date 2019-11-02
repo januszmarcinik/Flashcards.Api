@@ -1,6 +1,6 @@
 <app-header>
   <p navigation>
-    Flashcards / Decks / {{deck}} / Session
+    Flashcards / Decks / {{deck}} / Cards / {{card?.title}}
   </p>
   <div content>
     <p>
@@ -15,41 +15,30 @@
   <div class="col-sm-8 offset-sm-2">
     <mat-card>
       <mat-card-content>
-        <mat-progress-bar
-          class="session-progress-bar"
-          [value]="sessionState?.percentage"
-          [bufferValue]="100">
-        </mat-progress-bar>
 
         <h5 class="text-center">
-          <small>
-            <mat-chip-list>
-              <mat-chip class="text-right">{{sessionState?.actualCount}} / {{sessionState?.totalCount}}</mat-chip>
-            </mat-chip-list>
-          </small>
           {{sessionState?.card.title}}
         </h5>
 
         <quill-editor [readOnly]="true" [modules]="{toolbar: false}"
-                      [(ngModel)]="sessionState?.card.question"></quill-editor>
+                      [(ngModel)]="card.question"></quill-editor>
         <hr/>
 
         <div class="row">
           <div class="col-sm-4">
             <button
               mat-stroked-button
-              color="warn"
-              (click)="applySessionCard(false)"
-              [disabled]="!isAnswerShown">
-              <mat-icon>reply</mat-icon>
-              Replay
+              (click)="prev()"
+              [disabled]="!previousExists">
+              <mat-icon>skip_previous</mat-icon>
+              Previous
             </button>
           </div>
 
           <div class="col-sm-4 text-center">
             <button mat-stroked-button
-              [disabled]="isAnswerShown"
-              (click)="toggleShowAnswer()">
+                    [disabled]="isAnswerShown"
+                    (click)="toggleShowAnswer()">
               <mat-icon>screen_rotation</mat-icon>
               Check
             </button>
@@ -58,20 +47,25 @@
           <div class="col-sm-4 text-right">
             <button
               mat-stroked-button
-              color="primary"
-              (click)="applySessionCard(true)"
-              [disabled]="!isAnswerShown">
-              <mat-icon>check</mat-icon>
-              Ready
+              (click)="next()"
+              [disabled]="!nextExists">
+              <mat-icon>skip_next</mat-icon>
+              Next
             </button>
           </div>
         </div>
 
         <hr/>
 
-        <quill-editor [readOnly]="true" [modules]="{toolbar: false}" [(ngModel)]="sessionState?.card.answer"
+        <quill-editor [readOnly]="true" [modules]="{toolbar: false}" [(ngModel)]="card.answer"
                       *ngIf="isAnswerShown"></quill-editor>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
+
+<app-comment-list
+  [deck]="deck"
+  [cardId]="cardId"
+  #commentList>
+</app-comment-list>

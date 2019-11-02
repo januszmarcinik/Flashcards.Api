@@ -19,8 +19,8 @@ export class CardEditComponent implements OnInit {
   deck: string;
   cardId: string;
 
-  isReadOnly: boolean = true;
-  isAnswerShown: boolean = false;
+  isReadOnly = true;
+  isAnswerShown = false;
   previousExists: boolean;
   nextExists: boolean;
   modules: any;
@@ -80,8 +80,8 @@ export class CardEditComponent implements OnInit {
       .subscribe((response) => {
         if (response.ok) {
           this.isReadOnly = true;
-          this.cardForm.controls['title'].disable();
-          this.loadCard(this.cardForm.controls['id'].value);
+          this.cardForm.controls.title.disable();
+          this.loadCard(this.cardForm.controls.id.value);
         }
       }, (ex: HttpErrorResponse) => {
         this.errors = ex.error.message;
@@ -90,13 +90,13 @@ export class CardEditComponent implements OnInit {
 
   cancel(): void {
     this.isReadOnly = true;
-    this.cardForm.controls['title'].disable();
+    this.cardForm.controls.title.disable();
   }
 
   edit(): void {
     this.isReadOnly = false;
     this.isAnswerShown = true;
-    this.cardForm.controls['title'].enable();
+    this.cardForm.controls.title.enable();
   }
 
   prev(): void {
@@ -128,7 +128,7 @@ export class CardEditComponent implements OnInit {
   }
 
   onCut($event): void {
-    if ($event.target['tagName'].toLowerCase() === 'img') {
+    if ($event.target.tagName.toLowerCase() === 'img') {
       this.alertService.showMessage('You cannot CUT. Use COPY / PASTE / DELETE');
     }
   }
