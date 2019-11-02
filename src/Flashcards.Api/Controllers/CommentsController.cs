@@ -10,21 +10,14 @@ namespace Flashcards.Api.Controllers
     [Route("api/decks/{deck}/cards/{card}/comments")]
     public class CommentsController : ApiController
     {
-        private readonly ICommentsRepository _commentsRepository;
-
-        public CommentsController(IMediator mediator, ICommentsRepository commentsRepository)
+        public CommentsController(IMediator mediator)
             : base(mediator)
         {
-            _commentsRepository = commentsRepository;
         }
 
         [HttpGet]
         public IActionResult Get(Guid card)
-            => Ok(_commentsRepository.GetByCard(card));
-
-        [HttpGet("id")]
-        public IActionResult Get(Guid card, Guid id)
-            => Ok(_commentsRepository.GetById(id));
+            => Dispatch(new GetCommentsByCardQuery(card));
 
         [HttpPost]
         public IActionResult Post(Guid card, [FromBody] AddCommentCommand command)

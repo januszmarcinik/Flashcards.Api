@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
 using Flashcards.Core.Exceptions;
 using Flashcards.Core.Extensions;
-using Flashcards.Domain.Comments;
 
 namespace Flashcards.Domain.Users
 {
     public class User : IEntity
     {
-        private List<Comment> _comments = new List<Comment>();
-
         public Guid Id { get; protected set; }
         public string Email { get; protected set; }
         public Role Role { get; set; }
         public string Password { get; protected set; }
         public string Salt { get; protected set; }
-        public virtual IReadOnlyCollection<Comment> Comments => _comments;
 
         protected User() { }
 
@@ -73,11 +68,6 @@ namespace Flashcards.Domain.Users
 
             Password = password;
             Salt = salt;
-        }
-
-        public void AddComment(Comment comment)
-        {
-            _comments.Add(comment);
         }
 
         public UserDto ToDto()

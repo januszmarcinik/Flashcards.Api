@@ -1,4 +1,5 @@
-﻿using Flashcards.Domain.Sessions;
+﻿using Flashcards.Domain.Comments;
+using Flashcards.Domain.Sessions;
 using Flashcards.Domain.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,9 +14,9 @@ namespace Flashcards.Infrastructure.DataAccess.Configurations
             builder.Property(x => x.Email).HasMaxLength(32);
             builder.HasIndex(x => x.Email).IsUnique();
 
-            builder.HasMany(x => x.Comments)
-                .WithOne(x => x.User)
-                .HasForeignKey("UserId")
+            builder.HasMany<Comment>()
+                .WithOne()
+                .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany<Session>()

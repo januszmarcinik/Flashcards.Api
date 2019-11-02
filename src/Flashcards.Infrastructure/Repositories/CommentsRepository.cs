@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Comments;
 using Flashcards.Infrastructure.DataAccess;
-using Flashcards.Infrastructure.Extensions;
 
 namespace Flashcards.Infrastructure.Repositories
 {
@@ -17,31 +15,14 @@ namespace Flashcards.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public List<CommentDto> GetByCard(Guid cardId)
-        {
-            var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
-            var comments = _dbContext.Comments
-                .Where(x => x.CardId == card.Id)
+        public IEnumerable<Comment> GetByCard(Guid cardId)
+            => _dbContext.Comments
+                .Where(x => x.CardId == cardId)
                 .OrderByDescending(x => x.Date)
-                .Select(x => x.ToDto())
                 .ToList();
 
-            return comments;
-        }
-
-        public CommentDto GetById(Guid id)
-            => _dbContext.Comments
-                .FindAndEnsureExists(id, ErrorCode.InvalidCommentText)
-                .ToDto();
-
-        public void Add(Guid cardId, Guid userId, string text)
-        {
-            var user = _dbContext.Users.FindAndEnsureExists(userId, ErrorCode.UserDoesNotExist);
-            var card = _dbContext.Cards.FindAndEnsureExists(cardId, ErrorCode.CardDoesNotExist);
-
-            var comment = new Comment(card.Id, text);
-            user.AddComment(comment);
-
+        public void Add(Comment comment)
+        { 
             _dbContext.Comments.Add(comment);
             _dbContext.SaveChanges();
         }

@@ -11,15 +11,16 @@ namespace Flashcards.Domain.Comments
         public string Text { get; protected set; }
         public DateTime Date { get; protected set; }
 
-        public virtual User User { get; protected set; }
+        public Guid UserId { get; protected set; }
         public Guid CardId { get; protected set; }
 
         protected Comment() { }
 
-        public Comment(Guid cardId, string text)
+        public Comment(Guid cardId, Guid userId, string text)
         {
             Id = Guid.NewGuid();
             CardId = cardId;
+            UserId = userId;
             Date = DateTime.Now;
             SetText(text);
         }
@@ -34,7 +35,7 @@ namespace Flashcards.Domain.Comments
             Text = text;
         }
 
-        public CommentDto ToDto()
-            => new CommentDto(Id, Text, Date, User.Email);
+        public CommentDto ToDto(string userEmail)
+            => new CommentDto(Id, Text, Date, userEmail);
     }
 }

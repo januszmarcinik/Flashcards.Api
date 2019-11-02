@@ -1,26 +1,45 @@
 ﻿using System;
 using Flashcards.Core;
 using Flashcards.Core.Extensions;
+using Flashcards.Domain.Cards;
+using Flashcards.Domain.Users;
 
 namespace Flashcards.Domain.Comments
 {
-    internal class AddCommentCommandHandler : ICommandHandler<AddCommentCommand>
+    internal class AddCommentCommandHandler : CommandHandlerBase<AddCommentCommand>
     {
         private readonly ICommentsRepository _commentsRepository;
+        private readonly ICardsRepository _cardsRepository;
+        private readonly IUsersRepository _usersRepository;
 
-        public AddCommentCommandHandler(ICommentsRepository commentsRepository)
+        public AddCommentCommandHandler(ICommentsRepository commentsRepository, ICardsRepository cardsRepository, IUsersRepository usersRepository)
         {
             _commentsRepository = commentsRepository;
+            _cardsRepository = cardsRepository;
+            _usersRepository = usersRepository;
         }
 
-        public Result Handle(AddCommentCommand command)
+        public override Result Handle(AddCommentCommand command)
         {
             if (command.Id.IsEmpty())
             {
                 command.Id = Guid.NewGuid();
             }
 
-            _commentsRepository.Add(command.CardId, command.UserId, command.Text);
+            var user = _usersRepository.GetById(command.UserId);
+            if (user == null)
+            {
+                return Fail("User with given id does not exist.");
+            }
+
+            var card = _cardsRepository.GetById(command.CardId);
+            if (card == null)
+            {
+                return Fail("Card wih given id does not exist.");
+            }
+
+            var comment = new Comment(card.Id, user.Id, command.Text);
+            _commentsRepository.Add(comment);
 
             return Result.Ok();
         }

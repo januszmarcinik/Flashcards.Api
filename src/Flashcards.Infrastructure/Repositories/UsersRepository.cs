@@ -28,6 +28,14 @@ namespace Flashcards.Infrastructure.Repositories
                 .SingleAndEnsureExists(x => x.Email == email, ErrorCode.UserWithGivenEmailDoesNotExist)
                 .ToDto();
 
+        public User GetById(Guid id)
+            => _dbContext.Users.SingleOrDefault(x => x.Id == id);
+
+        public IEnumerable<User> GetByIds(IEnumerable<Guid> ids)
+            => _dbContext.Users
+                .Where(x => ids.Contains(x.Id))
+                .ToList();
+
         public void Update(Guid id, string email)
         {
             if (_dbContext.Users.ExistsSingleExceptFor(x => x.Email == email, id))

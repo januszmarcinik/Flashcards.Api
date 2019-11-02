@@ -18,17 +18,7 @@ export class CommentsService {
       `${environment.API_URL}/decks/${deck}/cards/${card}/comments`, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.authService.getToken()}`
-        }, observe: 'response'
-      });
-  }
-
-  getById(deck: string, card: string, id: string): Observable<HttpResponse<Comment>> {
-    return this.http.get<Comment>(
-      `${environment.API_URL}/decks/${deck}/cards/${card}/comments/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.authService.getToken()}`
+          Authorization: `Bearer ${this.authService.getToken()}`
         }, observe: 'response'
       });
   }
@@ -38,7 +28,7 @@ export class CommentsService {
       `${environment.API_URL}/decks/${deck}/cards/${card}/comments`, comment, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.authService.getToken()}`
+          Authorization: `Bearer ${this.authService.getToken()}`
         }, observe: 'response'
       });
   }

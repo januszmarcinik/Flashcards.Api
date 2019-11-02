@@ -3,12 +3,12 @@
     <mat-card class="example-card">
       <mat-card-content>
         <form [formGroup]="commentForm">
-          <quill-editor [modules]="modules" formControlName="text"></quill-editor>
+          <quill-editor [modules]="modules" formControlName="text" placeholder="Insert comment here..."></quill-editor>
           <label class="text-danger text-center">
             {{errors}}
           </label>
-          <button [disabled]="commentForm.invalid" (click)="save()" class="btn btn-success float-right">
-            Add comment
+          <button [disabled]="commentForm.invalid" (click)="save()" mat-stroked-button>
+            <mat-icon>check</mat-icon>
           </button>
         </form>
       </mat-card-content>

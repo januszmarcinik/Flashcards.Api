@@ -7,6 +7,8 @@ namespace Flashcards.Domain.Users
     {
         List<UserDto> GetAll();
         UserDto GetByEmail(string email);
+        User GetById(Guid id);
+        IEnumerable<User> GetByIds(IEnumerable<Guid> ids);
 
         void Update(Guid id, string email);
         void Login(string email, string password);
