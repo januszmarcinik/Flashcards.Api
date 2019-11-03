@@ -1,6 +1,5 @@
 ﻿using System;
 using Flashcards.Core;
-using Flashcards.Core.Extensions;
 using Flashcards.Domain.Extensions;
 
 namespace Flashcards.Domain.Users
@@ -10,25 +9,34 @@ namespace Flashcards.Domain.Users
         private readonly IUsersRepository _usersRepository;
         private readonly ITokenService _tokenService;
         private readonly ICacheService _cache;
+        private readonly EncryptionService _encryptionService;
 
-        public LoginUserCommandHandler(IUsersRepository usersRepository, ITokenService tokenService, ICacheService cache)
+        public LoginUserCommandHandler(IUsersRepository usersRepository, ITokenService tokenService, ICacheService cache, EncryptionService encryptionService)
         {
             _usersRepository = usersRepository;
             _tokenService = tokenService;
             _cache = cache;
+            _encryptionService = encryptionService;
         }
 
         public Result Handle(LoginUserCommand command)
         {
-            if (command.TokenId.IsEmpty())
+            Result HandleError() => Result.Fail("Invalid email or password.");
+
+            var user = _usersRepository.GetByEmail(command.Email);
+            if (user == null)
             {
-                command.TokenId = Guid.NewGuid();
+                return HandleError();
             }
 
-            _usersRepository.Login(command.Email, command.Password);
-            var user = _usersRepository.GetByEmail(command.Email);
+            var hash = _encryptionService.GetHash(command.Password, user.Salt);
+            if (user.Password != hash)
+            {
+                return HandleError();
+            }
 
             var jwt = _tokenService.CreateToken(user.Id, user.Email, user.Role);
+            
             _cache.SetJwt(command.TokenId, jwt);
 
             return Result.Ok();

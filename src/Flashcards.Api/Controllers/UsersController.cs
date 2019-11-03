@@ -9,29 +9,22 @@ namespace Flashcards.Api.Controllers
     [Route("api/users")]
     public class UsersController : ApiController
     {
-        private readonly IUsersRepository _usersRepository;
-
-        public UsersController(IUsersRepository usersRepository, IMediator mediator)
+        public UsersController(IMediator mediator)
             : base(mediator)
         {
-            _usersRepository = usersRepository;
         }
 
         [HttpGet]
         public IActionResult Get()
-            => Ok(_usersRepository.GetAll());
+            => Dispatch(new GetAllUsersQuery());
 
         [HttpGet("{email}")]
         public IActionResult Get(string email)
-            => Ok(_usersRepository.GetByEmail(email));
+            => Dispatch(new GetUserByEmailQuery(email));
 
         [HttpPost]
         [AllowAnonymous]
         public IActionResult Post([FromBody] RegisterUserCommand command)
-            => Dispatch(command);
-
-        [HttpPut]
-        public IActionResult Put([FromBody] EditUserCommand command)
             => Dispatch(command);
 
         [HttpDelete("{id}")]

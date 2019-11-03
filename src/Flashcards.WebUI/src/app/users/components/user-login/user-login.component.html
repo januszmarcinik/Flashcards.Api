@@ -3,7 +3,12 @@
     Dashboard / Users / Login
   </p>
   <div content>
-    Sign in
+    <p>
+      <button mat-stroked-button (click)="register()">
+        <mat-icon>account_box</mat-icon>
+        Register
+      </button>
+    </p>
   </div>
 </app-header>
 <div class="row">
@@ -32,20 +37,11 @@
               <div [hidden]="!loginForm.controls['password'].errors.minlength">Password must has at least 6 characters</div>
             </div>
           </mat-form-field>
-          <div *ngIf="errors" class="error">
-            <small class="form-text validation-error">{{errors['email']}}</small>
-            <small class="form-text validation-error">{{errors['password']}}</small>
-            <small class="form-text validation-error">{{errors}}</small>
-          </div>
-          <mat-card-actions align="end">
-            <button class="btn custom-button" [disabled]="loginForm.invalid" (click)="login()"
-                    type="submit">
-              Login
-            </button>
-          </mat-card-actions>
+          <button mat-stroked-button [disabled]="loginForm.invalid" (click)="login()" type="submit">
+            <mat-icon>launch</mat-icon>
+          </button>
 
         </form>
-        <p><a class="link" [routerLink]="['/register']">Register</a></p>
       </mat-card-content>
     </mat-card>
   </div>

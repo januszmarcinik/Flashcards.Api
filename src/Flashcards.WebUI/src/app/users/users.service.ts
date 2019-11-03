@@ -29,15 +29,6 @@ export class UsersService {
 
   }
 
-  getById(id: number): Observable<HttpResponse<User>> {
-    return this.http.get<User>(`${this.url}/${id}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.authService.getToken()}`
-      }, observe: 'response'
-    });
-  }
-
   add(user: UserRegister): Observable<HttpResponse<any>> {
     return this.http.post<any>(this.url, user, {
       headers: {
@@ -47,16 +38,7 @@ export class UsersService {
     });
   }
 
-  edit(id: number, data): Observable<HttpResponse<any>> {
-    return this.http.put<any>(`${this.url}/${id}`, data, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.authService.getToken()}`
-      }, observe: 'response'
-    });
-  }
-
-  remove(id: number): Observable<HttpResponse<any>> {
+  remove(id: string): Observable<HttpResponse<any>> {
     return this.http.delete<any>(`${this.url}/${id}`, {
       headers: {
         'Content-Type': 'application/json',

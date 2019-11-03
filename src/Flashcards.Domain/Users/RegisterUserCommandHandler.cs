@@ -2,19 +2,29 @@
 
 namespace Flashcards.Domain.Users
 {
-    internal class RegisterUserCommandHandler : ICommandHandler<RegisterUserCommand>
+    internal class RegisterUserCommandHandler : CommandHandlerBase<RegisterUserCommand>
     {
         private readonly IUsersRepository _usersRepository;
+        private readonly EncryptionService _encryptionService;
 
-        public RegisterUserCommandHandler(IUsersRepository usersRepository)
+        public RegisterUserCommandHandler(IUsersRepository usersRepository, EncryptionService encryptionService)
         {
             _usersRepository = usersRepository;
+            _encryptionService = encryptionService;
         }
 
-        public Result Handle(RegisterUserCommand command)
+        public override Result Handle(RegisterUserCommand command)
         {
-            _usersRepository.Register(command.Id, command.Email, command.Role, command.Password);
-            return Result.Ok();
+            if (_usersRepository.GetByEmail(command.Email) != null)
+            {
+                return Fail("User with given email already exists.");
+            }
+
+            var salt = _encryptionService.GetSalt(command.Password);
+            var hash = _encryptionService.GetHash(command.Password, salt);
+
+            _usersRepository.Add(new User(command.Email, Role.User, hash, salt));
+            return Ok();
         }
     }
 }

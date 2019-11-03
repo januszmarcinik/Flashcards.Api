@@ -5,14 +5,13 @@ namespace Flashcards.Domain.Users
 {
     public interface IUsersRepository
     {
-        List<UserDto> GetAll();
-        UserDto GetByEmail(string email);
+        IEnumerable<User> GetAll();
+        User GetByEmail(string email);
         User GetById(Guid id);
         IEnumerable<User> GetByIds(IEnumerable<Guid> ids);
 
-        void Update(Guid id, string email);
-        void Login(string email, string password);
-        void Register(Guid guid, string email, Role role, string password);
-        void Delete(Guid id);
+        void Add(User user);
+        void Update(User user);
+        void Delete(User user);
     }
 }

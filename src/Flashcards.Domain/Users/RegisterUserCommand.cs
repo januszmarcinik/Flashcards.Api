@@ -1,19 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using Flashcards.Core;
 
 namespace Flashcards.Domain.Users
 {
     public class RegisterUserCommand : ICommand
     {
-        public Guid Id { get; set; }
-
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
-        [Required]
-        public Role Role { get; set; }
 
         [Required]
         [MinLength(8)]

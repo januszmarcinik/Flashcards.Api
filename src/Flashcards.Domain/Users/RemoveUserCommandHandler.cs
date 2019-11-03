@@ -2,7 +2,7 @@
 
 namespace Flashcards.Domain.Users
 {
-    internal class RemoveUserCommandHandler : ICommandHandler<RemoveUserCommand>
+    internal class RemoveUserCommandHandler : CommandHandlerBase<RemoveUserCommand>
     {
         private readonly IUsersRepository _usersRepository;
 
@@ -11,10 +11,16 @@ namespace Flashcards.Domain.Users
             _usersRepository = usersRepository;
         }
 
-        public Result Handle(RemoveUserCommand command)
+        public override Result Handle(RemoveUserCommand command)
         {
-            _usersRepository.Delete(command.Id);
-            return Result.Ok();
+            var user = _usersRepository.GetById(command.Id);
+            if (user == null)
+            {
+                return Fail("User with given id does not exist.");
+            }
+
+            _usersRepository.Delete(user);
+            return Ok();
         }
     }
 }

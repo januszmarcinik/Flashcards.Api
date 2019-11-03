@@ -1,4 +1,5 @@
-﻿using Flashcards.Core;
+﻿using System;
+using Flashcards.Core;
 using Flashcards.Domain;
 using Flashcards.Domain.Extensions;
 using Flashcards.Domain.Users;
@@ -20,8 +21,9 @@ namespace Flashcards.Api.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] LoginUserCommand command)
         {
-            Dispatch(command);
-            return Ok(_cache.GetJwt(command.TokenId));
+            command.SetTokenId(Guid.NewGuid());
+            JwtDto GetValueOnSuccess() => _cache.GetJwt(command.TokenId);
+            return Dispatch(command, GetValueOnSuccess);
         }
     }
 }

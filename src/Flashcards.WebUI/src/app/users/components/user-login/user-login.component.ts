@@ -2,10 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from '../../users.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserLogin} from '../../models/user-login';
-import {Token} from '../../models/token';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AuthService} from '../../../shared/auth.service';
 import {Router} from '@angular/router';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-user-login',
@@ -13,15 +13,15 @@ import {Router} from '@angular/router';
   styleUrls: ['./user-login.component.less']
 })
 export class UserLoginComponent implements OnInit {
+
   loginForm: FormGroup;
   userLogin: UserLogin;
-  token: Token;
-  errors: any;
 
   constructor(private userService: UsersService,
               private fb: FormBuilder,
               private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -29,23 +29,28 @@ export class UserLoginComponent implements OnInit {
   }
 
   login() {
-    this.userLogin = <UserLogin> this.loginForm.value;
+    this.userLogin = this.loginForm.value as UserLogin;
     this.userService.auth(this.userLogin).subscribe(
       response => {
-        this.token = response.body;
-        this.authService.setToken(this.token);
+        console.log(response);
+        const token = response.body;
+        this.authService.setToken(token);
         this.router.navigate(['/users']);
       }, (err: HttpErrorResponse) => {
-        this.errors = err.error.message;
+        this.alertService.handleError(err);
       }
     );
   }
 
   createForm() {
     this.loginForm = this.fb.group({
-      'email': new FormControl('', [Validators.required, Validators.email]),
-      'password': new FormControl('', [Validators.required, Validators.minLength(6)])
+      email: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
+  }
+
+  register(): void {
+    this.router.navigate([`register`]);
   }
 
 }

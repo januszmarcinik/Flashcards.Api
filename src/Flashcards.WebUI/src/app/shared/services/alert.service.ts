@@ -6,27 +6,22 @@ import {AlertComponent} from '../components/alert/alert.component';
 @Injectable()
 export class AlertService {
 
-  private message: string;
-
   constructor(private dialog: MatDialog) {
   }
 
   handleError(ex: HttpErrorResponse): void {
-    if (ex.error != null) {
-      this.message = ex.error.message;
+    if (ex.error.message) {
+      this.showMessage(ex.error.message);
+    } else if (ex.error) {
+      this.showMessage(ex.error);
+    } else {
+      this.showMessage(ex.message);
     }
-    else {
-      this.message = ex.message;
-    }
-
-    this.dialog.open(AlertComponent, {
-      data: {message: this.message}
-    });
   }
 
   showMessage(message: string): void {
     this.dialog.open(AlertComponent, {
-      data: {message: message}
+      data: {message}
     });
   }
 }

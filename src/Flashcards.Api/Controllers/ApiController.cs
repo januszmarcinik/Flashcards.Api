@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Flashcards.Core;
 using Microsoft.AspNetCore.Mvc;
 using Flashcards.Core.Exceptions;
@@ -14,7 +15,7 @@ namespace Flashcards.Api.Controllers
             _mediator = mediator;
         }
 
-        protected IActionResult Dispatch<TCommand>(TCommand command) where TCommand : ICommand
+        protected IActionResult Dispatch<TCommand>(TCommand command, Func<object> getValueOnSuccess = null) where TCommand : ICommand
         {
             if (!ModelState.IsValid)
             {
@@ -28,7 +29,9 @@ namespace Flashcards.Api.Controllers
                 return BadRequest(result.Message);
             }
 
-            return Accepted();
+            return getValueOnSuccess != null 
+                ? Accepted(getValueOnSuccess()) 
+                : Accepted();
         }
 
         protected IActionResult Dispatch<T>(IQuery<T> query)
