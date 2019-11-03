@@ -25,7 +25,6 @@ export class CardEditComponent implements OnInit {
 
   card: Card;
   cardForm: FormGroup;
-  errors: string;
 
   @ViewChild('commentList', {static: false}) commentList: CommentListComponent;
 
@@ -50,7 +49,6 @@ export class CardEditComponent implements OnInit {
   buildForm(): FormGroup {
     return this.formBuilder.group({
       id: new FormControl('', [Validators.required]),
-      title: new FormControl('', [Validators.required, Validators.maxLength(128)]),
       question: new FormControl('', Validators.required),
       answer: new FormControl('', Validators.required),
       confirmed: new FormControl(false)
@@ -66,7 +64,6 @@ export class CardEditComponent implements OnInit {
 
         this.cardForm.setValue({
           id: this.card.id,
-          title: this.card.title,
           question: this.card.question,
           answer: this.card.answer,
           confirmed: this.card.confirmed
@@ -81,7 +78,7 @@ export class CardEditComponent implements OnInit {
           this.loadCard(this.cardForm.controls.id.value);
         }
       }, (ex: HttpErrorResponse) => {
-        this.errors = ex.error.message;
+        this.alertService.handleError(ex);
       });
   }
 

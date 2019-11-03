@@ -36,7 +36,7 @@ namespace Flashcards.Domain.Cards
                 return Fail("Deck with given ID does not exist.");
             }
 
-            var card = new Card(deck.Id, command.Title, command.Question, command.Answer);
+            var card = new Card(deck.Id, command.Question, command.Answer);
             _cardsRepository.Add(card);
 
             return Result.Ok();

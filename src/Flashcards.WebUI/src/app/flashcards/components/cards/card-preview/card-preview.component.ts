@@ -27,6 +27,14 @@ export class CardPreviewComponent implements OnInit {
               private router: Router,
               private alertService: AlertService,
               private cardsService: CardsService) {
+    this.card = {
+      question: '',
+      confirmed: false,
+      answer: '',
+      id: '',
+      nextCardId: '',
+      previousCardId: ''
+    };
   }
 
   ngOnInit() {

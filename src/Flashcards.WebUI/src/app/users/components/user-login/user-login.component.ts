@@ -32,7 +32,6 @@ export class UserLoginComponent implements OnInit {
     this.userLogin = this.loginForm.value as UserLogin;
     this.userService.auth(this.userLogin).subscribe(
       response => {
-        console.log(response);
         const token = response.body;
         this.authService.setToken(token);
         this.router.navigate(['/users']);

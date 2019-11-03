@@ -4,10 +4,9 @@ namespace Flashcards.Domain.Cards
 {
     public class CardDto
     {
-        public CardDto(Guid id, string title, string question, string answer, bool confirmed, Guid previousCardId, Guid nextCardId)
+        public CardDto(Guid id, string question, string answer, bool confirmed, Guid previousCardId, Guid nextCardId)
         {
             Id = id;
-            Title = title;
             Question = question;
             Answer = answer;
             Confirmed = confirmed;
@@ -16,7 +15,6 @@ namespace Flashcards.Domain.Cards
         }
 
         public Guid Id { get; }
-        public string Title { get; }
         public string Question { get; }
         public string Answer { get; }
         public bool Confirmed { get; }

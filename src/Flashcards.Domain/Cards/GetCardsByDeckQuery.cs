@@ -3,7 +3,7 @@ using Flashcards.Core;
 
 namespace Flashcards.Domain.Cards
 {
-    public class GetCardsByDeckQuery : IQuery<IEnumerable<CardDto>>
+    public class GetCardsByDeckQuery : IQuery<IEnumerable<CardListItemDto>>
     {
         public GetCardsByDeckQuery(string deck)
         {

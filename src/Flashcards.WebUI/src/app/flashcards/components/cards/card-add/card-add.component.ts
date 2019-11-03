@@ -18,7 +18,6 @@ export class CardAddComponent implements OnInit {
 
   modules: any;
   cardForm: FormGroup;
-  errors: string;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -36,7 +35,6 @@ export class CardAddComponent implements OnInit {
 
   buildForm(): FormGroup {
     return this.formBuilder.group({
-      title: new FormControl('', [Validators.required, Validators.maxLength(128)]),
       question: new FormControl('', Validators.required),
       answer: new FormControl('', Validators.required)
     });
@@ -50,7 +48,7 @@ export class CardAddComponent implements OnInit {
             [`/flashcards/decks/${this.deck}/cards`]);
         }
       }, (ex: HttpErrorResponse) => {
-        this.errors = ex.error.message;
+        this.alertService.handleError(ex);
       });
   }
 

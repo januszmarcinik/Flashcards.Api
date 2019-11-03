@@ -41,9 +41,9 @@
             <mat-cell *matCellDef="let i = index"> {{i+1}} </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="title">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+          <ng-container matColumnDef="question">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Question </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.question}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="confirmed">
@@ -52,11 +52,6 @@
               <span *ngIf="row.confirmed"><i class="fas fa-check confirmed"></i></span>
               <span *ngIf="!row.confirmed"><i class="fas fa-times unconfirmed"></i></span>
             </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="question">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Question </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.question.substring(0, 100)}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="id" class="float-right">

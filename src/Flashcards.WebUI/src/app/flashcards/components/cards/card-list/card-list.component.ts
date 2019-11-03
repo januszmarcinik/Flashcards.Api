@@ -17,7 +17,7 @@ export class CardListComponent implements OnInit {
 
   deck: string;
 
-  displayedColumns = ['no', 'title', 'confirmed', 'question', 'id'];
+  displayedColumns = ['no', 'question', 'confirmed', 'id'];
   dataSource: MatTableDataSource<Card>;
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
@@ -66,7 +66,7 @@ export class CardListComponent implements OnInit {
   delete(card: Card): void {
     event.stopPropagation();
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
-      data: {name: card.title}
+      data: {name: card.question}
     });
 
     dialogRef.afterClosed().subscribe(result => {

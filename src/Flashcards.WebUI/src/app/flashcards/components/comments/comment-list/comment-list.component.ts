@@ -25,13 +25,13 @@ export class CommentListComponent implements OnInit {
 
   ngOnInit() {
     this.loadComments();
-    this.commentAdd.cardId = this.cardId;
   }
 
   loadComments(): void {
     this.commentsService.getByCard(this.deck, this.cardId)
       .subscribe((comments) => {
         this.comments = comments.body;
+        this.commentAdd.cardId = this.cardId;
       }, (ex: HttpErrorResponse) => {
         this.alertService.handleError(ex);
       });

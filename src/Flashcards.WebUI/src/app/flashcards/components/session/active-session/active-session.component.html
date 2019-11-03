@@ -21,14 +21,11 @@
           [bufferValue]="100">
         </mat-progress-bar>
 
-        <h5 class="text-center">
-          <small>
-            <mat-chip-list>
-              <mat-chip class="text-right">{{sessionState?.actualCount}} / {{sessionState?.totalCount}}</mat-chip>
-            </mat-chip-list>
-          </small>
-          {{sessionState?.card.title}}
-        </h5>
+        <p class="text-center">
+          <mat-chip-list>
+            <mat-chip class="text-right">{{sessionState?.actualCount}} / {{sessionState?.totalCount}}</mat-chip>
+          </mat-chip-list>
+        </p>
 
         <quill-editor [readOnly]="true" [modules]="{toolbar: false}"
                       [(ngModel)]="sessionState?.card.question"></quill-editor>

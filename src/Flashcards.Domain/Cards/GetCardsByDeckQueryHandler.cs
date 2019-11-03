@@ -5,7 +5,7 @@ using Flashcards.Domain.Decks;
 
 namespace Flashcards.Domain.Cards
 {
-    internal class GetCardsByDeckQueryHandler : QueryHandlerBase<GetCardsByDeckQuery, IEnumerable<CardDto>>
+    internal class GetCardsByDeckQueryHandler : QueryHandlerBase<GetCardsByDeckQuery, IEnumerable<CardListItemDto>>
     {
         private readonly ICardsRepository _cardsRepository;
         private readonly IDecksRepository _decksRepository;
@@ -16,7 +16,7 @@ namespace Flashcards.Domain.Cards
             _decksRepository = decksRepository;
         }
 
-        public override Result<IEnumerable<CardDto>> Handle(GetCardsByDeckQuery query)
+        public override Result<IEnumerable<CardListItemDto>> Handle(GetCardsByDeckQuery query)
         {
             var deck = _decksRepository.GetByName(query.Deck);
             if (deck == null)
@@ -26,7 +26,7 @@ namespace Flashcards.Domain.Cards
 
             var cards = _cardsRepository
                 .GetByDeck(deck.Id)
-                .Select(x => x.ToDto())
+                .Select(x => x.ToListItemDto())
                 .ToList();
 
             return Ok(cards);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Flashcards.Domain.Cards
 {
@@ -6,27 +7,33 @@ namespace Flashcards.Domain.Cards
     {
         public Guid Id { get; protected set; }
         public Guid DeckId { get; protected set; }
-        public string Title { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
         public bool Confirmed { get; set; }
 
         protected Card() { }
 
-        public Card(Guid deckId, string title, string question, string answer)
+        public Card(Guid deckId, string question, string answer)
         {
             Id = Guid.NewGuid();
             DeckId = deckId;
-            Title = title;
             Question = question;
             Answer = answer;
             Confirmed = false;
         }
 
-        public CardDto ToDto()
-            => ToDto(Guid.Empty, Guid.Empty);
+        public CardListItemDto ToListItemDto()
+        {
+            var question = Regex.Replace(Question, "<.*?>", string.Empty);
+            if (question.Length > 100)
+            {
+                question = question.Remove(100);
+            }
+
+            return new CardListItemDto(Id, question, Confirmed);
+        }
 
         public CardDto ToDto(Guid previousCardId, Guid nextCardId)
-            => new CardDto(Id, Title, Question, Answer, Confirmed, previousCardId, nextCardId);
+            => new CardDto(Id, Question, Answer, Confirmed, previousCardId, nextCardId);
     }
 }

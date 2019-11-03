@@ -4,7 +4,10 @@
   </p>
   <div content>
     <p>
-      <button class="btn btn-secondary" (click)="goBack()"> Back </button>
+      <button mat-stroked-button (click)="goBack()">
+        <mat-icon>undo</mat-icon>
+        Back
+      </button>
     </p>
   </div>
 </app-header>
@@ -14,18 +17,12 @@
     <mat-card>
       <mat-card-content>
         <form [formGroup]="cardForm">
-          <mat-form-field>
-            <input matInput formControlName="title" placeholder="Title" />
-          </mat-form-field>
-          <quill-editor [modules]="modules" formControlName="question"></quill-editor>
-          <quill-editor [modules]="modules" formControlName="answer"></quill-editor>
 
-          <label class="text-danger text-center">
-            {{errors}}
-          </label>
+          <quill-editor [modules]="modules" formControlName="question" placeholder="Question"></quill-editor>
+          <quill-editor [modules]="modules" formControlName="answer" placeholder="Answer"></quill-editor>
 
-          <button [disabled]="cardForm.invalid" (click)="save()" class="btn btn-primary float-right">
-            Save
+          <button mat-stroked-button [disabled]="cardForm.invalid" (click)="save()">
+            <mat-icon>check</mat-icon>
           </button>
         </form>
 

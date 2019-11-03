@@ -10,7 +10,6 @@ namespace Flashcards.Infrastructure.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<Card> builder)
         {
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Title).HasMaxLength(128);
 
             builder.HasMany<Comment>()
                 .WithOne()

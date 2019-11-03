@@ -23,7 +23,6 @@ namespace Flashcards.Domain.Cards
 
             var ids = _cardsRepository
                 .GetByDeck(card.DeckId)
-                .OrderBy(x => x.Title)
                 .Select(x => x.Id)
                 .ToList();
 

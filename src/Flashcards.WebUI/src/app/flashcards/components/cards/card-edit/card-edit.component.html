@@ -48,18 +48,6 @@
         <hr />
 
         <form [formGroup]="cardForm">
-          <div class="row">
-            <div class="col-sm-8">
-              <mat-form-field>
-                <input matInput formControlName="title" placeholder="Title"/>
-              </mat-form-field>
-            </div>
-            <div class="col-sm-4">
-              <mat-checkbox formControlName="confirmed" color="primary">
-                Confirmed
-              </mat-checkbox>
-            </div>
-          </div>
 
           <quill-editor
             [modules]="modules"
@@ -75,9 +63,14 @@
             (cut)="onCut($event)">
           </quill-editor>
 
-          <label class="text-danger text-center">
-            {{errors}}
-          </label>
+          <div class="row">
+            <div class="col-sm-12 text-center">
+              <mat-checkbox formControlName="confirmed" color="primary">
+                Confirmed
+              </mat-checkbox>
+            </div>
+          </div>
+
         </form>
       </mat-card-content>
     </mat-card>

@@ -34,7 +34,7 @@ namespace Flashcards.Domain.Sessions
         {
             var deck = _decksRepository.GetByName(deckName);
             var cards = _cardsRepository.GetByDeck(deck.Id);
-            var sessionCards = cards.Select(x => new SessionCardDto(x.Id, x.Title, x.Answer, x.Question)).ToList();
+            var sessionCards = cards.Select(x => new SessionCardDto(x.Id, x.Answer, x.Question)).ToList();
             var sessionState = new SessionStateDto(userId, deckName, sessionCards.Count);
 
             sessionState.SetCard(sessionCards.First());

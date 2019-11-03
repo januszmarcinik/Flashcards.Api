@@ -29,7 +29,6 @@ namespace Flashcards.Domain.Cards
                 return Fail("Card with given ID does not exist.");
             }
 
-            card.Title = command.Title;
             card.Question = command.Question;
             card.Answer = command.Answer;
             card.Confirmed = command.Confirmed;

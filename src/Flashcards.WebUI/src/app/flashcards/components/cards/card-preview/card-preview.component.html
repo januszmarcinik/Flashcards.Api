@@ -1,6 +1,6 @@
 <app-header>
   <p navigation>
-    Flashcards / Decks / {{deck}} / Cards / {{card?.title}}
+    Flashcards / Decks / {{deck}} / Cards / Preview
   </p>
   <div content>
     <p>
@@ -15,10 +15,6 @@
   <div class="col-sm-8 offset-sm-2">
     <mat-card>
       <mat-card-content>
-
-        <h5 class="text-center">
-          {{sessionState?.card.title}}
-        </h5>
 
         <quill-editor [readOnly]="true" [modules]="{toolbar: false}"
                       [(ngModel)]="card.question"></quill-editor>
