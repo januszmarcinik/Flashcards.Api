@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Linq;
 using Flashcards.Core;
 using Microsoft.AspNetCore.Mvc;
-using Flashcards.Core.Exceptions;
 
 namespace Flashcards.Api.Controllers
 {
@@ -19,8 +17,7 @@ namespace Flashcards.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var errors = string.Join(", ", ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage));
-                throw new FlashcardsException(ErrorCode.InvalidCommand, errors);
+                return BadRequest(ModelState);
             }
 
             var result = _mediator.Command(command);
@@ -38,8 +35,7 @@ namespace Flashcards.Api.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var errors = string.Join(", ", ModelState.SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage));
-                throw new FlashcardsException(ErrorCode.InvalidCommand, errors);
+                return BadRequest(ModelState);
             }
 
             var result = _mediator.Query(query);

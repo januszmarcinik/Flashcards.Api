@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Flashcards.Core;
 using Flashcards.Core.Extensions;
 
@@ -26,7 +27,11 @@ namespace Flashcards.Domain.Cards
                 .Select(x => x.Id)
                 .ToList();
 
-            var result = card.ToDto(ids.NextOrDefault(card.Id), ids.PreviousOrDefault(card.Id));
+            var currentIndex = ids.IndexOf(card.Id);
+            var previousCardId = currentIndex > 0 ? ids[currentIndex - 1] : Guid.Empty;
+            var nextCardId = currentIndex < ids.Count - 1 ? ids[currentIndex + 1] : Guid.Empty;
+
+            var result = card.ToDto(previousCardId, nextCardId);
 
             return Ok(result);
         }

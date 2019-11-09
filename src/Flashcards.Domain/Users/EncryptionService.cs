@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Security.Cryptography;
-using Flashcards.Core.Exceptions;
 
 namespace Flashcards.Domain.Users
 {
@@ -11,32 +10,26 @@ namespace Flashcards.Domain.Users
 
         public string GetSalt(string value)
         {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new FlashcardsException(ErrorCode.EmptyPasswordForGenerateSalt);
-            }
+            if (value == null) throw new ArgumentNullException(nameof(value));
 
             var saltBytes = new byte[SaltSize];
-            var rng = RandomNumberGenerator.Create();
-            rng.GetBytes(saltBytes);
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(saltBytes);
+            }
 
             return Convert.ToBase64String(saltBytes);
         }
 
         public string GetHash(string value, string salt)
         {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new FlashcardsException(ErrorCode.EmptyPasswordForGenerateHash);
-            }
-            if (string.IsNullOrWhiteSpace(salt))
-            {
-                throw new FlashcardsException(ErrorCode.EmptySaltForGenerateHash);
-            }
+            if (value == null) throw new ArgumentNullException(nameof(value));
+            if (salt == null) throw new ArgumentNullException(nameof(salt));
 
-            var pbkdf2 = new Rfc2898DeriveBytes(value, GetBytes(salt), DeriveBytesIterationsCount);
-
-            return Convert.ToBase64String(pbkdf2.GetBytes(SaltSize));
+            using (var pbkdf2 = new Rfc2898DeriveBytes(value, GetBytes(salt), DeriveBytesIterationsCount))
+            {
+                return Convert.ToBase64String(pbkdf2.GetBytes(SaltSize));
+            }
         }
 
         private static byte[] GetBytes(string value)

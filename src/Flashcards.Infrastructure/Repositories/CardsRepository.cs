@@ -22,6 +22,7 @@ namespace Flashcards.Infrastructure.Repositories
         {
             var cards = _dbContext.Cards
                 .Where(x => x.DeckId == deckId)
+                .OrderBy(x => x.Id)
                 .ToList();
 
             return cards;

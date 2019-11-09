@@ -1,11 +1,9 @@
-﻿using Flashcards.Core.Exceptions;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Flashcards.Core.Extensions;
 
 namespace Flashcards.Api.Middleware
 {
@@ -43,13 +41,6 @@ namespace Flashcards.Api.Middleware
             {
                 httpStatusCode = HttpStatusCode.Unauthorized;
                 errorCode = nameof(HttpStatusCode.Unauthorized);
-            }
-            else if (ex is FlashcardsException)
-            {
-                var flashcardsException = ex as FlashcardsException;
-                httpStatusCode = flashcardsException.ErrorCode.HttpStatusCode;
-                errorCode = flashcardsException.ErrorCode.Message;
-                message = flashcardsException.Message.IsEmpty() ? errorCode : flashcardsException.Message;
             }
 
             context.Response.ContentType = "application/json";

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Flashcards.Core.Exceptions;
 using Flashcards.Domain.Cards;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Hosting;
@@ -13,7 +12,7 @@ namespace Flashcards.Infrastructure.Services
     {
         private readonly AppSettings _appSettings;
         private readonly IHostingEnvironment _hostingEnvironment;
-        private List<SaveImageHelper> _imagesData;
+        private readonly List<SaveImageHelper> _imagesData;
         private readonly WebClient _webClient;
 
         public ImagesService(AppSettings appSettings, IHostingEnvironment hostingEnvironment)
@@ -64,18 +63,11 @@ namespace Flashcards.Infrastructure.Services
             return extension.Contains(".") ? $"{imageId}{extension}" : $"{imageId}.{extension}";
         }
 
-        private void CreateDirectoryIfNotExists(string path)
+        private static void CreateDirectoryIfNotExists(string path)
         {
-            try
+            if (!Directory.Exists(Path.GetDirectoryName(path)))
             {
-                if (!Directory.Exists(Path.GetDirectoryName(path)))
-                {
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new FlashcardsException(ErrorCode.DirectoryCannotBeCreated, path, ex);
+                Directory.CreateDirectory(Path.GetDirectoryName(path));
             }
         }
 
@@ -114,18 +106,11 @@ namespace Flashcards.Infrastructure.Services
                     var imageSrc = stringToAnalyze.Substring(startIndex, endIndex - startIndex);
                     extension = imageSrc.Substring(imageSrc.LastIndexOf('.'));
 
-                    try
-                    {
-                        var bytes = _webClient.DownloadData(imageSrc);
-                        var imageId = Guid.NewGuid();
-                        _imagesData.Add(new SaveImageHelper(imageId, bytes, extension));
-                        var path = GetVirtualPath(deck, cardId, imageId, extension);
-                        stringToAnalyze = stringToAnalyze.Replace(stringToAnalyze.Substring(startIndex, endIndex - startIndex), path);
-                    }
-                    catch (Exception ex)
-                    {
-                        throw new FlashcardsException(ErrorCode.FileCannotBeDownloaded, imageSrc, ex);
-                    }
+                    var bytes = _webClient.DownloadData(imageSrc);
+                    var imageId = Guid.NewGuid();
+                    _imagesData.Add(new SaveImageHelper(imageId, bytes, extension));
+                    var path = GetVirtualPath(deck, cardId, imageId, extension);
+                    stringToAnalyze = stringToAnalyze.Replace(stringToAnalyze.Substring(startIndex, endIndex - startIndex), path);
                 }
             }
 
