@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Core", "Flashcards.Core\Flashcards.Core.csproj", "{7859554D-035D-4B64-90F9-50E3017B2590}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcards.Importer", "..\Importer\Flashcards.Importer\Flashcards.Importer.csproj", "{23F9F057-3720-4CF3-B217-926CAA03D832}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flashcards.Importer.Tests", "..\Importer\Flashcards.Importer.Tests\Flashcards.Importer.Tests.csproj", "{889B9FF9-5A29-4804-9609-0F601845F6FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{7859554D-035D-4B64-90F9-50E3017B2590}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7859554D-035D-4B64-90F9-50E3017B2590}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7859554D-035D-4B64-90F9-50E3017B2590}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23F9F057-3720-4CF3-B217-926CAA03D832}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23F9F057-3720-4CF3-B217-926CAA03D832}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23F9F057-3720-4CF3-B217-926CAA03D832}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23F9F057-3720-4CF3-B217-926CAA03D832}.Release|Any CPU.Build.0 = Release|Any CPU
+		{889B9FF9-5A29-4804-9609-0F601845F6FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{889B9FF9-5A29-4804-9609-0F601845F6FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{889B9FF9-5A29-4804-9609-0F601845F6FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{889B9FF9-5A29-4804-9609-0F601845F6FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

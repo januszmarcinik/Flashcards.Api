@@ -1,0 +1,11 @@
+﻿1. Animals (zwierzęta)
+bird - ptak
+bull - byk
+
+2. Buildings (budynki)
+bookshop - księgarnia
+cathedral - katedra
+
+3. Clothes and accessories (ubrania i akcesoria)
+blouse - bluzka damska
+button - guzik

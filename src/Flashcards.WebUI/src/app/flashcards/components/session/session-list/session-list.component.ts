@@ -13,7 +13,7 @@ import {MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 })
 export class SessionListComponent implements OnInit {
 
-  private deck: string;
+  deck: string;
   displayedColumns = ['no', 'date', 'result'];
   dataSource: MatTableDataSource<SessionListItem>;
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;

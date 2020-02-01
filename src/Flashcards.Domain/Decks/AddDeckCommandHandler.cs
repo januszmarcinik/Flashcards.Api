@@ -1,5 +1,6 @@
 ﻿using System;
 using Flashcards.Core;
+using Flashcards.Core.Extensions;
 
 namespace Flashcards.Domain.Decks
 {
@@ -19,7 +20,9 @@ namespace Flashcards.Domain.Decks
                 return Fail("Deck with given name already exist.");
             }
 
-            var deck = new Deck(Guid.NewGuid(), command.Name, command.Description);
+            var id = command.Id.IsEmpty() ? Guid.NewGuid() : command.Id;
+
+            var deck = new Deck(id, command.Name, command.Description);
             _decksRepository.Add(deck);
 
             return Result.Ok();
