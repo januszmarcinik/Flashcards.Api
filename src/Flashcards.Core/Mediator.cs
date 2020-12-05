@@ -42,5 +42,14 @@ namespace Flashcards.Core
 
             return handler.Handle(query);
         }
+
+        public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        {
+            var handlers = _dependencyResolver.ResolveMany<IEventHandler<TEvent>>();
+            foreach (var handler in handlers)
+            {
+                handler.Handle(@event);
+            }
+        }
     }
 }

@@ -30,7 +30,27 @@ namespace Flashcards.Api.Controllers
                 ? Accepted(getValueOnSuccess()) 
                 : Accepted();
         }
+        
+        protected IActionResult Dispatch<TCommand, TEvent>(TCommand command, TEvent @event) 
+            where TCommand : ICommand
+            where TEvent : IEvent
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var result = _mediator.Command(command);
+            if (result.IsSuccess == false)
+            {
+                return BadRequest(result.Message);
+            }
+            
+            _mediator.Publish(@event);
+
+            return Accepted();
+        }
+        
         protected IActionResult Dispatch<T>(IQuery<T> query)
         {
             if (!ModelState.IsValid)

@@ -30,6 +30,11 @@ namespace Flashcards.Infrastructure.ContainerModules
                 .RegisterAssemblyTypes(handlersAssembly)
                 .AsClosedTypesOf(typeof(IQueryHandler<,>))
                 .InstancePerLifetimeScope();
+            
+            builder
+                .RegisterAssemblyTypes(handlersAssembly)
+                .AsClosedTypesOf(typeof(IEventHandler<>))
+                .InstancePerLifetimeScope();
         }
     }
 }
