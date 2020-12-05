@@ -23,9 +23,9 @@ namespace Flashcards.Infrastructure.Repositories
                 .Find(x => x.DeckId == deckId && x.NextCardId == Guid.Empty)
                 .SingleOrDefault();
         
-        public IEnumerable<CardDto> GetByDeck(Guid deckId) =>
+        public IEnumerable<CardDto> GetByDeckName(string deckName) =>
             _dbContext.Cards
-                .Find(x => x.DeckId == deckId)
+                .Find(x => x.DeckName == deckName)
                 .SortBy(x => x.Id)
                 .ToList();
 

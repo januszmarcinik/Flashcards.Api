@@ -33,7 +33,7 @@ namespace Flashcards.Domain.Cards
             return new CardListItemDto(Id, question, Confirmed);
         }
 
-        public CardDto ToDto(Guid previousCardId, Guid nextCardId)
-            => new CardDto(Id, DeckId, Question, Answer, Confirmed, previousCardId, nextCardId);
+        public CardDto ToDto(string deckName, Guid previousCardId, Guid nextCardId)
+            => new CardDto(Id, DeckId, deckName, Question, Answer, Confirmed, previousCardId, nextCardId);
     }
 }

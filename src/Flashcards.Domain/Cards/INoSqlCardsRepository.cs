@@ -9,7 +9,7 @@ namespace Flashcards.Domain.Cards
 
         CardDto GetLastByDeck(Guid deckId);
 
-        IEnumerable<CardDto> GetByDeck(Guid deckId);
+        IEnumerable<CardDto> GetByDeckName(string deckName);
 
         void Add(CardDto card);
         

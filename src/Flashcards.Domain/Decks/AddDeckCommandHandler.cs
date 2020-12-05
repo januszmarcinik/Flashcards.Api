@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using Flashcards.Core;
 using Flashcards.Core.Extensions;
 
@@ -15,6 +16,12 @@ namespace Flashcards.Domain.Decks
 
         public override Result Handle(AddDeckCommand command)
         {
+            var nameValidation = Regex.Match(command.Name, "([A-Za-z\\d\\-]+)");
+            if (nameValidation.Success == false)
+            {
+                return Fail("Name can contains only letters from a-z and '-' not case sensitive.");
+            }
+            
             if (_decksRepository.GetByName(command.Name) != null)
             {
                 return Fail("Deck with given name already exist.");

@@ -10,9 +10,12 @@ namespace Flashcards.Api.Controllers
     [Route("api/decks/{deck}/cards")]
     public class CardsController : ApiController
     {
-        public CardsController(IMediator mediator) 
+        private readonly INoSqlCardsRepository _cardsRepository;
+
+        public CardsController(IMediator mediator, INoSqlCardsRepository cardsRepository) 
             : base(mediator)
         {
+            _cardsRepository = cardsRepository;
         }
 
         [HttpGet]
@@ -20,8 +23,11 @@ namespace Flashcards.Api.Controllers
             => Dispatch(new GetCardsByDeckQuery(deck));
 
         [HttpGet("{card}")]
-        public IActionResult Get(string deck, Guid card)
-            => Dispatch(new GetCardByIdQuery(card));
+        public IActionResult Get(Guid card)
+        {
+            var result = _cardsRepository.GetById(card);
+            return Ok(result);
+        }
 
         [HttpPost]
         public IActionResult Post(string deck, [FromBody] AddCardCommand command) =>

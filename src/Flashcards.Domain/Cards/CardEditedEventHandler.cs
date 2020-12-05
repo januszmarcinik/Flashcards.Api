@@ -30,7 +30,7 @@ namespace Flashcards.Domain.Cards
 
             var dto = _noSqlCardsRepository.GetById(@event.CardId);
 
-            dto = card.ToDto(dto.PreviousCardId, dto.NextCardId);
+            dto = dto.Recreate(dto.PreviousCardId, dto.NextCardId);
             _noSqlCardsRepository.Update(dto);
         }
     }
