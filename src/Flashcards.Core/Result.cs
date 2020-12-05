@@ -21,6 +21,9 @@
         public static Result Ok()
             => new Result(true, "");
 
+        public static Result Ok(string message)
+            => new Result(true, message);
+        
         public static Result<T> Ok<T>(T value)
             => new Result<T>(true, "", value);
     }

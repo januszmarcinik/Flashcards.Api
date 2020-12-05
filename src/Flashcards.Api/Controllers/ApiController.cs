@@ -12,7 +12,7 @@ namespace Flashcards.Api.Controllers
         {
             _mediator = mediator;
         }
-
+        
         protected IActionResult Dispatch<TCommand>(TCommand command, Func<object> getValueOnSuccess = null) where TCommand : ICommand
         {
             if (!ModelState.IsValid)
@@ -31,7 +31,7 @@ namespace Flashcards.Api.Controllers
                 : Accepted();
         }
         
-        protected IActionResult Dispatch<TCommand, TEvent>(TCommand command, TEvent @event) 
+        protected IActionResult Dispatch<TCommand, TEvent>(TCommand command, Func<Result, TEvent> publishEventOnSuccess) 
             where TCommand : ICommand
             where TEvent : IEvent
         {
@@ -45,7 +45,8 @@ namespace Flashcards.Api.Controllers
             {
                 return BadRequest(result.Message);
             }
-            
+
+            var @event = publishEventOnSuccess(result);
             _mediator.Publish(@event);
 
             return Accepted();

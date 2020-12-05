@@ -34,6 +34,6 @@ namespace Flashcards.Domain.Cards
         }
 
         public CardDto ToDto(Guid previousCardId, Guid nextCardId)
-            => new CardDto(Id, Question, Answer, Confirmed, previousCardId, nextCardId);
+            => new CardDto(Id, DeckId, Question, Answer, Confirmed, previousCardId, nextCardId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Flashcards.Domain.Cards;
 using Flashcards.Infrastructure.DataAccess;
 using MongoDB.Driver;
@@ -13,9 +14,28 @@ namespace Flashcards.Infrastructure.Repositories
             _dbContext = dbContext;
 
         public CardDto GetById(Guid id) => 
-            _dbContext.Cards.Find(x => x.Id == id).SingleOrDefault();
+            _dbContext.Cards
+                .Find(x => x.Id == id)
+                .SingleOrDefault();
+        
+        public CardDto GetLastByDeck(Guid deckId) => 
+            _dbContext.Cards
+                .Find(x => x.DeckId == deckId && x.NextCardId == Guid.Empty)
+                .SingleOrDefault();
+        
+        public IEnumerable<CardDto> GetByDeck(Guid deckId) =>
+            _dbContext.Cards
+                .Find(x => x.DeckId == deckId)
+                .SortBy(x => x.Id)
+                .ToList();
+
+        public void Add(CardDto card) => 
+            _dbContext.Cards.InsertOne(card);
 
         public void Update(CardDto card) => 
             _dbContext.Cards.ReplaceOne(x => x.Id == card.Id, card);
+
+        public void Remove(Guid id) => 
+            _dbContext.Cards.DeleteOne(x => x.Id == id);
     }
 }

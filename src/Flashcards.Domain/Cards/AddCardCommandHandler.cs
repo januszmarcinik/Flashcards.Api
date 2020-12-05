@@ -39,7 +39,7 @@ namespace Flashcards.Domain.Cards
             var card = new Card(deck.Id, command.Question, command.Answer);
             _cardsRepository.Add(card);
 
-            return Result.Ok();
+            return Result.Ok(card.Id.ToString());
         }
     }
 }

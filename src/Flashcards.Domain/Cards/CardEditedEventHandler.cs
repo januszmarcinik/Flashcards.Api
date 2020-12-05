@@ -1,5 +1,4 @@
-﻿using System;
-using Flashcards.Core;
+﻿using Flashcards.Core;
 using Microsoft.Extensions.Logging;
 
 namespace Flashcards.Domain.Cards
@@ -29,7 +28,9 @@ namespace Flashcards.Domain.Cards
                 return;
             }
 
-            var dto = card.ToDto(Guid.Empty, Guid.NewGuid());
+            var dto = _noSqlCardsRepository.GetById(@event.CardId);
+
+            dto = card.ToDto(dto.PreviousCardId, dto.NextCardId);
             _noSqlCardsRepository.Update(dto);
         }
     }

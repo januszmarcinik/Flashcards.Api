@@ -24,19 +24,21 @@ namespace Flashcards.Api.Controllers
             => Dispatch(new GetCardByIdQuery(card));
 
         [HttpPost]
-        public IActionResult Post(string deck, [FromBody] AddCardCommand command)
-            => Dispatch(command.SetFromRoute(deck));
+        public IActionResult Post(string deck, [FromBody] AddCardCommand command) =>
+            Dispatch(
+                command.SetFromRoute(deck),
+                result => new CardAddedEvent(Guid.Parse(result.Message)));
 
         [HttpPut]
-        public IActionResult Put(string deck, [FromBody] EditCardCommand command)
-        {
-            command.SetFromRoute(deck, Guid.Parse(User.Identity.Name));
-            var @event = new CardEditedEvent(command.Id);
-            return Dispatch(command, @event);
-        }
+        public IActionResult Put(string deck, [FromBody] EditCardCommand command) =>
+            Dispatch(
+                command.SetFromRoute(deck, Guid.Parse(User.Identity.Name)), 
+                _ => new CardEditedEvent(command.Id));
 
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] RemoveCardCommand command)
-            => Dispatch(command);
+            => Dispatch(
+                command,
+                _ => new CardRemovedEvent(command.Id));
     }
 }
