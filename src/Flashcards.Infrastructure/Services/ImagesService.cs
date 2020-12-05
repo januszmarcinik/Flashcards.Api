@@ -11,11 +11,11 @@ namespace Flashcards.Infrastructure.Services
     internal class ImagesService : IImagesService
     {
         private readonly AppSettings _appSettings;
-        private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly List<SaveImageHelper> _imagesData;
         private readonly WebClient _webClient;
 
-        public ImagesService(AppSettings appSettings, IHostingEnvironment hostingEnvironment)
+        public ImagesService(AppSettings appSettings, IWebHostEnvironment hostingEnvironment)
         {
             _appSettings = appSettings;
             _hostingEnvironment = hostingEnvironment;

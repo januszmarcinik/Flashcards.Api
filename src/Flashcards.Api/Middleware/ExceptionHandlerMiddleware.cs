@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using NLog;
 using System;
 using System.Net;
 using System.Threading.Tasks;
@@ -10,12 +9,10 @@ namespace Flashcards.Api.Middleware
     public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _request;
-        private readonly ILogger _logger;
 
-        public ExceptionHandlerMiddleware(RequestDelegate request, ILogger logger)
+        public ExceptionHandlerMiddleware(RequestDelegate request)
         {
             _request = request;
-            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -26,7 +23,6 @@ namespace Flashcards.Api.Middleware
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 await HandleExceptionAsync(context, ex);
             }
         }

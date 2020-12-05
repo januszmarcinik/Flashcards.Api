@@ -1,35 +1,31 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Flashcards.Api.Middleware;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
-using NLog;
-using NLog.Extensions.Logging;
-using NLog.Web;
-using Swashbuckle.AspNetCore.Swagger;
 using System;
-using System.Text;
+using Flashcards.Api.Configuration;
 using Flashcards.Infrastructure.ContainerModules;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Settings;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json.Serialization;
 
 namespace Flashcards.Api
 {
     public class Startup
     {
         public IConfiguration Configuration { get; }
-        public IHostingEnvironment HostingEnvironment { get; }
+        public IWebHostEnvironment HostingEnvironment { get; }
         public IContainer Container { get; private set; }
 
-        public Startup(IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
             Configuration = configuration;
             HostingEnvironment = hostingEnvironment;
@@ -37,8 +33,13 @@ namespace Flashcards.Api
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(); 
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ContractResolver =
+                        new CamelCasePropertyNamesContractResolver());
+
             services.AddMemoryCache();
+            services.AddCors();
 
             services.AddDbContext<EFContext>(options =>
             {
@@ -46,23 +47,9 @@ namespace Flashcards.Api
                 options.UseLazyLoadingProxies();
             });
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    var jwtSettings = Configuration.GetSettings<JwtSettings>();
+            services.AddJwtTokenAuthentication(Configuration);
 
-                    options.RequireHttpsMetadata = false;
-                    options.Configuration = new OpenIdConnectConfiguration();
-                    options.TokenValidationParameters = new TokenValidationParameters()
-                    {
-                        ValidIssuer = jwtSettings.Issuer,
-                        ValidateAudience = false,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
-                        ValidateLifetime = true
-                    };
-                });
-
-            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new Info { Title = "Flashcards API", Version = "v1" }));
+            services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Flashcards API", Version = "v1" }));
 
             var builder = new ContainerBuilder();
             builder.Populate(services);
@@ -70,32 +57,38 @@ namespace Flashcards.Api
             builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<MediatorModule>();
-            builder.RegisterInstance(LogManager.GetCurrentClassLogger()).As<NLog.ILogger>();
 
             Container = builder.Build();
             return new AutofacServiceProvider(Container);
         }
 
-        public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime, IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostApplicationLifetime appLifetime)
         {
             app.UseStaticFiles();
-
-            loggerFactory.AddNLog();
-            HostingEnvironment.ConfigureNLog($"nlog.{HostingEnvironment.EnvironmentName}.config");
-
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flashcards API V1"));
-
+            
+            app.UseRouting();
             app.UseCors(cors =>
             {
                 cors.AllowAnyOrigin();
                 cors.AllowAnyMethod();
                 cors.AllowAnyHeader();
             });
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flashcards API V1"));
 
             app.UseMiddleware(typeof(ExceptionHandlerMiddleware));
             app.UseAuthentication();
-            app.UseMvc();
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapGet("/", async context =>
+                {
+                    await context.Response.WriteAsync($"Flashcards is working on '{HostingEnvironment.EnvironmentName}'...");
+                });
+            });
 
             appLifetime.ApplicationStopped.Register(() => Container.Dispose());
         }

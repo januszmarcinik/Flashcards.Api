@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using NLog.Web;
 
 namespace Flashcards.Api
 {
@@ -13,7 +12,6 @@ namespace Flashcards.Api
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseNLog()
                 .UseStartup<Startup>()
                 .Build();
     }
