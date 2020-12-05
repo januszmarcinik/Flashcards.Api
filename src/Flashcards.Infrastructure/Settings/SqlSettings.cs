@@ -1,6 +1,6 @@
 ﻿namespace Flashcards.Infrastructure.Settings
 {
-    public class DatabaseSettings
+    public class SqlSettings
     {
         public string ConnectionString { get; set; }
     }

@@ -8,11 +8,11 @@ namespace Flashcards.Domain.Comments
 {
     internal class AddCommentCommandHandler : CommandHandlerBase<AddCommentCommand>
     {
-        private readonly ICommentsRepository _commentsRepository;
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCommentsRepository _commentsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
         private readonly IUsersRepository _usersRepository;
 
-        public AddCommentCommandHandler(ICommentsRepository commentsRepository, ICardsRepository cardsRepository, IUsersRepository usersRepository)
+        public AddCommentCommandHandler(ISqlCommentsRepository commentsRepository, ISqlCardsRepository cardsRepository, IUsersRepository usersRepository)
         {
             _commentsRepository = commentsRepository;
             _cardsRepository = cardsRepository;

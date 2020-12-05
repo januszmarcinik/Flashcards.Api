@@ -6,11 +6,11 @@ using Flashcards.Infrastructure.DataAccess;
 
 namespace Flashcards.Infrastructure.Repositories
 {
-    internal class CommentsRepository : ICommentsRepository
+    internal class SqlCommentsRepository : ISqlCommentsRepository
     {
         private readonly EFContext _dbContext;
 
-        public CommentsRepository(EFContext dbContext)
+        public SqlCommentsRepository(EFContext dbContext)
         {
             _dbContext = dbContext;
         }

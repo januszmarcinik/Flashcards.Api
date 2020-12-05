@@ -9,10 +9,10 @@ namespace Flashcards.Domain.Sessions
     internal class GetSessionQueryHandler : IQueryHandler<GetSessionQuery, SessionStateDto>
     {
         private readonly ICacheService _cache;
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
         private readonly IDecksRepository _decksRepository;
 
-        public GetSessionQueryHandler(ICacheService cache, ICardsRepository cardsRepository, IDecksRepository decksRepository)
+        public GetSessionQueryHandler(ICacheService cache, ISqlCardsRepository cardsRepository, IDecksRepository decksRepository)
         {
             _cache = cache;
             _cardsRepository = cardsRepository;

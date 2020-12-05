@@ -29,7 +29,11 @@ namespace Flashcards.Api.Controllers
 
         [HttpPut]
         public IActionResult Put(string deck, [FromBody] EditCardCommand command)
-            => Dispatch(command.SetFromRoute(deck, Guid.Parse(User.Identity.Name)));
+        {
+            command.SetFromRoute(deck, Guid.Parse(User.Identity.Name));
+            var @event = new CardEditedEvent(command.Id);
+            return Dispatch(command, @event);
+        }
 
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] RemoveCardCommand command)

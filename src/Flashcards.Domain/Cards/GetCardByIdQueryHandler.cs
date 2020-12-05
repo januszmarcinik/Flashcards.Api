@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using Flashcards.Core;
-using Flashcards.Core.Extensions;
 
 namespace Flashcards.Domain.Cards
 {
     internal class GetCardByIdQueryHandler : QueryHandlerBase<GetCardByIdQuery, CardDto>
     {
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
 
-        public GetCardByIdQueryHandler(ICardsRepository cardsRepository)
+        public GetCardByIdQueryHandler(ISqlCardsRepository cardsRepository)
         {
             _cardsRepository = cardsRepository;
         }

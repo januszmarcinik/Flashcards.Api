@@ -7,11 +7,11 @@ namespace Flashcards.Domain.Cards
 {
     internal class AddCardCommandHandler : CommandHandlerBase<AddCardCommand>
     {
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
         private readonly IImagesService _imagesService;
         private readonly IDecksRepository _decksRepository;
 
-        public AddCardCommandHandler(ICardsRepository cardsRepository, IImagesService imagesService, IDecksRepository decksRepository)
+        public AddCardCommandHandler(ISqlCardsRepository cardsRepository, IImagesService imagesService, IDecksRepository decksRepository)
         {
             _cardsRepository = cardsRepository;
             _imagesService = imagesService;

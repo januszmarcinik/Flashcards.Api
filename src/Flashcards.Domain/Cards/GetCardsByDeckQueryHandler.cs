@@ -7,10 +7,10 @@ namespace Flashcards.Domain.Cards
 {
     internal class GetCardsByDeckQueryHandler : QueryHandlerBase<GetCardsByDeckQuery, IEnumerable<CardListItemDto>>
     {
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
         private readonly IDecksRepository _decksRepository;
 
-        public GetCardsByDeckQueryHandler(ICardsRepository cardsRepository, IDecksRepository decksRepository)
+        public GetCardsByDeckQueryHandler(ISqlCardsRepository cardsRepository, IDecksRepository decksRepository)
         {
             _cardsRepository = cardsRepository;
             _decksRepository = decksRepository;

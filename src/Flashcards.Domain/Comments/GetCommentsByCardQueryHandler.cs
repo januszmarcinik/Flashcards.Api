@@ -8,11 +8,11 @@ namespace Flashcards.Domain.Comments
 {
     internal class GetCommentsByCardQueryHandler : QueryHandlerBase<GetCommentsByCardQuery, IEnumerable<CommentDto>>
     {
-        private readonly ICommentsRepository _commentsRepository;
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCommentsRepository _commentsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
         private readonly IUsersRepository _usersRepository;
 
-        public GetCommentsByCardQueryHandler(ICommentsRepository commentsRepository, ICardsRepository cardsRepository, IUsersRepository usersRepository)
+        public GetCommentsByCardQueryHandler(ISqlCommentsRepository commentsRepository, ISqlCardsRepository cardsRepository, IUsersRepository usersRepository)
         {
             _commentsRepository = commentsRepository;
             _cardsRepository = cardsRepository;

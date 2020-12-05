@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Flashcards.Domain.Comments
 {
-    public interface ICommentsRepository
+    public interface ISqlCommentsRepository
     {
         IEnumerable<Comment> GetByCard(Guid cardId);
         

@@ -42,10 +42,10 @@ namespace Flashcards.Api
 
             services.AddDbContext<EFContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetSettings<DatabaseSettings>().ConnectionString);
+                options.UseSqlServer(Configuration.GetSettings<SqlSettings>().ConnectionString);
                 options.UseLazyLoadingProxies();
             });
-
+            
             services.AddJwtTokenAuthentication(Configuration);
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Flashcards API", Version = "v1" }));
@@ -57,6 +57,7 @@ namespace Flashcards.Api
             builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<MediatorModule>();
+            builder.RegisterModule<MongoModule>();
         }
 
         public void Configure(IApplicationBuilder app)

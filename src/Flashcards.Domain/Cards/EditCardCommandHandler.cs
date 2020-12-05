@@ -4,10 +4,10 @@ namespace Flashcards.Domain.Cards
 {
     internal class EditCardCommandHandler : CommandHandlerBase<EditCardCommand>
     {
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
         private readonly IImagesService _imagesService;
 
-        public EditCardCommandHandler(ICardsRepository cardsRepository, IImagesService imagesService)
+        public EditCardCommandHandler(ISqlCardsRepository cardsRepository, IImagesService imagesService)
         {
             _cardsRepository = cardsRepository;
             _imagesService = imagesService;

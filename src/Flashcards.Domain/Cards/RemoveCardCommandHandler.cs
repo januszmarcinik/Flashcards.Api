@@ -4,9 +4,9 @@ namespace Flashcards.Domain.Cards
 {
     internal class RemoveCardCommandHandler : CommandHandlerBase<RemoveCardCommand>
     {
-        private readonly ICardsRepository _cardsRepository;
+        private readonly ISqlCardsRepository _cardsRepository;
 
-        public RemoveCardCommandHandler(ICardsRepository cardsRepository)
+        public RemoveCardCommandHandler(ISqlCardsRepository cardsRepository)
         {
             _cardsRepository = cardsRepository;
         }
