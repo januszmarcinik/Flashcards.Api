@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.3" />
+    <PackageReference Include="Autofac" Version="6.1.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
