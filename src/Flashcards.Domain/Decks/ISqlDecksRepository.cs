@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Flashcards.Domain.Decks
 {
-    public interface IDecksRepository
+    public interface ISqlDecksRepository
     {
         Deck GetById(Guid id);
         Deck GetByName(string name);

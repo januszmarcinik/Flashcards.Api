@@ -16,5 +16,7 @@ namespace Flashcards.Domain.Cards
         void Update(CardDto card);
 
         void Remove(Guid id);
+
+        void RemoveByDeck(Guid deckId);
     }
 }

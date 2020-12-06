@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Text.RegularExpressions;
+using Flashcards.Domain.Decks;
 
 namespace Flashcards.Domain.Cards
 {
@@ -27,5 +29,16 @@ namespace Flashcards.Domain.Cards
         
         public CardDto Recreate(Guid previousCardId, Guid nextCardId) =>
             new CardDto(Id, DeckId, DeckName, Question, Answer, Confirmed, previousCardId, nextCardId);
+        
+        public DeckDto.Card ToListItemDto()
+        {
+            var question = Regex.Replace(Question, "<.*?>", string.Empty);
+            if (question.Length > 100)
+            {
+                question = question.Remove(100);
+            }
+
+            return new DeckDto.Card(Id, question, Confirmed);
+        }
     }
 }

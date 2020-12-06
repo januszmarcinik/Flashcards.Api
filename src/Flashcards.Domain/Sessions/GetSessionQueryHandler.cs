@@ -2,21 +2,18 @@
 using System.Linq;
 using Flashcards.Core;
 using Flashcards.Domain.Cards;
-using Flashcards.Domain.Decks;
 
 namespace Flashcards.Domain.Sessions
 {
     internal class GetSessionQueryHandler : IQueryHandler<GetSessionQuery, SessionStateDto>
     {
         private readonly ICacheService _cache;
-        private readonly ISqlCardsRepository _cardsRepository;
-        private readonly IDecksRepository _decksRepository;
+        private readonly INoSqlCardsRepository _noSqlCardsRepository;
 
-        public GetSessionQueryHandler(ICacheService cache, ISqlCardsRepository cardsRepository, IDecksRepository decksRepository)
+        public GetSessionQueryHandler(ICacheService cache, INoSqlCardsRepository noSqlCardsRepository)
         {
             _cache = cache;
-            _cardsRepository = cardsRepository;
-            _decksRepository = decksRepository;
+            _noSqlCardsRepository = noSqlCardsRepository;
         }
 
         public Result<SessionStateDto> Handle(GetSessionQuery query)
@@ -32,8 +29,7 @@ namespace Flashcards.Domain.Sessions
 
         private SessionStateDto Initialize(Guid userId, string deckName)
         {
-            var deck = _decksRepository.GetByName(deckName);
-            var cards = _cardsRepository.GetByDeck(deck.Id);
+            var cards = _noSqlCardsRepository.GetByDeckName(deckName);
             var sessionCards = cards.Select(x => new SessionCardDto(x.Id, x.Answer, x.Question)).ToList();
             var sessionState = new SessionStateDto(userId, deckName, sessionCards.Count);
 

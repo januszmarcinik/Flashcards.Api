@@ -6,11 +6,11 @@ using Flashcards.Infrastructure.DataAccess;
 
 namespace Flashcards.Infrastructure.Repositories
 {
-    internal class DecksRepository : IDecksRepository
+    internal class SqlDecksRepository : ISqlDecksRepository
     {
         private readonly EFContext _dbContext;
 
-        public DecksRepository(EFContext dbContext)
+        public SqlDecksRepository(EFContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Flashcards.Domain.Decks
 {
@@ -17,7 +18,7 @@ namespace Flashcards.Domain.Decks
             Description = description;
         }
 
-        public DeckDto ToDto()
-            => new DeckDto(Id, Name, Description);
+        public DeckDto ToDto(IEnumerable<DeckDto.Card> cards)
+            => new DeckDto(Id, Name, Description, cards);
     }
 }

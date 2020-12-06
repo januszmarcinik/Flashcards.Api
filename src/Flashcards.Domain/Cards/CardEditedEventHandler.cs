@@ -1,4 +1,6 @@
-﻿using Flashcards.Core;
+﻿using System.Linq;
+using Flashcards.Core;
+using Flashcards.Domain.Decks;
 using Microsoft.Extensions.Logging;
 
 namespace Flashcards.Domain.Cards
@@ -7,15 +9,18 @@ namespace Flashcards.Domain.Cards
     {
         private readonly ISqlCardsRepository _sqlCardsRepository;
         private readonly INoSqlCardsRepository _noSqlCardsRepository;
+        private readonly INoSqlDecksRepository _noSqlDecksRepository;
         private readonly ILogger<CardEditedEventHandler> _logger;
 
         public CardEditedEventHandler(
             ISqlCardsRepository sqlCardsRepository, 
             INoSqlCardsRepository noSqlCardsRepository,
+            INoSqlDecksRepository noSqlDecksRepository,
             ILogger<CardEditedEventHandler> logger)
         {
             _sqlCardsRepository = sqlCardsRepository;
             _noSqlCardsRepository = noSqlCardsRepository;
+            _noSqlDecksRepository = noSqlDecksRepository;
             _logger = logger;
         }
         
@@ -30,8 +35,20 @@ namespace Flashcards.Domain.Cards
 
             var dto = _noSqlCardsRepository.GetById(@event.CardId);
 
-            dto = dto.Recreate(dto.PreviousCardId, dto.NextCardId);
+            dto = card.ToDto(dto.DeckName, dto.PreviousCardId, dto.NextCardId);
             _noSqlCardsRepository.Update(dto);
+            
+            UpdateDeck(dto);
+        }
+        
+        private void UpdateDeck(CardDto card)
+        {
+            var dto = _noSqlDecksRepository.GetByName(card.DeckName);
+            var cards = dto.Cards.ToList();
+            var indexToReplace = cards.FindIndex(x => x.Id == card.Id);
+            cards[indexToReplace] = card.ToListItemDto();
+            
+            _noSqlDecksRepository.UpdateCards(dto.Id, cards);
         }
     }
 }

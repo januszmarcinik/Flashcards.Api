@@ -8,9 +8,9 @@ namespace Flashcards.Domain.Sessions
     internal class GetSessionsQueryHandler : QueryHandlerBase<GetSessionsQuery, IEnumerable<SessionDto>>
     {
         private readonly ISessionsRepository _sessionsRepository;
-        private readonly IDecksRepository _decksRepository;
+        private readonly ISqlDecksRepository _decksRepository;
 
-        public GetSessionsQueryHandler(ISessionsRepository sessionsRepository, IDecksRepository decksRepository)
+        public GetSessionsQueryHandler(ISessionsRepository sessionsRepository, ISqlDecksRepository decksRepository)
         {
             _sessionsRepository = sessionsRepository;
             _decksRepository = decksRepository;

@@ -7,9 +7,9 @@ namespace Flashcards.Domain.Decks
 {
     internal class AddDeckCommandHandler : CommandHandlerBase<AddDeckCommand>
     {
-        private readonly IDecksRepository _decksRepository;
+        private readonly ISqlDecksRepository _decksRepository;
 
-        public AddDeckCommandHandler(IDecksRepository decksRepository)
+        public AddDeckCommandHandler(ISqlDecksRepository decksRepository)
         {
             _decksRepository = decksRepository;
         }
@@ -32,7 +32,7 @@ namespace Flashcards.Domain.Decks
             var deck = new Deck(id, command.Name, command.Description);
             _decksRepository.Add(deck);
 
-            return Result.Ok();
+            return Result.Ok(deck.Id.ToString());
         }
     }
 }

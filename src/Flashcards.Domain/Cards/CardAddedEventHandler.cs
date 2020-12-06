@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Flashcards.Core;
 using Flashcards.Domain.Decks;
 using Microsoft.Extensions.Logging;
@@ -8,19 +9,22 @@ namespace Flashcards.Domain.Cards
     public class CardAddedEventHandler : IEventHandler<CardAddedEvent>
     {
         private readonly ISqlCardsRepository _sqlCardsRepository;
-        private readonly IDecksRepository _decksRepository;
+        private readonly ISqlDecksRepository _decksRepository;
         private readonly INoSqlCardsRepository _noSqlCardsRepository;
+        private readonly INoSqlDecksRepository _noSqlDecksRepository;
         private readonly ILogger<CardAddedEventHandler> _logger;
 
         public CardAddedEventHandler(
             ISqlCardsRepository sqlCardsRepository, 
-            IDecksRepository decksRepository,
+            ISqlDecksRepository decksRepository,
             INoSqlCardsRepository noSqlCardsRepository,
+            INoSqlDecksRepository noSqlDecksRepository,
             ILogger<CardAddedEventHandler> logger)
         {
             _sqlCardsRepository = sqlCardsRepository;
             _decksRepository = decksRepository;
             _noSqlCardsRepository = noSqlCardsRepository;
+            _noSqlDecksRepository = noSqlDecksRepository;
             _logger = logger;
         }
         
@@ -44,6 +48,8 @@ namespace Flashcards.Domain.Cards
 
             var dto = card.ToDto(deck.Name, previousCardId, Guid.Empty);
             _noSqlCardsRepository.Add(dto);
+            
+            UpdateDeck(dto);
         }
 
         private Guid GetPreviousAndUpdateLast(Card card)
@@ -58,6 +64,13 @@ namespace Flashcards.Domain.Cards
             _noSqlCardsRepository.Update(last);
 
             return last.Id;
+        }
+
+        private void UpdateDeck(CardDto card)
+        {
+            var dto = _noSqlDecksRepository.GetByName(card.DeckName);
+            var cards = dto.Cards.Concat(new[] {card.ToListItemDto()}).ToList();
+            _noSqlDecksRepository.UpdateCards(card.DeckId, cards);
         }
     }
 }

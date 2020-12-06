@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Linq;
 using Flashcards.Core;
+using Flashcards.Domain.Decks;
 
 namespace Flashcards.Domain.Cards
 {
     public class CardRemovedEventHandler : IEventHandler<CardRemovedEvent>
     {
         private readonly INoSqlCardsRepository _noSqlCardsRepository;
+        private readonly INoSqlDecksRepository _noSqlDecksRepository;
 
-        public CardRemovedEventHandler(INoSqlCardsRepository noSqlCardsRepository)
+        public CardRemovedEventHandler(INoSqlCardsRepository noSqlCardsRepository, INoSqlDecksRepository noSqlDecksRepository)
         {
             _noSqlCardsRepository = noSqlCardsRepository;
+            _noSqlDecksRepository = noSqlDecksRepository;
         }
         
         public void Handle(CardRemovedEvent @event)
@@ -45,6 +49,16 @@ namespace Flashcards.Domain.Cards
             }
             
             _noSqlCardsRepository.Remove(card.Id);
+            UpdateDeck(card);
+        }
+        
+        private void UpdateDeck(CardDto card)
+        {
+            var dto = _noSqlDecksRepository.GetByName(card.DeckName);
+            var cards = dto.Cards.ToList();
+            cards.RemoveAll(x => x.Id == card.Id);
+            
+            _noSqlDecksRepository.UpdateCards(dto.Id, cards);
         }
     }
 }

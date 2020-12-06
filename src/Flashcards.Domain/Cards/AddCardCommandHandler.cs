@@ -9,9 +9,9 @@ namespace Flashcards.Domain.Cards
     {
         private readonly ISqlCardsRepository _cardsRepository;
         private readonly IImagesService _imagesService;
-        private readonly IDecksRepository _decksRepository;
+        private readonly ISqlDecksRepository _decksRepository;
 
-        public AddCardCommandHandler(ISqlCardsRepository cardsRepository, IImagesService imagesService, IDecksRepository decksRepository)
+        public AddCardCommandHandler(ISqlCardsRepository cardsRepository, IImagesService imagesService, ISqlDecksRepository decksRepository)
         {
             _cardsRepository = cardsRepository;
             _imagesService = imagesService;

@@ -26,7 +26,6 @@ namespace Flashcards.Infrastructure.Repositories
         public IEnumerable<CardDto> GetByDeckName(string deckName) =>
             _dbContext.Cards
                 .Find(x => x.DeckName == deckName)
-                .SortBy(x => x.Id)
                 .ToList();
 
         public void Add(CardDto card) => 
@@ -37,5 +36,8 @@ namespace Flashcards.Infrastructure.Repositories
 
         public void Remove(Guid id) => 
             _dbContext.Cards.DeleteOne(x => x.Id == id);
+
+        public void RemoveByDeck(Guid deckId) => 
+            _dbContext.Cards.DeleteMany(x => x.DeckId == deckId);
     }
 }

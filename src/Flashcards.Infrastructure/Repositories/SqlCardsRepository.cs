@@ -18,16 +18,6 @@ namespace Flashcards.Infrastructure.Repositories
         public Card GetById(Guid id)
             => _dbContext.Cards.SingleOrDefault(x => x.Id == id);
 
-        public IEnumerable<Card> GetByDeck(Guid deckId)
-        {
-            var cards = _dbContext.Cards
-                .Where(x => x.DeckId == deckId)
-                .OrderBy(x => x.Id)
-                .ToList();
-
-            return cards;
-        }
-
         public void Add(Card card)
         {
             _dbContext.Cards.Add(card);

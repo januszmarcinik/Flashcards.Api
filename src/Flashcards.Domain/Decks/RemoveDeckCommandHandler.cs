@@ -4,9 +4,9 @@ namespace Flashcards.Domain.Decks
 {
     public class RemoveDeckCommandHandler : CommandHandlerBase<RemoveDeckCommand>
     {
-        private readonly IDecksRepository _decksRepository;
+        private readonly ISqlDecksRepository _decksRepository;
 
-        public RemoveDeckCommandHandler(IDecksRepository decksRepository)
+        public RemoveDeckCommandHandler(ISqlDecksRepository decksRepository)
         {
             _decksRepository = decksRepository;
         }

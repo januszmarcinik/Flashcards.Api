@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 namespace Flashcards.Domain.Cards
 {
@@ -20,17 +19,6 @@ namespace Flashcards.Domain.Cards
             Question = question;
             Answer = answer;
             Confirmed = false;
-        }
-
-        public CardListItemDto ToListItemDto()
-        {
-            var question = Regex.Replace(Question, "<.*?>", string.Empty);
-            if (question.Length > 100)
-            {
-                question = question.Remove(100);
-            }
-
-            return new CardListItemDto(Id, question, Confirmed);
         }
 
         public CardDto ToDto(string deckName, Guid previousCardId, Guid nextCardId)

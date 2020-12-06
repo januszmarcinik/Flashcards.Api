@@ -13,7 +13,8 @@ namespace Flashcards.Infrastructure.ContainerModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UsersRepository>().As<IUsersRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<DecksRepository>().As<IDecksRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<SqlDecksRepository>().As<ISqlDecksRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<NoSqlDecksRepository>().As<INoSqlDecksRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SqlCardsRepository>().As<ISqlCardsRepository>().InstancePerLifetimeScope();
             builder.RegisterType<NoSqlCardsRepository>().As<INoSqlCardsRepository>().InstancePerLifetimeScope();
             builder.RegisterType<SqlCommentsRepository>().As<ISqlCommentsRepository>().InstancePerLifetimeScope();

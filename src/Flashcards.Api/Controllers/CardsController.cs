@@ -18,14 +18,15 @@ namespace Flashcards.Api.Controllers
             _cardsRepository = cardsRepository;
         }
 
-        [HttpGet]
-        public IActionResult Get(string deck)
-            => Dispatch(new GetCardsByDeckQuery(deck));
-
         [HttpGet("{card}")]
         public IActionResult Get(Guid card)
         {
             var result = _cardsRepository.GetById(card);
+            if (result == null)
+            {
+                return NotFound("Card with given id does not exist.");
+            }
+            
             return Ok(result);
         }
 

@@ -4,9 +4,9 @@ namespace Flashcards.Domain.Decks
 {
     public class EditDeckCommandHandler : CommandHandlerBase<EditDeckCommand>
     {
-        private readonly IDecksRepository _decksRepository;
+        private readonly ISqlDecksRepository _decksRepository;
 
-        public EditDeckCommandHandler(IDecksRepository decksRepository)
+        public EditDeckCommandHandler(ISqlDecksRepository decksRepository)
         {
             _decksRepository = decksRepository;
         }

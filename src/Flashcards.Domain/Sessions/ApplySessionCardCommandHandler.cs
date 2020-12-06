@@ -9,12 +9,12 @@ namespace Flashcards.Domain.Sessions
     internal class ApplySessionCardCommandHandler : CommandHandlerBase<ApplySessionCardCommand>
     {
         private readonly ICacheService _cache;
-        private readonly IDecksRepository _decksRepository;
+        private readonly ISqlDecksRepository _decksRepository;
         private readonly ISessionsRepository _sessionsRepository;
 
         public ApplySessionCardCommandHandler(
             ICacheService cache, 
-            IDecksRepository decksRepository, 
+            ISqlDecksRepository decksRepository, 
             ISessionsRepository sessionsRepository)
         {
             _cache = cache;
