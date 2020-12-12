@@ -12,8 +12,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly ICacheService _cache;
 
-        public AuthController(IMediator mediator, ICacheService cache) 
-            : base(mediator)
+        public AuthController(IMediator mediator, IEventBus eventBus, ICacheService cache) 
+            : base(mediator, eventBus)
         {
             _cache = cache;
         }

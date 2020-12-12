@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Autofac;
 using Flashcards.Core;
 
@@ -16,7 +17,10 @@ namespace Flashcards.Infrastructure
         public T ResolveOrDefault<T>() where T : class
             => _lifetimeScope.ResolveOptional<T>();
 
-        public IEnumerable<T> ResolveMany<T>() where T : class => 
-            _lifetimeScope.ResolveOptional<IEnumerable<T>>();
+        public IEnumerable<object> ResolveMany(Type type)
+        {
+            var enumerableType = typeof(IEnumerable<>).MakeGenericType(type);
+            return (IEnumerable<object>)_lifetimeScope.ResolveOptional(enumerableType);
+        }
     }
 }

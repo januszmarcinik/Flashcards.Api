@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Flashcards.Core
 {
@@ -6,6 +7,6 @@ namespace Flashcards.Core
     {
         T ResolveOrDefault<T>() where T : class;
 
-        IEnumerable<T> ResolveMany<T>() where T : class;
+        IEnumerable<object> ResolveMany(Type type);
     }
 }

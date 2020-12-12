@@ -10,6 +10,7 @@ using Flashcards.Api.Middleware;
 using Flashcards.Infrastructure.ContainerModules;
 using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
+using Flashcards.Infrastructure.Services;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
@@ -43,8 +44,8 @@ namespace Flashcards.Api
             services.AddDbContext<EFContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetSettings<SqlSettings>().ConnectionString);
-                options.UseLazyLoadingProxies();
             });
+            services.AddHostedService<QueueListener>();
             
             services.AddJwtTokenAuthentication(Configuration);
 

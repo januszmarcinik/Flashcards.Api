@@ -20,6 +20,7 @@ namespace Flashcards.Infrastructure.ContainerModules
             builder.RegisterInstance(_configuration.GetSettings<SqlSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<MongoSettings>()).SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<QueueSettings>()).SingleInstance();
         }
     }
 }

@@ -10,8 +10,8 @@ namespace Flashcards.Api.Controllers
     [Route("api/decks/{deck}/sessions")]
     public class SessionsController : ApiController
     {
-        public SessionsController(IMediator mediator)
-            : base(mediator)
+        public SessionsController(IMediator mediator, IEventBus eventBus)
+            : base(mediator, eventBus)
         {
         }
 

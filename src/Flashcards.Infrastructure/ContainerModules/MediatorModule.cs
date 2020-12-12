@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using Flashcards.Core;
 using Flashcards.Domain.Cards;
+using Flashcards.Infrastructure.Services;
 
 namespace Flashcards.Infrastructure.ContainerModules
 {
@@ -9,6 +10,7 @@ namespace Flashcards.Infrastructure.ContainerModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<Mediator>().As<IMediator>().InstancePerLifetimeScope();
+            builder.RegisterType<RabbitMqEventBus>().As<IEventBus>().SingleInstance();
 
             builder
                 .Register(factory =>

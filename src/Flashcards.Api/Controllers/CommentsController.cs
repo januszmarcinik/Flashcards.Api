@@ -10,8 +10,8 @@ namespace Flashcards.Api.Controllers
     [Route("api/decks/{deck}/cards/{card}/comments")]
     public class CommentsController : ApiController
     {
-        public CommentsController(IMediator mediator)
-            : base(mediator)
+        public CommentsController(IMediator mediator, IEventBus eventBus)
+            : base(mediator, eventBus)
         {
         }
 

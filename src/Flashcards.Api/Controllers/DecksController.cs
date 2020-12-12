@@ -12,8 +12,8 @@ namespace Flashcards.Api.Controllers
     {
         private readonly INoSqlDecksRepository _decksRepository;
 
-        public DecksController(IMediator mediator, INoSqlDecksRepository decksRepository) 
-            : base(mediator)
+        public DecksController(IMediator mediator, IEventBus eventBus, INoSqlDecksRepository decksRepository) 
+            : base(mediator, eventBus)
         {
             _decksRepository = decksRepository;
         }

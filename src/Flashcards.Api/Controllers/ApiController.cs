@@ -7,10 +7,12 @@ namespace Flashcards.Api.Controllers
     public class ApiController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly IEventBus _eventBus;
 
-        public ApiController(IMediator mediator)
+        public ApiController(IMediator mediator, IEventBus eventBus)
         {
             _mediator = mediator;
+            _eventBus = eventBus;
         }
         
         protected IActionResult Dispatch<TCommand>(TCommand command, Func<object> getValueOnSuccess = null) where TCommand : ICommand
@@ -47,7 +49,7 @@ namespace Flashcards.Api.Controllers
             }
 
             var @event = publishEventOnSuccess(result);
-            _mediator.Publish(@event);
+            _eventBus.Publish(@event);
 
             return Accepted();
         }

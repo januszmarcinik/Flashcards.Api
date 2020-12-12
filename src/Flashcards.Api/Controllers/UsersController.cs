@@ -9,8 +9,8 @@ namespace Flashcards.Api.Controllers
     [Route("api/users")]
     public class UsersController : ApiController
     {
-        public UsersController(IMediator mediator)
-            : base(mediator)
+        public UsersController(IMediator mediator, IEventBus eventBus)
+            : base(mediator, eventBus)
         {
         }
 

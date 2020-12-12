@@ -45,10 +45,13 @@ namespace Flashcards.Core
 
         public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
         {
-            var handlers = _dependencyResolver.ResolveMany<IEventHandler<TEvent>>();
+            var type = typeof(IEventHandler<>).MakeGenericType(@event.GetType());
+            var handlers = _dependencyResolver.ResolveMany(type);
             foreach (var handler in handlers)
             {
-                handler.Handle(@event);
+                handler.GetType()
+                    .GetMethod("Handle")?
+                    .Invoke(handler, new object[] { @event });
             }
         }
     }
