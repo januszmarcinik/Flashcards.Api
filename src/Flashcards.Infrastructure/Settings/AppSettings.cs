@@ -3,6 +3,6 @@
     public class AppSettings
     {
         public string Name { get; set; }
-        public string ImagesContainerFullPath { get; set; }
+        public bool IsCloud { get; set; }
     }
 }

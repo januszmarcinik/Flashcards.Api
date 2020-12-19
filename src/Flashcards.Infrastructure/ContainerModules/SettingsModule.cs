@@ -17,6 +17,7 @@ namespace Flashcards.Infrastructure.ContainerModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterInstance(_configuration.GetSettings<AppSettings>()).SingleInstance();
+            builder.RegisterInstance(_configuration.GetSettings<ImagesSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<SqlSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<MongoSettings>()).SingleInstance();
