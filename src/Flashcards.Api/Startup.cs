@@ -54,7 +54,7 @@ namespace Flashcards.Api
         
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule<ServicesModule>();
+            builder.RegisterModule(new ServicesModule(Configuration));
             builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule<MediatorModule>();
