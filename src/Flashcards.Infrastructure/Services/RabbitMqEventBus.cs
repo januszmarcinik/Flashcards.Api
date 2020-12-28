@@ -9,14 +9,12 @@ namespace Flashcards.Infrastructure.Services
     internal class RabbitMqEventBus : IEventBus, IDisposable
     {
         private readonly QueueSettings _settings;
-        private readonly IMediator _mediator;
         private readonly IConnection _connection;
         private readonly IModel _channel;
 
-        public RabbitMqEventBus(QueueSettings settings, IMediator mediator)
+        public RabbitMqEventBus(QueueSettings settings)
         {
             _settings = settings;
-            _mediator = mediator;
             var factory = new ConnectionFactory
             {
                 HostName = _settings.HostName
@@ -42,7 +40,7 @@ namespace Flashcards.Infrastructure.Services
                 body: body);
         }
 
-        public void Subscribe()
+        public void Subscribe(Action<IEvent> processMessage)
         {
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (model, ea) =>
@@ -50,11 +48,16 @@ namespace Flashcards.Infrastructure.Services
                 var body = ea.Body.ToArray();
                 var integrationEvent = IntegrationEvent.Deserialize(body);
                 var @event = integrationEvent.ToDomainEvent();
-                _mediator.Publish(@event);
+                processMessage(@event);
             };
             _channel.BasicConsume(queue: _settings.QueueName,
                 autoAck: true,
                 consumer: consumer);
+        }
+
+        public void Unsubscribe()
+        {
+            _channel.Close();
         }
 
         public void Dispose()

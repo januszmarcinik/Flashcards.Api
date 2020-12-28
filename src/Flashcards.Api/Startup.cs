@@ -57,7 +57,7 @@ namespace Flashcards.Api
             builder.RegisterModule(new ServicesModule(Configuration));
             builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule<RepositoryModule>();
-            builder.RegisterModule<MediatorModule>();
+            builder.RegisterModule(new MediatorModule(Configuration));
             builder.RegisterModule<MongoModule>();
         }
 
