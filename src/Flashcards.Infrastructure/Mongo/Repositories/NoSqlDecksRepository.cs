@@ -4,7 +4,7 @@ using Flashcards.Domain.Decks;
 using Flashcards.Infrastructure.DataAccess;
 using MongoDB.Driver;
 
-namespace Flashcards.Infrastructure.Repositories
+namespace Flashcards.Infrastructure.Mongo.Repositories
 {
     internal class NoSqlDecksRepository : INoSqlDecksRepository
     {

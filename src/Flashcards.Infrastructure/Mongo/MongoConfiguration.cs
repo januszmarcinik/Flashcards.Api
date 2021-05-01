@@ -4,7 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 
-namespace Flashcards.Infrastructure.DataAccess.Configurations
+namespace Flashcards.Infrastructure.Mongo
 {
     public class MongoConfiguration
     {

@@ -8,6 +8,7 @@ using Flashcards.Api.Configuration;
 using Flashcards.Api.Middleware;
 using Flashcards.Infrastructure.ContainerModules;
 using Flashcards.Infrastructure.Extensions;
+using Flashcards.Infrastructure.Mongo;
 using Flashcards.Infrastructure.Services;
 using Flashcards.Infrastructure.Settings;
 using Flashcards.Infrastructure.Sql;
@@ -44,10 +45,13 @@ namespace Flashcards.Api
             if (appSettings.IsCloud)
             {
                 services.AddAzureSql(Configuration);
+                // TODO: AddCosmosDb()
             }
             else
             {
-                services.AddSqlServer(Configuration);
+                services
+                    .AddSqlServer(Configuration)
+                    .AddMongo(Configuration);
             }
            
             services.AddHostedService<QueueListener>();
@@ -61,9 +65,7 @@ namespace Flashcards.Api
         {
             builder.RegisterModule(new ServicesModule(Configuration));
             builder.RegisterModule(new SettingsModule(Configuration));
-            builder.RegisterModule<RepositoryModule>();
             builder.RegisterModule(new MediatorModule(Configuration));
-            builder.RegisterModule<MongoModule>();
         }
 
         public void Configure(IApplicationBuilder app)

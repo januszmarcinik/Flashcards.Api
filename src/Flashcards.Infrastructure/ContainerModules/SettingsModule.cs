@@ -18,7 +18,6 @@ namespace Flashcards.Infrastructure.ContainerModules
         {
             builder.RegisterInstance(_configuration.GetSettings<ImagesSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>()).SingleInstance();
-            builder.RegisterInstance(_configuration.GetSettings<MongoSettings>()).SingleInstance();
             builder.RegisterInstance(_configuration.GetSettings<QueueSettings>()).SingleInstance();
         }
     }

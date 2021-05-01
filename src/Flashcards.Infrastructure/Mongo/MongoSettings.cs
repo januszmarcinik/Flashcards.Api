@@ -1,4 +1,4 @@
-﻿namespace Flashcards.Infrastructure.Settings
+﻿namespace Flashcards.Infrastructure.Mongo
 {
     public class MongoSettings
     {
