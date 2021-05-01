@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Flashcards.Application.Tokens;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 

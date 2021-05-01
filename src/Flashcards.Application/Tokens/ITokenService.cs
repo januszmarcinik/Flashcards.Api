@@ -1,6 +1,7 @@
 ﻿using System;
+using Flashcards.Application.Users;
 
-namespace Flashcards.Application.Users
+namespace Flashcards.Application.Tokens
 {
     public interface ITokenService
     {

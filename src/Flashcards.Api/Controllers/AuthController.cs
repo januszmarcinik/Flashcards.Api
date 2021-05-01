@@ -2,6 +2,7 @@
 using Flashcards.Application;
 using Flashcards.Application.Cache;
 using Flashcards.Application.Extensions;
+using Flashcards.Application.Tokens;
 using Flashcards.Application.Users;
 using Flashcards.Core;
 using Microsoft.AspNetCore.Mvc;

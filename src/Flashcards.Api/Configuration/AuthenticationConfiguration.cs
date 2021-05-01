@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using Flashcards.Application.Tokens;
 using Flashcards.Infrastructure;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

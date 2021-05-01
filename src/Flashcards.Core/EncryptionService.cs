@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace Flashcards.Application.Users
+namespace Flashcards.Core
 {
     public class EncryptionService
     {

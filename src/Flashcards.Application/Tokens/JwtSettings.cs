@@ -1,6 +1,6 @@
 ﻿using Flashcards.Core;
 
-namespace Flashcards.Infrastructure.Settings
+namespace Flashcards.Application.Tokens
 {
     public class JwtSettings : ISettings
     {

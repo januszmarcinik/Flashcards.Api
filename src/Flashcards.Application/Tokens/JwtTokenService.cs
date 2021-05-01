@@ -3,10 +3,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Flashcards.Application.Users;
-using Flashcards.Infrastructure.Settings;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Application.Tokens
 {
     internal class JwtTokenService : ITokenService
     {

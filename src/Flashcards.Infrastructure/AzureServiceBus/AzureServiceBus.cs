@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
 using Flashcards.Application.EventBus;
 using Flashcards.Core;
-using Flashcards.Infrastructure.Services;
 using Microsoft.Extensions.Options;
 
 namespace Flashcards.Infrastructure.AzureServiceBus

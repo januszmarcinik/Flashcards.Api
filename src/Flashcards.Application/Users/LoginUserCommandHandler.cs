@@ -1,5 +1,6 @@
 ﻿using Flashcards.Application.Cache;
 using Flashcards.Application.Extensions;
+using Flashcards.Application.Tokens;
 using Flashcards.Core;
 
 namespace Flashcards.Application.Users

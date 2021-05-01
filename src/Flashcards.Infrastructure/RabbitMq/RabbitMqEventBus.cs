@@ -1,7 +1,6 @@
 ﻿using System;
 using Flashcards.Application.EventBus;
 using Flashcards.Core;
-using Flashcards.Infrastructure.Services;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
