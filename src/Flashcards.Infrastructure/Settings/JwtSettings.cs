@@ -1,6 +1,8 @@
-﻿namespace Flashcards.Infrastructure.Settings
+﻿using Flashcards.Core;
+
+namespace Flashcards.Infrastructure.Settings
 {
-    public class JwtSettings
+    public class JwtSettings : ISettings
     {
         public string Key { get; set; }
         public int ExpiryMinutes { get; set; }

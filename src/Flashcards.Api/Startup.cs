@@ -6,12 +6,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Flashcards.Api.Configuration;
 using Flashcards.Api.Middleware;
+using Flashcards.Infrastructure.BlobStorage;
 using Flashcards.Infrastructure.ContainerModules;
 using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Mongo;
 using Flashcards.Infrastructure.Services;
 using Flashcards.Infrastructure.Settings;
 using Flashcards.Infrastructure.Sql;
+using Flashcards.Infrastructure.WindowsStorage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
@@ -44,13 +46,16 @@ namespace Flashcards.Api
             var appSettings = Configuration.GetSettings<AppSettings>();
             if (appSettings.IsCloud)
             {
-                services.AddAzureSql(Configuration);
+                services
+                    .AddAzureSql(Configuration)
+                    .AddAzureBlobStorage(Configuration);
                 // TODO: AddCosmosDb()
             }
             else
             {
                 services
                     .AddSqlServer(Configuration)
+                    .AddWindowsStorage(Configuration)
                     .AddMongo(Configuration);
             }
            
@@ -63,7 +68,7 @@ namespace Flashcards.Api
         
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new ServicesModule(Configuration));
+            builder.RegisterModule(new ServicesModule());
             builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule(new MediatorModule(Configuration));
         }

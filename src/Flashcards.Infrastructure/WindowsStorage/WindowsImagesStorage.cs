@@ -2,23 +2,22 @@
 using System.Collections.Generic;
 using System.IO;
 using Flashcards.Domain.Images;
-using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Options;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Infrastructure.WindowsStorage
 {
     internal class WindowsImagesStorage : IImagesStorage
     {
-        private readonly ImagesSettings _imagesSettings;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public WindowsImagesStorage(ImagesSettings imagesSettings, IWebHostEnvironment hostingEnvironment)
+        public WindowsImagesStorage(IOptions<WindowsStorageSettings> settings, IWebHostEnvironment hostingEnvironment)
         {
-            _imagesSettings = imagesSettings;
             _hostingEnvironment = hostingEnvironment;
+            VirtualPath = settings.Value.VirtualPath;
         }
 
-        public string VirtualPath => _imagesSettings.ImagesContainerFullPath;
+        public string VirtualPath { get; }
 
         public void SaveImages(string deck, Guid cardId, IEnumerable<ImageDataInfo> imagesData)
         {

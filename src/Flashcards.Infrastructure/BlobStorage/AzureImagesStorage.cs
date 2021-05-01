@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using System.IO;
 using Azure.Storage.Blobs;
 using Flashcards.Domain.Images;
-using Flashcards.Infrastructure.Settings;
+using Microsoft.Extensions.Options;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Infrastructure.BlobStorage
 {
     internal class AzureImagesStorage : IImagesStorage
     {
-        private readonly ImagesSettings _imagesSettings;
         private readonly BlobContainerClient _container;
-        private const string ContainerName = "images";
 
-        public AzureImagesStorage(ImagesSettings imagesSettings)
+        public AzureImagesStorage(IOptions<AzureBlobStorageSettings> settings)
         {
-            _imagesSettings = imagesSettings;
-            var blobServiceClient = new BlobServiceClient(imagesSettings.ConnectionString);
-            _container = blobServiceClient.GetBlobContainerClient(ContainerName);
+            var blobServiceClient = new BlobServiceClient(settings.Value.ConnectionString);
+            _container = blobServiceClient.GetBlobContainerClient(settings.Value.ImagesContainerName);
             _container.CreateIfNotExists();
+            VirtualPath = $"{settings.Value.StorageUrl}/{settings.Value.ImagesContainerName}";
         }
 
-        public string VirtualPath => $"{_imagesSettings.ImagesContainerFullPath}/{ContainerName}";
+        public string VirtualPath { get; }
 
         public void SaveImages(string deck, Guid cardId, IEnumerable<ImageDataInfo> imagesData)
         {

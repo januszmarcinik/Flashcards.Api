@@ -1,6 +1,8 @@
-﻿namespace Flashcards.Infrastructure.Settings
+﻿using Flashcards.Core;
+
+namespace Flashcards.Infrastructure.Settings
 {
-    public class QueueSettings
+    public class QueueSettings : ISettings
     {
         public string HostName { get; set; }
         public string QueueName { get; set; }
