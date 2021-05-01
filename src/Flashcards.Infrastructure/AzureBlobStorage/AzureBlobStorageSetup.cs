@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Flashcards.Infrastructure.BlobStorage
+namespace Flashcards.Infrastructure.AzureBlobStorage
 {
-    public static class Extensions
+    public static class AzureBlobStorageSetup
     {
         public static IServiceCollection AddAzureBlobStorage(this IServiceCollection services, IConfiguration configuration) =>
             services

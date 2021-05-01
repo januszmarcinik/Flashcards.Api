@@ -1,6 +1,6 @@
 ﻿using Flashcards.Core;
 
-namespace Flashcards.Infrastructure.BlobStorage
+namespace Flashcards.Infrastructure.AzureBlobStorage
 {
     public class AzureBlobStorageSettings : ISettings
     {

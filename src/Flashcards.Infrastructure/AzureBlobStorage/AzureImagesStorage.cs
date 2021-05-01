@@ -5,7 +5,7 @@ using Azure.Storage.Blobs;
 using Flashcards.Application.Images;
 using Microsoft.Extensions.Options;
 
-namespace Flashcards.Infrastructure.BlobStorage
+namespace Flashcards.Infrastructure.AzureBlobStorage
 {
     internal class AzureImagesStorage : IImagesStorage
     {

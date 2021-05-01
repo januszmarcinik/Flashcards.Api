@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure.WindowsStorage
 {
-    public static class Extensions
+    public static class WindowsServiceSetup
     {
         public static IServiceCollection AddWindowsStorage(this IServiceCollection services, IConfiguration configuration) =>
             services

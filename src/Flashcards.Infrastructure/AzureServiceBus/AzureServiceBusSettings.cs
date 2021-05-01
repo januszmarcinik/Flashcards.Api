@@ -1,6 +1,6 @@
 ﻿using Flashcards.Core;
 
-namespace Flashcards.Infrastructure.ServiceBus
+namespace Flashcards.Infrastructure.AzureServiceBus
 {
     public class AzureServiceBusSettings : ISettings
     {

@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure.Mongo
 {
-    public static class Extensions
+    public static class MongoSetup
     {
         public static IServiceCollection AddMongo(this IServiceCollection services, IConfiguration configuration)
         {

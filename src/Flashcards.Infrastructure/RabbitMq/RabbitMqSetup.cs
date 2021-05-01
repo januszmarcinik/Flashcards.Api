@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure.RabbitMq
 {
-    public static class Extensions
+    public static class RabbitMqSetup
     {
         public static IServiceCollection AddRabbitMq(this IServiceCollection services, IConfiguration configuration) =>
             services

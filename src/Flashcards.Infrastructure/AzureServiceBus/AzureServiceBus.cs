@@ -5,7 +5,7 @@ using Flashcards.Core;
 using Flashcards.Infrastructure.Services;
 using Microsoft.Extensions.Options;
 
-namespace Flashcards.Infrastructure.ServiceBus
+namespace Flashcards.Infrastructure.AzureServiceBus
 {
     internal class AzureServiceBus : IEventBus, IAsyncDisposable
     {

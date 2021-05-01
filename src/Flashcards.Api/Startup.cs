@@ -7,15 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Flashcards.Api.Configuration;
 using Flashcards.Api.Middleware;
 using Flashcards.Infrastructure;
-using Flashcards.Infrastructure.BlobStorage;
 using Flashcards.Infrastructure.ContainerModules;
-using Flashcards.Infrastructure.Mongo;
-using Flashcards.Infrastructure.RabbitMq;
-using Flashcards.Infrastructure.ServiceBus;
 using Flashcards.Infrastructure.Services;
 using Flashcards.Infrastructure.Settings;
-using Flashcards.Infrastructure.Sql;
-using Flashcards.Infrastructure.WindowsStorage;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
@@ -46,22 +40,9 @@ namespace Flashcards.Api
             services.AddCors();
 
             var appSettings = Configuration.GetSettings<AppSettings>();
-            if (appSettings.IsCloud)
-            {
-                services
-                    .AddAzureSql(Configuration)
-                    .AddAzureBlobStorage(Configuration)
-                    .AddAzureServiceBus(Configuration);
-                // TODO: AddCosmosDb()
-            }
-            else
-            {
-                services
-                    .AddSqlServer(Configuration)
-                    .AddWindowsStorage(Configuration)
-                    .AddRabbitMq(Configuration)
-                    .AddMongo(Configuration);
-            }
+            _ = appSettings.IsCloud
+                ? services.AddCloudInfrastructure(Configuration)
+                : services.AddOnPremisesInfrastructure(Configuration);
            
             services.AddHostedService<QueueListener>();
             

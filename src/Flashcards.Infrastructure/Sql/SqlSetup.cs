@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure.Sql
 {
-    public static class Extensions
+    public static class SqlSetup
     {
         public static IServiceCollection AddSqlServer(this IServiceCollection services, IConfiguration configuration)
         {

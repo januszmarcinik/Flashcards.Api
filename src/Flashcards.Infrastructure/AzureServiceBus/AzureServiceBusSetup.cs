@@ -1,11 +1,10 @@
 ﻿using Flashcards.Core;
-using Flashcards.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Flashcards.Infrastructure.ServiceBus
+namespace Flashcards.Infrastructure.AzureServiceBus
 {
-    public static class Extensions
+    public static class AzureServiceBusSetup
     {
         public static IServiceCollection AddAzureServiceBus(this IServiceCollection services, IConfiguration configuration) =>
             services
