@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flashcards.Domain.Users;
+using Flashcards.Application.Users;
 
 namespace Flashcards.Infrastructure.Sql.Repositories
 {

@@ -1,6 +1,6 @@
 ﻿using System;
+using Flashcards.Application.Sessions;
 using Flashcards.Core;
-using Flashcards.Domain.Sessions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

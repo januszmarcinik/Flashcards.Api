@@ -1,6 +1,6 @@
 ﻿using Autofac;
-using Flashcards.Domain;
-using Flashcards.Domain.Users;
+using Flashcards.Application;
+using Flashcards.Application.Users;
 using Flashcards.Infrastructure.Services;
 
 namespace Flashcards.Infrastructure.ContainerModules

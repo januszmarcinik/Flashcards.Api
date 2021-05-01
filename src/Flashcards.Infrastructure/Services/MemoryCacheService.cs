@@ -1,5 +1,5 @@
 ﻿using System;
-using Flashcards.Domain;
+using Flashcards.Application;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Flashcards.Infrastructure.Services

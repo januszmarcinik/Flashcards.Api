@@ -1,5 +1,5 @@
-﻿using Flashcards.Core;
-using Flashcards.Domain.Users;
+﻿using Flashcards.Application.Users;
+using Flashcards.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

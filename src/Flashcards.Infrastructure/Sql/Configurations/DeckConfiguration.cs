@@ -1,6 +1,6 @@
-﻿using Flashcards.Domain.Cards;
-using Flashcards.Domain.Decks;
-using Flashcards.Domain.Sessions;
+﻿using Flashcards.Application.Cards;
+using Flashcards.Application.Decks;
+using Flashcards.Application.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,6 +1,6 @@
 ﻿using Autofac;
+using Flashcards.Application.Cards;
 using Flashcards.Core;
-using Flashcards.Domain.Cards;
 
 namespace Flashcards.Infrastructure.ContainerModules
 {

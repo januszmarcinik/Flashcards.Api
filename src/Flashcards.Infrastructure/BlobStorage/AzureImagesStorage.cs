@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using Azure.Storage.Blobs;
-using Flashcards.Domain.Images;
+using Flashcards.Application.Images;
 using Microsoft.Extensions.Options;
 
 namespace Flashcards.Infrastructure.BlobStorage

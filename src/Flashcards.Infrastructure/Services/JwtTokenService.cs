@@ -2,7 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Flashcards.Domain.Users;
+using Flashcards.Application.Users;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.IdentityModel.Tokens;
 

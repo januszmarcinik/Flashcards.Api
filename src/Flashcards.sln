@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Api", "Flashcards.Api\Flashcards.Api.csproj", "{5F492510-E2D4-408C-A395-F9D5F2731351}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Domain", "Flashcards.Domain\Flashcards.Domain.csproj", "{A1DCD62A-63B7-49ED-A481-AC1C8C1808A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Application", "Flashcards.Application\Flashcards.Application.csproj", "{A1DCD62A-63B7-49ED-A481-AC1C8C1808A9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Flashcards.Infrastructure", "Flashcards.Infrastructure\Flashcards.Infrastructure.csproj", "{446284B5-DE9E-41C5-86F1-A7B87B908AC0}"
 EndProject

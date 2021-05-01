@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Text;
+using Flashcards.Application.Cards;
 using Flashcards.Core;
-using Flashcards.Domain.Cards;
 using Newtonsoft.Json;
 
 namespace Flashcards.Infrastructure.Services

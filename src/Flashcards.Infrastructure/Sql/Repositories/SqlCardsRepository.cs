@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Flashcards.Domain.Cards;
+using Flashcards.Application.Cards;
 
 namespace Flashcards.Infrastructure.Sql.Repositories
 {

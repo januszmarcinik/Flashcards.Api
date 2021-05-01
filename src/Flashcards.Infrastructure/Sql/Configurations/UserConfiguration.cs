@@ -1,6 +1,6 @@
-﻿using Flashcards.Domain.Comments;
-using Flashcards.Domain.Sessions;
-using Flashcards.Domain.Users;
+﻿using Flashcards.Application.Comments;
+using Flashcards.Application.Sessions;
+using Flashcards.Application.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,5 +1,5 @@
-﻿using Flashcards.Domain.Cards;
-using Flashcards.Domain.Decks;
+﻿using Flashcards.Application.Cards;
+using Flashcards.Application.Decks;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;

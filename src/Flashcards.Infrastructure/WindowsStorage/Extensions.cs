@@ -1,4 +1,4 @@
-﻿using Flashcards.Domain.Images;
+﻿using Flashcards.Application.Images;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

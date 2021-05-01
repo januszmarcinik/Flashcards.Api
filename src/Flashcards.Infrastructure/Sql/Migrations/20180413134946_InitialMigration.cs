@@ -1,5 +1,5 @@
 ﻿using System;
-using Flashcards.Domain.Users;
+using Flashcards.Application.Users;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Flashcards.Infrastructure.DataAccess.Migrations

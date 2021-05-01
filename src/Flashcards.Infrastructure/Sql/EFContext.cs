@@ -1,8 +1,8 @@
-﻿using Flashcards.Domain.Cards;
-using Flashcards.Domain.Comments;
-using Flashcards.Domain.Decks;
-using Flashcards.Domain.Sessions;
-using Flashcards.Domain.Users;
+﻿using Flashcards.Application.Cards;
+using Flashcards.Application.Comments;
+using Flashcards.Application.Decks;
+using Flashcards.Application.Sessions;
+using Flashcards.Application.Users;
 using Flashcards.Infrastructure.Sql.Configurations;
 using Microsoft.EntityFrameworkCore;
 

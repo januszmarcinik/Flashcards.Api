@@ -1,6 +1,6 @@
 ﻿using System;
+using Flashcards.Application.Comments;
 using Flashcards.Core;
-using Flashcards.Domain.Comments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

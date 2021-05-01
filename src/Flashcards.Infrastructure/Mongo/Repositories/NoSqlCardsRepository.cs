@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Flashcards.Domain.Cards;
+using Flashcards.Application.Cards;
 using MongoDB.Driver;
 
 namespace Flashcards.Infrastructure.Mongo.Repositories

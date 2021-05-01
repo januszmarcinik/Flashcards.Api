@@ -1,5 +1,5 @@
-﻿using Flashcards.Domain.Cards;
-using Flashcards.Domain.Decks;
+﻿using Flashcards.Application.Cards;
+using Flashcards.Application.Decks;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

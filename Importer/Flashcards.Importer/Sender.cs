@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using Flashcards.Domain.Cards;
-using Flashcards.Domain.Decks;
-using Flashcards.Domain.Users;
+using Flashcards.Application.Cards;
+using Flashcards.Application.Decks;
+using Flashcards.Application.Users;
 using Newtonsoft.Json;
 
 namespace Flashcards.Importer

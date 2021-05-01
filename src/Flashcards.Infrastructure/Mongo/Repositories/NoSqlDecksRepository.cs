@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Flashcards.Domain.Decks;
+using Flashcards.Application.Decks;
 using Flashcards.Infrastructure.DataAccess;
 using MongoDB.Driver;
 

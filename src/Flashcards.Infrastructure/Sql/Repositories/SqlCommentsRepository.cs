@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Flashcards.Domain.Comments;
+using Flashcards.Application.Comments;
 
 namespace Flashcards.Infrastructure.Sql.Repositories
 {

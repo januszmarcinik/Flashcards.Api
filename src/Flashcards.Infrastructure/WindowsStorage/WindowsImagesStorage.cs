@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Flashcards.Domain.Images;
+using Flashcards.Application.Images;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 

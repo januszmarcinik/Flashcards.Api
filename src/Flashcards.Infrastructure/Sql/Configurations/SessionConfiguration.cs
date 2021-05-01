@@ -1,4 +1,4 @@
-﻿using Flashcards.Domain.Sessions;
+﻿using Flashcards.Application.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
