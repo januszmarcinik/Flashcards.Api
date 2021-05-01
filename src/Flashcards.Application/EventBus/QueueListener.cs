@@ -1,20 +1,21 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
-using Autofac;
 using Flashcards.Core;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Application.EventBus
 {
     public class QueueListener : IHostedService
     {
         private readonly IEventBus _eventBus;
-        private readonly ILifetimeScope _lifetimeScope;
+        private readonly IServiceProvider _serviceProvider;
 
-        public QueueListener(IEventBus eventBus, ILifetimeScope lifetimeScope)
+        public QueueListener(IEventBus eventBus, IServiceProvider serviceProvider)
         {
             _eventBus = eventBus;
-            _lifetimeScope = lifetimeScope;
+            _serviceProvider = serviceProvider;
         }
         
         public Task StartAsync(CancellationToken cancellationToken)
@@ -31,8 +32,8 @@ namespace Flashcards.Infrastructure.Services
 
         private void ProcessMessage(IEvent @event)
         {
-            using var childScope = _lifetimeScope.BeginLifetimeScope();
-            var mediator = childScope.Resolve<IMediator>();
+            using var childScope = _serviceProvider.CreateScope();
+            var mediator = childScope.ServiceProvider.GetService<IMediator>();
             mediator.Publish(@event);
         }
     }

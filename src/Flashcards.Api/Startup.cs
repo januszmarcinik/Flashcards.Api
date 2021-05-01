@@ -9,7 +9,6 @@ using Flashcards.Api.Middleware;
 using Flashcards.Application;
 using Flashcards.Infrastructure;
 using Flashcards.Infrastructure.ContainerModules;
-using Flashcards.Infrastructure.Services;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
@@ -47,8 +46,6 @@ namespace Flashcards.Api
                 ? services.AddCloudInfrastructure(Configuration)
                 : services.AddOnPremisesInfrastructure(Configuration);
 
-            services.AddHostedService<QueueListener>();
-            
             services.AddJwtTokenAuthentication(Configuration);
 
             services.AddSwaggerGen(c => c.SwaggerDoc("v1", new OpenApiInfo { Title = "Flashcards API", Version = "v1" }));

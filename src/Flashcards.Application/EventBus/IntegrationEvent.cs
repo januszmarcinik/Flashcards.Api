@@ -4,7 +4,7 @@ using Flashcards.Application.Cards;
 using Flashcards.Core;
 using Newtonsoft.Json;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Application.EventBus
 {
     public class IntegrationEvent
     {
