@@ -1,14 +1,15 @@
-﻿using Flashcards.Application.Images;
-using Microsoft.Extensions.Configuration;
+﻿using Flashcards.Application;
+using Flashcards.Application.Images;
+using Flashcards.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure.AzureBlobStorage
 {
     public static class AzureBlobStorageSetup
     {
-        public static IServiceCollection AddAzureBlobStorage(this IServiceCollection services, IConfiguration configuration) =>
+        public static IServiceCollection AddAzureBlobStorage(this IServiceCollection services, ISettingsRegistry settings) =>
             services
-                .AddSettings<AzureBlobStorageSettings>(configuration)
+                .AddSettings<AzureBlobStorageSettings>(settings)
                 .AddScoped<IImagesStorage, AzureImagesStorage>();
     }
 }

@@ -1,14 +1,15 @@
-﻿using Flashcards.Application.Images;
-using Microsoft.Extensions.Configuration;
+﻿using Flashcards.Application;
+using Flashcards.Application.Images;
+using Flashcards.Core;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure.WindowsStorage
 {
     public static class WindowsServiceSetup
     {
-        public static IServiceCollection AddWindowsStorage(this IServiceCollection services, IConfiguration configuration) =>
+        public static IServiceCollection AddWindowsStorage(this IServiceCollection services, ISettingsRegistry settings) =>
             services
-                .AddSettings<WindowsStorageSettings>(configuration)
+                .AddSettings<WindowsStorageSettings>(settings)
                 .AddScoped<IImagesStorage, WindowsImagesStorage>();
     }
 }

@@ -2,18 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using Flashcards.Application.Images;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Options;
 
 namespace Flashcards.Infrastructure.WindowsStorage
 {
     internal class WindowsImagesStorage : IImagesStorage
     {
-        private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly IHostingInfo _hostingInfo;
 
-        public WindowsImagesStorage(IOptions<WindowsStorageSettings> settings, IWebHostEnvironment hostingEnvironment)
+        public WindowsImagesStorage(IOptions<WindowsStorageSettings> settings, IHostingInfo hostingInfo)
         {
-            _hostingEnvironment = hostingEnvironment;
+            _hostingInfo = hostingInfo;
             VirtualPath = settings.Value.VirtualPath;
         }
 
@@ -41,7 +40,7 @@ namespace Flashcards.Infrastructure.WindowsStorage
         
         private string GetPhysicalPath(string deck, Guid cardId)
         {
-            return Path.Combine(_hostingEnvironment.WebRootPath, "images", deck, cardId.ToString());
+            return Path.Combine(_hostingInfo.WebRootPath, "images", deck, cardId.ToString());
         }
 
         private string GetFileName(Guid imageId, string extension)

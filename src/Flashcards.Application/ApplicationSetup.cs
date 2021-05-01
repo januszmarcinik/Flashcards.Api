@@ -8,10 +8,11 @@ namespace Flashcards.Application
 {
     public static class ApplicationSetup
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services) =>
+        public static IServiceCollection AddApplication(this IServiceCollection services, ISettingsRegistry settings) =>
             services
                 .AddHostedService<QueueListener>()
                 .AddSingleton<EncryptionService>()
+                .AddSettings<JwtSettings>(settings)
                 .AddSingleton<ITokenService, JwtTokenService>()
                 .AddScoped<ICacheService, MemoryCacheService>();
     }

@@ -1,10 +1,10 @@
-﻿using Flashcards.Infrastructure.AzureBlobStorage;
+﻿using Flashcards.Core;
+using Flashcards.Infrastructure.AzureBlobStorage;
 using Flashcards.Infrastructure.AzureServiceBus;
 using Flashcards.Infrastructure.Mongo;
 using Flashcards.Infrastructure.RabbitMq;
 using Flashcards.Infrastructure.Sql;
 using Flashcards.Infrastructure.WindowsStorage;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure
@@ -13,20 +13,20 @@ namespace Flashcards.Infrastructure
     {
         public static IServiceCollection AddCloudInfrastructure(
             this IServiceCollection services,
-            IConfiguration configuration) =>
+            ISettingsRegistry settings) =>
             services
-                .AddAzureSql(configuration)
-                .AddAzureBlobStorage(configuration)
-                .AddAzureServiceBus(configuration);
+                .AddAzureSql(settings)
+                .AddAzureBlobStorage(settings)
+                .AddAzureServiceBus(settings);
         // TODO: AddCosmosDb()
 
         public static IServiceCollection AddOnPremisesInfrastructure(
             this IServiceCollection services,
-            IConfiguration configuration) =>
+            ISettingsRegistry settings) =>
             services
-                .AddSqlServer(configuration)
-                .AddWindowsStorage(configuration)
-                .AddRabbitMq(configuration)
-                .AddMongo(configuration);
+                .AddSqlServer(settings)
+                .AddWindowsStorage(settings)
+                .AddRabbitMq(settings)
+                .AddMongo(settings);
     }
 }

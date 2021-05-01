@@ -3,18 +3,18 @@ using Flashcards.Application.Comments;
 using Flashcards.Application.Decks;
 using Flashcards.Application.Sessions;
 using Flashcards.Application.Users;
+using Flashcards.Core;
 using Flashcards.Infrastructure.Sql.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Flashcards.Infrastructure.Sql
 {
     public static class SqlSetup
     {
-        public static IServiceCollection AddSqlServer(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddSqlServer(this IServiceCollection services, ISettingsRegistry settingsRegistry)
         {
-            var settings = configuration.GetSettings<SqlServerSettings>();
+            var settings = settingsRegistry.GetSettings<SqlServerSettings>();
             
             return services
                 .AddDbContext<EFContext>(options =>
@@ -24,9 +24,9 @@ namespace Flashcards.Infrastructure.Sql
                 .AddRepositories();
         }
 
-        public static IServiceCollection AddAzureSql(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAzureSql(this IServiceCollection services, ISettingsRegistry settingsRegistry)
         {
-            var settings = configuration.GetSettings<AzureSqlSettings>();
+            var settings = settingsRegistry.GetSettings<AzureSqlSettings>();
             
             return services
                 .AddDbContext<EFContext>(options =>

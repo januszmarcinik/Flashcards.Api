@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Flashcards.Api.Configuration;
 using Flashcards.Api.Middleware;
 using Flashcards.Application;
+using Flashcards.Core;
 using Flashcards.Infrastructure;
 using Flashcards.Infrastructure.ContainerModules;
 using Flashcards.Infrastructure.Settings;
@@ -22,6 +23,7 @@ namespace Flashcards.Api
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment HostingEnvironment { get; }
         public ILifetimeScope Container { get; private set; }
+        public ISettingsRegistry SettingsRegistry { get; private set; }
 
         public Startup(IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
@@ -31,20 +33,22 @@ namespace Flashcards.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
+            SettingsRegistry = new SettingsRegistry(services, Configuration);
+            
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ContractResolver =
                         new CamelCasePropertyNamesContractResolver());
-
             services.AddMemoryCache();
             services.AddCors();
+            services.AddHostingInfo();
             
-            services.AddApplication();
+            services.AddApplication(SettingsRegistry);
 
             var appSettings = Configuration.GetSettings<AppSettings>();
             _ = appSettings.IsCloud
-                ? services.AddCloudInfrastructure(Configuration)
-                : services.AddOnPremisesInfrastructure(Configuration);
+                ? services.AddCloudInfrastructure(SettingsRegistry)
+                : services.AddOnPremisesInfrastructure(SettingsRegistry);
 
             services.AddJwtTokenAuthentication(Configuration);
 
@@ -53,7 +57,6 @@ namespace Flashcards.Api
         
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new SettingsModule(Configuration));
             builder.RegisterModule(new MediatorModule());
         }
 

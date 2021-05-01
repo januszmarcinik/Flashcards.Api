@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Flashcards.Application.Users;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Flashcards.Application.Tokens
@@ -11,9 +12,9 @@ namespace Flashcards.Application.Tokens
     {
         private readonly JwtSettings _jwtSettings;
 
-        public JwtTokenService(JwtSettings jwtSettings)
+        public JwtTokenService(IOptions<JwtSettings> jwtSettings)
         {
-            _jwtSettings = jwtSettings;
+            _jwtSettings = jwtSettings.Value;
         }
 
         public JwtDto CreateToken(Guid id, string email, Role role)

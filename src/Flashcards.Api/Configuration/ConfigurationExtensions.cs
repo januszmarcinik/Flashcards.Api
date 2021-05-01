@@ -2,9 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Flashcards.Infrastructure
+namespace Flashcards.Api.Configuration
 {
-    public static class SettingsExtensions
+    public static class ConfigurationExtensions
     {
         public static T GetSettings<T>(this IConfiguration configuration) where T : ISettings, new()
         {
@@ -15,10 +15,11 @@ namespace Flashcards.Infrastructure
             return configurationValue;
         }
 
-        public static IServiceCollection AddSettings<T>(this IServiceCollection services, IConfiguration configuration) where T : class, ISettings => 
+        public static IServiceCollection AddSettings<T>(this IServiceCollection services, IConfiguration configuration)
+            where T : class, ISettings =>
             services.Configure<T>(configuration.GetSection<T>());
 
-        private static IConfigurationSection GetSection<T>(this IConfiguration configuration) where T : ISettings => 
+        private static IConfigurationSection GetSection<T>(this IConfiguration configuration) where T : ISettings =>
             configuration.GetSection(typeof(T).Name.Replace("Settings", string.Empty));
     }
 }
