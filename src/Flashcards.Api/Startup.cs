@@ -2,16 +2,15 @@
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Flashcards.Api.Configuration;
 using Flashcards.Api.Middleware;
 using Flashcards.Infrastructure.ContainerModules;
-using Flashcards.Infrastructure.DataAccess;
 using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Services;
 using Flashcards.Infrastructure.Settings;
+using Flashcards.Infrastructure.Sql;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
@@ -41,10 +40,16 @@ namespace Flashcards.Api
             services.AddMemoryCache();
             services.AddCors();
 
-            services.AddDbContext<EFContext>(options =>
+            var appSettings = Configuration.GetSettings<AppSettings>();
+            if (appSettings.IsCloud)
             {
-                options.UseSqlServer(Configuration.GetSettings<SqlSettings>().ConnectionString);
-            });
+                services.AddAzureSql(Configuration);
+            }
+            else
+            {
+                services.AddSqlServer(Configuration);
+            }
+           
             services.AddHostedService<QueueListener>();
             
             services.AddJwtTokenAuthentication(Configuration);

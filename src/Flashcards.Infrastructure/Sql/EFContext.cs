@@ -3,10 +3,10 @@ using Flashcards.Domain.Comments;
 using Flashcards.Domain.Decks;
 using Flashcards.Domain.Sessions;
 using Flashcards.Domain.Users;
-using Flashcards.Infrastructure.DataAccess.Configurations;
+using Flashcards.Infrastructure.Sql.Configurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace Flashcards.Infrastructure.DataAccess
+namespace Flashcards.Infrastructure.Sql
 {
     public class EFContext : DbContext
     {

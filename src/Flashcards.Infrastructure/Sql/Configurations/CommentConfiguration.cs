@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Flashcards.Infrastructure.DataAccess.Configurations
+namespace Flashcards.Infrastructure.Sql.Configurations
 {
     internal class CommentConfiguration : IEntityTypeConfiguration<Comment>
     {

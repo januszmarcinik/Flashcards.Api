@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Flashcards.Domain.Cards;
-using Flashcards.Infrastructure.DataAccess;
 
-namespace Flashcards.Infrastructure.Repositories
+namespace Flashcards.Infrastructure.Sql.Repositories
 {
     internal class SqlCardsRepository : ISqlCardsRepository
     {

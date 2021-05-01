@@ -3,7 +3,7 @@ using Flashcards.Domain.Comments;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Flashcards.Infrastructure.DataAccess.Configurations
+namespace Flashcards.Infrastructure.Sql.Configurations
 {
     internal class CardConfiguration : IEntityTypeConfiguration<Card>
     {

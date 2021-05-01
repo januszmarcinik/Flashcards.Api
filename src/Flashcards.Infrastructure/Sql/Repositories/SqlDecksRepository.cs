@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Flashcards.Domain.Decks;
-using Flashcards.Infrastructure.DataAccess;
 
-namespace Flashcards.Infrastructure.Repositories
+namespace Flashcards.Infrastructure.Sql.Repositories
 {
     internal class SqlDecksRepository : ISqlDecksRepository
     {

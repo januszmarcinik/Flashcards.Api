@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Flashcards.Domain.Sessions;
-using Flashcards.Infrastructure.DataAccess;
 
-namespace Flashcards.Infrastructure.Repositories
+namespace Flashcards.Infrastructure.Sql.Repositories
 {
     internal class SessionsRepository : ISessionsRepository
     {

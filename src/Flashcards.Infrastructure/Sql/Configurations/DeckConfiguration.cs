@@ -4,7 +4,7 @@ using Flashcards.Domain.Sessions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Flashcards.Infrastructure.DataAccess.Configurations
+namespace Flashcards.Infrastructure.Sql.Configurations
 {
     internal class DeckConfiguration : IEntityTypeConfiguration<Deck>
     {
