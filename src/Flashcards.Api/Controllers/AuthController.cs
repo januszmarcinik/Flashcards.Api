@@ -1,5 +1,6 @@
 ﻿using System;
 using Flashcards.Application;
+using Flashcards.Application.Cache;
 using Flashcards.Application.Extensions;
 using Flashcards.Application.Users;
 using Flashcards.Core;

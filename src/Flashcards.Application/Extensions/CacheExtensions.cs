@@ -1,4 +1,5 @@
 ﻿using System;
+using Flashcards.Application.Cache;
 using Flashcards.Application.Users;
 
 namespace Flashcards.Application.Extensions

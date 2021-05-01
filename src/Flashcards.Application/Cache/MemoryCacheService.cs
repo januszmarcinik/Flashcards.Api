@@ -1,8 +1,7 @@
 ﻿using System;
-using Flashcards.Application;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Application.Cache
 {
     internal class MemoryCacheService : ICacheService
     {

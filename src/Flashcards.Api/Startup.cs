@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Flashcards.Api.Configuration;
 using Flashcards.Api.Middleware;
+using Flashcards.Application;
 using Flashcards.Infrastructure;
 using Flashcards.Infrastructure.ContainerModules;
 using Flashcards.Infrastructure.Services;
@@ -38,12 +39,14 @@ namespace Flashcards.Api
 
             services.AddMemoryCache();
             services.AddCors();
+            
+            services.AddApplication();
 
             var appSettings = Configuration.GetSettings<AppSettings>();
             _ = appSettings.IsCloud
                 ? services.AddCloudInfrastructure(Configuration)
                 : services.AddOnPremisesInfrastructure(Configuration);
-           
+
             services.AddHostedService<QueueListener>();
             
             services.AddJwtTokenAuthentication(Configuration);

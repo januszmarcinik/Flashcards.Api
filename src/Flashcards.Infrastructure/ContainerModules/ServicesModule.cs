@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Flashcards.Application;
 using Flashcards.Application.Users;
 using Flashcards.Infrastructure.Services;
 
@@ -11,7 +10,6 @@ namespace Flashcards.Infrastructure.ContainerModules
         {
             builder.RegisterType<EncryptionService>().AsSelf().SingleInstance();
             builder.RegisterType<JwtTokenService>().As<ITokenService>().SingleInstance();
-            builder.RegisterType<MemoryCacheService>().As<ICacheService>().InstancePerLifetimeScope();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Flashcards.Application
+namespace Flashcards.Application.Cache
 {
     public interface ICacheService
     {
