@@ -1,6 +1,5 @@
 ﻿using Flashcards.Domain.Cards;
 using Flashcards.Domain.Decks;
-using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Mongo.Repositories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

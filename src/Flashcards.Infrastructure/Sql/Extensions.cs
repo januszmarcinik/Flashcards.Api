@@ -3,7 +3,6 @@ using Flashcards.Domain.Comments;
 using Flashcards.Domain.Decks;
 using Flashcards.Domain.Sessions;
 using Flashcards.Domain.Users;
-using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Sql.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

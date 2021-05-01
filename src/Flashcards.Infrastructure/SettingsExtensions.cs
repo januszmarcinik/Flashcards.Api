@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Flashcards.Infrastructure.Extensions
+namespace Flashcards.Infrastructure
 {
     public static class SettingsExtensions
     {

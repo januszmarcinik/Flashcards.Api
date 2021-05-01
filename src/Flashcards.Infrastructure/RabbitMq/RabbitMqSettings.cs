@@ -1,8 +1,8 @@
 ﻿using Flashcards.Core;
 
-namespace Flashcards.Infrastructure.Settings
+namespace Flashcards.Infrastructure.RabbitMq
 {
-    public class QueueSettings : ISettings
+    public class RabbitMqSettings : ISettings
     {
         public string HostName { get; set; }
         public string QueueName { get; set; }

@@ -6,10 +6,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Flashcards.Api.Configuration;
 using Flashcards.Api.Middleware;
+using Flashcards.Infrastructure;
 using Flashcards.Infrastructure.BlobStorage;
 using Flashcards.Infrastructure.ContainerModules;
-using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Mongo;
+using Flashcards.Infrastructure.RabbitMq;
+using Flashcards.Infrastructure.ServiceBus;
 using Flashcards.Infrastructure.Services;
 using Flashcards.Infrastructure.Settings;
 using Flashcards.Infrastructure.Sql;
@@ -48,7 +50,8 @@ namespace Flashcards.Api
             {
                 services
                     .AddAzureSql(Configuration)
-                    .AddAzureBlobStorage(Configuration);
+                    .AddAzureBlobStorage(Configuration)
+                    .AddAzureServiceBus(Configuration);
                 // TODO: AddCosmosDb()
             }
             else
@@ -56,6 +59,7 @@ namespace Flashcards.Api
                 services
                     .AddSqlServer(Configuration)
                     .AddWindowsStorage(Configuration)
+                    .AddRabbitMq(Configuration)
                     .AddMongo(Configuration);
             }
            
@@ -70,7 +74,7 @@ namespace Flashcards.Api
         {
             builder.RegisterModule(new ServicesModule());
             builder.RegisterModule(new SettingsModule(Configuration));
-            builder.RegisterModule(new MediatorModule(Configuration));
+            builder.RegisterModule(new MediatorModule());
         }
 
         public void Configure(IApplicationBuilder app)

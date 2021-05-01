@@ -1,20 +1,21 @@
 ﻿using System;
 using Flashcards.Core;
-using Flashcards.Infrastructure.Settings;
+using Flashcards.Infrastructure.Services;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Infrastructure.RabbitMq
 {
     internal class RabbitMqEventBus : IEventBus, IDisposable
     {
-        private readonly QueueSettings _settings;
+        private readonly RabbitMqSettings _settings;
         private readonly IConnection _connection;
         private readonly IModel _channel;
 
-        public RabbitMqEventBus(QueueSettings settings)
+        public RabbitMqEventBus(IOptions<RabbitMqSettings> settings)
         {
-            _settings = settings;
+            _settings = settings.Value;
             var factory = new ConnectionFactory
             {
                 HostName = _settings.HostName

@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using Azure.Messaging.ServiceBus;
 using Flashcards.Core;
-using Flashcards.Infrastructure.Settings;
+using Flashcards.Infrastructure.Services;
+using Microsoft.Extensions.Options;
 
-namespace Flashcards.Infrastructure.Services
+namespace Flashcards.Infrastructure.ServiceBus
 {
     internal class AzureServiceBus : IEventBus, IAsyncDisposable
     {
@@ -12,11 +13,11 @@ namespace Flashcards.Infrastructure.Services
         private readonly ServiceBusSender _sender;
         private readonly ServiceBusProcessor _processor;
 
-        public AzureServiceBus(QueueSettings settings)
+        public AzureServiceBus(IOptions<AzureServiceBusSettings> settings)
         {
-            _client = new ServiceBusClient(settings.HostName);
-            _sender = _client.CreateSender(settings.QueueName);
-            _processor = _client.CreateProcessor(settings.QueueName, new ServiceBusProcessorOptions());
+            _client = new ServiceBusClient(settings.Value.HostName);
+            _sender = _client.CreateSender(settings.Value.QueueName);
+            _processor = _client.CreateProcessor(settings.Value.QueueName, new ServiceBusProcessorOptions());
         }
         
         public void Publish<TEvent>(TEvent @event) where TEvent : IEvent

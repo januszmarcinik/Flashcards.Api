@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Text;
-using Flashcards.Infrastructure.Extensions;
+using Flashcards.Infrastructure;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;

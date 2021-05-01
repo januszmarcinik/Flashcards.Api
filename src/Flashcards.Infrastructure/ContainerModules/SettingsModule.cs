@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using Flashcards.Infrastructure.Extensions;
 using Flashcards.Infrastructure.Settings;
 using Microsoft.Extensions.Configuration;
 
@@ -17,7 +16,6 @@ namespace Flashcards.Infrastructure.ContainerModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterInstance(_configuration.GetSettings<JwtSettings>()).SingleInstance();
-            builder.RegisterInstance(_configuration.GetSettings<QueueSettings>()).SingleInstance();
         }
     }
 }
