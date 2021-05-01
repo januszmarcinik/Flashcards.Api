@@ -5,11 +5,11 @@ using MongoDB.Driver;
 
 namespace Flashcards.Infrastructure.Mongo.Repositories
 {
-    internal class NoSqlCardsRepository : INoSqlCardsRepository
+    internal class MongoCardsRepository : INoSqlCardsRepository
     {
         private readonly MongoDbContext _dbContext;
 
-        public NoSqlCardsRepository(MongoDbContext dbContext) => 
+        public MongoCardsRepository(MongoDbContext dbContext) => 
             _dbContext = dbContext;
 
         public CardDto GetById(Guid id) => 

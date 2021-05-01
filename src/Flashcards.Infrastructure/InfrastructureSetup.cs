@@ -17,8 +17,8 @@ namespace Flashcards.Infrastructure
             services
                 .AddAzureSql(settings)
                 .AddAzureBlobStorage(settings)
-                .AddAzureServiceBus(settings);
-        // TODO: AddCosmosDb()
+                .AddAzureServiceBus(settings)
+                .AddAzureCosmosDb(settings);
 
         public static IServiceCollection AddOnPremisesInfrastructure(
             this IServiceCollection services,

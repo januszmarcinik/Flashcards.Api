@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using Flashcards.Application.Decks;
-using Flashcards.Infrastructure.DataAccess;
 using MongoDB.Driver;
 
 namespace Flashcards.Infrastructure.Mongo.Repositories
 {
-    internal class NoSqlDecksRepository : INoSqlDecksRepository
+    internal class MongoDecksRepository : INoSqlDecksRepository
     {
         private readonly MongoDbContext _dbContext;
 
-        public NoSqlDecksRepository(MongoDbContext dbContext) => 
+        public MongoDecksRepository(MongoDbContext dbContext) => 
             _dbContext = dbContext;
 
         public DeckDto GetById(Guid id) => 
@@ -26,7 +25,6 @@ namespace Flashcards.Infrastructure.Mongo.Repositories
         public IEnumerable<DeckDto> GetAll() =>
             _dbContext.Decks
                 .Find(x => true)
-                .SortBy(x => x.Name)
                 .ToList();
 
         public void Add(DeckDto deck) => 
