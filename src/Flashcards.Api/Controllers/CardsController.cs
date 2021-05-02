@@ -1,5 +1,6 @@
 ﻿using System;
 using Flashcards.Application.Cards;
+using Flashcards.Application.Metrics;
 using Flashcards.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +11,17 @@ namespace Flashcards.Api.Controllers
     [Route("api/decks/{deck}/cards")]
     public class CardsController : ApiController
     {
+        private readonly IMetricsService _metricsService;
         private readonly INoSqlCardsRepository _cardsRepository;
 
-        public CardsController(IMediator mediator, IEventBus eventBus, INoSqlCardsRepository cardsRepository) 
+        public CardsController(
+            IMediator mediator, 
+            IEventBus eventBus,
+            IMetricsService metricsService,
+            INoSqlCardsRepository cardsRepository) 
             : base(mediator, eventBus)
         {
+            _metricsService = metricsService;
             _cardsRepository = cardsRepository;
         }
 
@@ -31,10 +38,15 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(string deck, [FromBody] AddCardCommand command) =>
-            Dispatch(
+        public IActionResult Post(string deck, [FromBody] AddCardCommand command)
+        {
+            _metricsService.StartRequest(8);
+            _metricsService.SaveCheckpoint("Request captured in CardsController");
+            
+            return Dispatch(
                 command.SetFromRoute(deck),
                 result => new CardAddedEvent(Guid.Parse(result.Message)));
+        }
 
         [HttpPut]
         public IActionResult Put(string deck, [FromBody] EditCardCommand command) =>

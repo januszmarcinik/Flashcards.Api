@@ -1,0 +1,22 @@
+@url = http://localhost:55320
+@email = janusz@januszmarcinik.pl
+@password = zaq1@WSX
+
+# @name login
+POST {{url}}/api/auth HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "password": "{{password}}"
+}
+
+
+# @name createCard
+POST {{url}}/api/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "question": "<p>Testowa karta</p>",
+    "answer": "<p>Jakaś odpowiedź</p>"
+}

@@ -51,7 +51,7 @@ namespace Flashcards.Api.Controllers
             var @event = publishEventOnSuccess(result);
             _eventBus.Publish(@event);
 
-            return Accepted();
+            return Accepted(result.Message);
         }
         
         protected IActionResult Dispatch<T>(IQuery<T> query)
