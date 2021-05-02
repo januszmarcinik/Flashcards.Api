@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using Flashcards.Core;
+using Newtonsoft.Json;
 
 namespace Flashcards.Application.Cards
 {
@@ -14,7 +15,11 @@ namespace Flashcards.Application.Cards
         [Required]
         public string Answer { get; set; }
 
+        [JsonIgnore]
         public string Deck { get; set; }
+        
+        [JsonIgnore]
+        public Guid CorrelationId { get; set; }
 
         public AddCardCommand SetFromRoute(string deck)
         {

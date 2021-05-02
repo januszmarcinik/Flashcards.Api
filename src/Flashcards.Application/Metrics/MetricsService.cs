@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using Flashcards.Application.Cache;
+using Flashcards.Core.Extensions;
 using Microsoft.Extensions.Logging;
 
 namespace Flashcards.Application.Metrics
@@ -9,7 +10,6 @@ namespace Flashcards.Application.Metrics
     {
         private readonly ILogger<MetricsService> _logger;
         private readonly ICacheService _cache;
-        private Guid _correlationId;
 
         public MetricsService(ILogger<MetricsService> logger, ICacheService cache)
         {
@@ -17,24 +17,21 @@ namespace Flashcards.Application.Metrics
             _cache = cache;
         }
 
-        public void StartRequest(int stagesCount)
+        public Guid StartRequest(int stagesCount)
         {
-            _correlationId = Guid.NewGuid();
-            var record = new MetricsRecord(_correlationId, stagesCount);
+            var correlationId = Guid.NewGuid();
+            var record = new MetricsRecord(correlationId, stagesCount);
             SaveRecord(record);
+
+            return correlationId;
         }
 
-        public void RestoreCorrelationId(Guid correlationId)
+        public void SaveCheckpoint(Guid correlationId, string message)
         {
-            _correlationId = correlationId;
+            AddStage(correlationId, message, 0);
         }
 
-        public void SaveCheckpoint(string message)
-        {
-            AddStage(message, 0);
-        }
-
-        public void SaveTime(Action action, string message)
+        public void SaveTime(Guid correlationId, string message, Action action)
         {
             var watch = new Stopwatch();
             watch.Start();
@@ -44,39 +41,36 @@ namespace Flashcards.Application.Metrics
             watch.Stop();
             var elapsedMilliseconds = watch.ElapsedMilliseconds;
 
-            AddStage(message, elapsedMilliseconds);
+            AddStage(correlationId, message, elapsedMilliseconds);
         }
 
-        public MetricsRecord EndRequest()
-        {
-            _correlationId = Guid.Empty;
-            return GetRecord();
-        }
-
-        private string Key => $"metrics-{_correlationId}";
+        public MetricsRecord EndRequest(Guid correlationId) => GetRecord(correlationId);
 
         private void SaveRecord(MetricsRecord record) => 
-            _cache.Set(Key, record, TimeSpan.FromMinutes(5));
+            _cache.Set($"metrics-{record.CorrelationId}", record, TimeSpan.FromMinutes(5));
 
-        private MetricsRecord GetRecord() =>
-            _cache.Get<MetricsRecord>(Key);
+        private MetricsRecord GetRecord(Guid correlationId) =>
+            _cache.Get<MetricsRecord>($"metrics-{correlationId}");
 
-        private void AddStage(string message, long timeInMilliseconds)
+        private void AddStage(Guid correlationId, string message, long elapsedMilliseconds)
         {
-            var now = new DateTime();
-            var record = GetRecord();
+            var timeStamp = DateTime.Now.GetTimeStamp();
+            var now = DateTime.Now;
+            var record = GetRecord(correlationId);
             var stageNumber = record.Stages.Count + 1;
-            var stage = new MetricsRecord.MetricStage(stageNumber, message, now, timeInMilliseconds);
+            var stage = new MetricsRecord.MetricStage(stageNumber, message, timeStamp, elapsedMilliseconds);
             record.Stages.Add(stage);
             SaveRecord(record);
             
             _logger.LogInformation(
-                "{LogType}: {CorrelationId} ({StageNumber}/{StagesCount}) {Message}",
-                "Request metrics",
+                "{LogType}: {CorrelationId} ({StageNumber}/{StagesCount}) {Message} - {TimeStamp} / {ElapsedMilliseconds}ms",
+                "Metrics",
                 record.CorrelationId,
                 stageNumber,
                 record.StagesCount,
-                message);
+                message,
+                timeStamp,
+                elapsedMilliseconds);
         }
     }
 }

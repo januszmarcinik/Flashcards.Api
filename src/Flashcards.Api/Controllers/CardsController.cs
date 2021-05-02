@@ -40,12 +40,17 @@ namespace Flashcards.Api.Controllers
         [HttpPost]
         public IActionResult Post(string deck, [FromBody] AddCardCommand command)
         {
-            _metricsService.StartRequest(8);
-            _metricsService.SaveCheckpoint("Request captured in CardsController");
+            var correlationId = _metricsService.StartRequest(8);
+            _metricsService.SaveCheckpoint(correlationId, "Request captured in CardsController");
+            command.SetFromRoute(deck);
+            command.CorrelationId = correlationId;
             
             return Dispatch(
-                command.SetFromRoute(deck),
-                result => new CardAddedEvent(Guid.Parse(result.Message)));
+                command,
+                result =>
+                {
+                    return new CardAddedEvent(Guid.Parse(result.Message));
+                });
         }
 
         [HttpPut]

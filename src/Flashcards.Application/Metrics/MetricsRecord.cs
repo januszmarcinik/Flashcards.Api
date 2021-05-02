@@ -18,18 +18,18 @@ namespace Flashcards.Application.Metrics
 
         public class MetricStage
         {
-            public MetricStage(int number, string message, DateTime timeStamp, long timeInMilliseconds)
+            public MetricStage(int number, string message, long timeStamp, long elapsedMilliseconds)
             {
                 Number = number;
                 Message = message;
                 TimeStamp = timeStamp;
-                TimeInMilliseconds = timeInMilliseconds;
+                ElapsedMilliseconds = elapsedMilliseconds;
             }
 
             public int Number { get; }
             public string Message { get; }
-            public DateTime TimeStamp { get; }
-            public long TimeInMilliseconds { get; }
+            public long TimeStamp { get; }
+            public long ElapsedMilliseconds { get; }
         }
     }
 }

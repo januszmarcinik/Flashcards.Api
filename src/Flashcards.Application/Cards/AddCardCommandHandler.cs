@@ -1,6 +1,7 @@
 ﻿using System;
 using Flashcards.Application.Decks;
 using Flashcards.Application.Images;
+using Flashcards.Application.Metrics;
 using Flashcards.Core;
 using Flashcards.Core.Extensions;
 
@@ -10,13 +11,19 @@ namespace Flashcards.Application.Cards
     {
         private readonly ISqlCardsRepository _cardsRepository;
         private readonly IImagesStorage _imagesStorage;
+        private readonly IMetricsService _metricsService;
         private readonly ISqlDecksRepository _decksRepository;
         private readonly ImagesProcessor _imagesProcessor;
 
-        public AddCardCommandHandler(ISqlCardsRepository cardsRepository, IImagesStorage imagesStorage, ISqlDecksRepository decksRepository)
+        public AddCardCommandHandler(
+            ISqlCardsRepository cardsRepository,
+            IImagesStorage imagesStorage,
+            IMetricsService metricsService,
+            ISqlDecksRepository decksRepository)
         {
             _cardsRepository = cardsRepository;
             _imagesStorage = imagesStorage;
+            _metricsService = metricsService;
             _decksRepository = decksRepository;
             _imagesProcessor = new ImagesProcessor(_imagesStorage.VirtualPath);
         }
@@ -28,21 +35,31 @@ namespace Flashcards.Application.Cards
                 command.Id = Guid.NewGuid();
             }
 
-            command.Question = _imagesProcessor.ProcessTextForEdit(command.Deck, command.Id, command.Question);
-            command.Answer = _imagesProcessor.ProcessTextForEdit(command.Deck, command.Id, command.Answer);
-
-            _imagesStorage.SaveImages(command.Deck, command.Id, _imagesProcessor.ImagesData);
-
-            var deck = _decksRepository.GetByName(command.Deck);
-            if (deck == null)
+            _metricsService.SaveTime(command.CorrelationId, "Processing and saving images to storage", () =>
             {
-                return Fail("Deck with given ID does not exist.");
-            }
+                command.Question = _imagesProcessor.ProcessTextForEdit(command.Deck, command.Id, command.Question);
+                command.Answer = _imagesProcessor.ProcessTextForEdit(command.Deck, command.Id, command.Answer);
 
-            var card = new Card(deck.Id, command.Question, command.Answer);
-            _cardsRepository.Add(card);
+                _imagesStorage.SaveImages(command.Deck, command.Id, _imagesProcessor.ImagesData);
+            });
 
-            return Result.Ok(card.Id.ToString());
+            Result result = null;
+            _metricsService.SaveTime(command.CorrelationId, "Get and save data in SQL Database", () =>
+            {
+                var deck = _decksRepository.GetByName(command.Deck);
+                if (deck == null)
+                {
+                    result = Fail("Deck with given ID does not exist.");
+                    return;
+                }
+
+                var card = new Card(deck.Id, command.Question, command.Answer);
+                _cardsRepository.Add(card);
+                
+                result = Result.Ok(card.Id.ToString());
+            });
+
+            return result;
         }
     }
 }

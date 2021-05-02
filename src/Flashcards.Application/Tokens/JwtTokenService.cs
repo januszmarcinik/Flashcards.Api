@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Flashcards.Application.Users;
+using Flashcards.Core.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
@@ -32,7 +33,7 @@ namespace Flashcards.Application.Tokens
                     new Claim(JwtRegisteredClaimNames.Sub, email),
                     new Claim(ClaimTypes.Role, role.ToString()),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Iat, GetTimeStamp(now).ToString(), ClaimValueTypes.Integer64)
+                    new Claim(JwtRegisteredClaimNames.Iat, now.GetTimeStamp().ToString(), ClaimValueTypes.Integer64)
                 }),
                 Expires = expires,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
@@ -47,14 +48,6 @@ namespace Flashcards.Application.Tokens
                 Token = tokenHandler.WriteToken(token),
                 Expiry = expires
             };
-        }
-        
-        private static long GetTimeStamp(DateTime dateTime)
-        {
-            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            var time = dateTime.Subtract(new TimeSpan(epoch.Ticks));
-
-            return time.Ticks / 10000;
         }
     }
 }
