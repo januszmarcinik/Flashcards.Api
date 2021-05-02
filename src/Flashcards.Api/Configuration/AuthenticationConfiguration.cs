@@ -3,7 +3,6 @@ using System.Text;
 using Flashcards.Application;
 using Flashcards.Application.Tokens;
 using Flashcards.Infrastructure;
-using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

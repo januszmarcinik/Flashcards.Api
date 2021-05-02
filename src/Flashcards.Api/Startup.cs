@@ -10,7 +10,6 @@ using Flashcards.Application;
 using Flashcards.Core;
 using Flashcards.Infrastructure;
 using Flashcards.Infrastructure.ContainerModules;
-using Flashcards.Infrastructure.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json.Serialization;
@@ -45,9 +44,10 @@ namespace Flashcards.Api
             
             services.AddApplication(SettingsRegistry);
 
+            services.AddSettings<AppSettings>(Configuration);
             var appSettings = Configuration.GetSettings<AppSettings>();
-            _ = appSettings.IsCloud
-                ? services.AddCloudInfrastructure(SettingsRegistry)
+            _ = appSettings.InfrastructureType == AppSettings.InfrastructureAzure
+                ? services.AddAzureInfrastructure(SettingsRegistry)
                 : services.AddOnPremisesInfrastructure(SettingsRegistry);
 
             services.AddJwtTokenAuthentication(Configuration);

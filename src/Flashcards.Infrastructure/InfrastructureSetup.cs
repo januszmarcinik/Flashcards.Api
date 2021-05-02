@@ -11,7 +11,7 @@ namespace Flashcards.Infrastructure
 {
     public static class InfrastructureSetup
     {
-        public static IServiceCollection AddCloudInfrastructure(
+        public static IServiceCollection AddAzureInfrastructure(
             this IServiceCollection services,
             ISettingsRegistry settings) =>
             services
