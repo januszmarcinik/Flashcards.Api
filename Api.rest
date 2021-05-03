@@ -1,7 +1,7 @@
 @url = http://localhost:55320
 @email = janusz@januszmarcinik.pl
 @password = zaq1@WSX
-@deckName = Mongogoooo
+@deckName = OnPremises
 
 ###
 
@@ -12,6 +12,18 @@ Content-Type: application/json
 {
     "email": "{{email}}",
     "password": "{{password}}"
+}
+
+###
+
+# @name createDeck
+POST {{url}}/api/decks HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.token}}
+
+{
+    "name": "{{deckName}}",
+    "description": ""
 }
 
 ###
