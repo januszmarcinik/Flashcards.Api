@@ -20,14 +20,12 @@ namespace Flashcards.Application.EventBus
         
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _eventBus.Subscribe(ProcessMessage);
-            return Task.CompletedTask;
+            return _eventBus.SubscribeAsync(ProcessMessage);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            _eventBus.Unsubscribe();
-            return Task.CompletedTask;
+            return _eventBus.UnsubscribeAsync();
         }
 
         private void ProcessMessage(IEvent @event)

@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Flashcards.Core
 {
     public interface IEventBus
     {
-        void Publish<TEvent>(TEvent @event) where TEvent : IEvent;
+        Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent;
 
-        void Subscribe(Action<IEvent> processMessage);
+        Task SubscribeAsync(Action<IEvent> processMessage);
 
-        void Unsubscribe();
+        Task UnsubscribeAsync();
     }
 }

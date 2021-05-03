@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Flashcards.Application.Decks;
 using Flashcards.Core;
 using Microsoft.AspNetCore.Authorization;
@@ -39,15 +40,15 @@ namespace Flashcards.Api.Controllers
             Ok(_decksRepository.GetByName(deck).Cards);
 
         [HttpPost]
-        public IActionResult Post([FromBody] AddDeckCommand command)
-            => Dispatch(command,result => new DeckAddedEvent(Guid.Parse(result.Message)));
+        public async Task<IActionResult> Post([FromBody] AddDeckCommand command)
+            => await Dispatch(command,result => new DeckAddedEvent(Guid.Parse(result.Message)));
 
         [HttpPut]
-        public IActionResult Put([FromBody] EditDeckCommand command)
-            => Dispatch(command, _ => new DeckEditedEvent(command.Id));
+        public async Task<IActionResult> Put([FromBody] EditDeckCommand command)
+            => await Dispatch(command, _ => new DeckEditedEvent(command.Id));
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] RemoveDeckCommand command)
-            => Dispatch(command,_ => new DeckRemovedEvent(command.Id));  
+        public async Task<IActionResult> Delete([FromRoute] RemoveDeckCommand command)
+            => await Dispatch(command,_ => new DeckRemovedEvent(command.Id));  
     }
 }

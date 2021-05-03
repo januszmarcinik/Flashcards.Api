@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Flashcards.Application.Cards;
 using Flashcards.Application.Metrics;
 using Flashcards.Core;
@@ -39,7 +40,7 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(string deck, [FromBody] AddCardCommand command)
+        public async Task<IActionResult> Post(string deck, [FromBody] AddCardCommand command)
         {
             if (command.Id.IsEmpty())
             {
@@ -48,7 +49,7 @@ namespace Flashcards.Api.Controllers
             
             _metricsService.StartRequest(command.Id);
             
-            return Dispatch(
+            return await Dispatch(
                 command.SetFromRoute(deck),
                 result =>
                 {
@@ -58,14 +59,14 @@ namespace Flashcards.Api.Controllers
         }
 
         [HttpPut]
-        public IActionResult Put(string deck, [FromBody] EditCardCommand command) =>
-            Dispatch(
+        public async Task<IActionResult> Put(string deck, [FromBody] EditCardCommand command) =>
+            await Dispatch(
                 command.SetFromRoute(deck, Guid.Parse(User.Identity.Name)), 
                 _ => new CardEditedEvent(command.Id));
 
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] RemoveCardCommand command)
-            => Dispatch(
+        public async Task<IActionResult> Delete([FromRoute] RemoveCardCommand command)
+            => await Dispatch(
                 command,
                 _ => new CardRemovedEvent(command.Id));
     }

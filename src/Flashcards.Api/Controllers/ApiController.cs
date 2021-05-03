@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Flashcards.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,7 +34,7 @@ namespace Flashcards.Api.Controllers
                 : Accepted();
         }
         
-        protected IActionResult Dispatch<TCommand, TEvent>(TCommand command, Func<Result, TEvent> publishEventOnSuccess) 
+        protected async Task<IActionResult> Dispatch<TCommand, TEvent>(TCommand command, Func<Result, TEvent> publishEventOnSuccess) 
             where TCommand : ICommand
             where TEvent : IEvent
         {
@@ -49,7 +50,7 @@ namespace Flashcards.Api.Controllers
             }
 
             var @event = publishEventOnSuccess(result);
-            _eventBus.Publish(@event);
+            await _eventBus.PublishAsync(@event);
 
             return Accepted(result.Message);
         }

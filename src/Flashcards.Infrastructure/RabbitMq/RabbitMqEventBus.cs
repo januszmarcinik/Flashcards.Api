@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Flashcards.Application.EventBus;
 using Flashcards.Core;
 using Microsoft.Extensions.Options;
@@ -30,7 +31,7 @@ namespace Flashcards.Infrastructure.RabbitMq
                 arguments: null);
         }
         
-        public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
             var integrationEvent = IntegrationEvent.FromDomainEvent(@event);
             var body = integrationEvent.Serialize();
@@ -39,9 +40,11 @@ namespace Flashcards.Infrastructure.RabbitMq
                 routingKey: _settings.QueueName,
                 basicProperties: null,
                 body: body);
+            
+            return Task.CompletedTask;
         }
 
-        public void Subscribe(Action<IEvent> processMessage)
+        public Task SubscribeAsync(Action<IEvent> processMessage)
         {
             var consumer = new EventingBasicConsumer(_channel);
             consumer.Received += (model, ea) =>
@@ -54,11 +57,15 @@ namespace Flashcards.Infrastructure.RabbitMq
             _channel.BasicConsume(queue: _settings.QueueName,
                 autoAck: true,
                 consumer: consumer);
+            
+            return Task.CompletedTask;
         }
 
-        public void Unsubscribe()
+        public Task UnsubscribeAsync()
         {
             _channel.Close();
+            
+            return Task.CompletedTask;
         }
 
         public void Dispose()

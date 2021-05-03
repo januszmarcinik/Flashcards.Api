@@ -20,15 +20,15 @@ namespace Flashcards.Infrastructure.AzureServiceBus
             _processor = _client.CreateProcessor(settings.Value.QueueName, new ServiceBusProcessorOptions());
         }
         
-        public void Publish<TEvent>(TEvent @event) where TEvent : IEvent
+        public Task PublishAsync<TEvent>(TEvent @event) where TEvent : IEvent
         {
             var integrationEvent = IntegrationEvent.FromDomainEvent(@event);
             var body = integrationEvent.Serialize();
             var message = new ServiceBusMessage(body);
-            _sender.SendMessageAsync(message);
+            return _sender.SendMessageAsync(message);
         }
 
-        public void Subscribe(Action<IEvent> processMessage)
+        public Task SubscribeAsync(Action<IEvent> processMessage)
         {
             _processor.ProcessMessageAsync += (args) =>
             {
@@ -41,12 +41,12 @@ namespace Flashcards.Infrastructure.AzureServiceBus
             };
             _processor.ProcessErrorAsync += (args) => Task.CompletedTask;
 
-            _processor.StartProcessingAsync();
+            return _processor.StartProcessingAsync();
         }
 
-        public void Unsubscribe()
+        public Task UnsubscribeAsync()
         {
-            _processor.StopProcessingAsync();
+            return _processor.StopProcessingAsync();
         }
 
         public ValueTask DisposeAsync()
