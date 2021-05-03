@@ -12,9 +12,9 @@ namespace Flashcards.Application.Cards
 
         protected Card() { }
 
-        public Card(Guid deckId, string question, string answer)
+        public Card(Guid id, Guid deckId, string question, string answer)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             DeckId = deckId;
             Question = question;
             Answer = answer;

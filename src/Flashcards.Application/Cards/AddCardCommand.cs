@@ -18,9 +18,6 @@ namespace Flashcards.Application.Cards
         [JsonIgnore]
         public string Deck { get; set; }
         
-        [JsonIgnore]
-        public Guid CorrelationId { get; set; }
-
         public AddCardCommand SetFromRoute(string deck)
         {
             Deck = deck;

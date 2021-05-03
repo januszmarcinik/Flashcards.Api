@@ -2,6 +2,7 @@
 using Flashcards.Application.Cards;
 using Flashcards.Application.Metrics;
 using Flashcards.Core;
+using Flashcards.Core.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,15 +41,18 @@ namespace Flashcards.Api.Controllers
         [HttpPost]
         public IActionResult Post(string deck, [FromBody] AddCardCommand command)
         {
-            var correlationId = _metricsService.StartRequest(8);
-            _metricsService.SaveCheckpoint(correlationId, "Request captured in CardsController");
-            command.SetFromRoute(deck);
-            command.CorrelationId = correlationId;
+            if (command.Id.IsEmpty())
+            {
+                command.Id = Guid.NewGuid();
+            }
+            
+            _metricsService.StartRequest(command.Id);
             
             return Dispatch(
-                command,
+                command.SetFromRoute(deck),
                 result =>
                 {
+                    _metricsService.SetCheckpoint(command.Id);
                     return new CardAddedEvent(Guid.Parse(result.Message));
                 });
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Flashcards.Application.Decks;
+using Flashcards.Application.Metrics;
 using Flashcards.Core;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +13,7 @@ namespace Flashcards.Application.Cards
         private readonly ISqlDecksRepository _decksRepository;
         private readonly INoSqlCardsRepository _noSqlCardsRepository;
         private readonly INoSqlDecksRepository _noSqlDecksRepository;
+        private readonly IMetricsService _metricsService;
         private readonly ILogger<CardAddedEventHandler> _logger;
 
         public CardAddedEventHandler(
@@ -19,17 +21,21 @@ namespace Flashcards.Application.Cards
             ISqlDecksRepository decksRepository,
             INoSqlCardsRepository noSqlCardsRepository,
             INoSqlDecksRepository noSqlDecksRepository,
+            IMetricsService metricsService,
             ILogger<CardAddedEventHandler> logger)
         {
             _sqlCardsRepository = sqlCardsRepository;
             _decksRepository = decksRepository;
             _noSqlCardsRepository = noSqlCardsRepository;
             _noSqlDecksRepository = noSqlDecksRepository;
+            _metricsService = metricsService;
             _logger = logger;
         }
         
         public void Handle(CardAddedEvent @event)
         {
+            _metricsService.EndCheckpoint(@event.CardId, "Queue");
+            
             var card = _sqlCardsRepository.GetById(@event.CardId);
             if (card == null)
             {
@@ -43,13 +49,18 @@ namespace Flashcards.Application.Cards
                 _logger.LogError("Deck with Id {DeckId} does not exist", card.DeckId);
                 return;
             }
-
-            var previousCardId = GetPreviousAndUpdateLast(card);
-
-            var dto = card.ToDto(deck.Name, previousCardId, Guid.Empty);
-            _noSqlCardsRepository.Add(dto);
             
-            UpdateDeck(dto);
+            _metricsService.SaveTime(@event.CardId, "NoSQL", () =>
+            {
+                var previousCardId = GetPreviousAndUpdateLast(card);
+
+                var dto = card.ToDto(deck.Name, previousCardId, Guid.Empty);
+                _noSqlCardsRepository.Add(dto);
+            
+                UpdateDeck(dto);
+            });
+
+            _metricsService.EndRequest(@event.CardId, "Server");
         }
 
         private Guid GetPreviousAndUpdateLast(Card card)

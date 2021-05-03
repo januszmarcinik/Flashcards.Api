@@ -4,9 +4,10 @@ namespace Flashcards.Application.Metrics
 {
     public interface IMetricsService
     {
-        Guid StartRequest(int stagesCount);
-        void SaveCheckpoint(Guid correlationId, string message);
-        void SaveTime(Guid correlationId, string message, Action action);
-        MetricsRecord EndRequest(Guid correlationId);
+        void StartRequest(Guid correlationId);
+        void SetCheckpoint(Guid correlationId);
+        void EndCheckpoint(Guid correlationId, string name);
+        void SaveTime(Guid correlationId, string name, Action action);
+        MetricsRequest EndRequest(Guid correlationId, string lastStageName);
     }
 }

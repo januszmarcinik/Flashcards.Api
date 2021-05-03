@@ -1,9 +1,7 @@
-﻿using System;
-using Flashcards.Application.Decks;
+﻿using Flashcards.Application.Decks;
 using Flashcards.Application.Images;
 using Flashcards.Application.Metrics;
 using Flashcards.Core;
-using Flashcards.Core.Extensions;
 
 namespace Flashcards.Application.Cards
 {
@@ -30,12 +28,7 @@ namespace Flashcards.Application.Cards
 
         public override Result Handle(AddCardCommand command)
         {
-            if (command.Id.IsEmpty())
-            {
-                command.Id = Guid.NewGuid();
-            }
-
-            _metricsService.SaveTime(command.CorrelationId, "Processing and saving images to storage", () =>
+            _metricsService.SaveTime(command.Id, "Storage", () =>
             {
                 command.Question = _imagesProcessor.ProcessTextForEdit(command.Deck, command.Id, command.Question);
                 command.Answer = _imagesProcessor.ProcessTextForEdit(command.Deck, command.Id, command.Answer);
@@ -44,7 +37,7 @@ namespace Flashcards.Application.Cards
             });
 
             Result result = null;
-            _metricsService.SaveTime(command.CorrelationId, "Get and save data in SQL Database", () =>
+            _metricsService.SaveTime(command.Id, "SQL", () =>
             {
                 var deck = _decksRepository.GetByName(command.Deck);
                 if (deck == null)
@@ -53,7 +46,7 @@ namespace Flashcards.Application.Cards
                     return;
                 }
 
-                var card = new Card(deck.Id, command.Question, command.Answer);
+                var card = new Card(command.Id, deck.Id, command.Question, command.Answer);
                 _cardsRepository.Add(card);
                 
                 result = Result.Ok(card.Id.ToString());
