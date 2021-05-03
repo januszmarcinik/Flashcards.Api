@@ -15,7 +15,7 @@ namespace Flashcards.Infrastructure.AzureServiceBus
 
         public AzureServiceBus(IOptions<AzureServiceBusSettings> settings)
         {
-            _client = new ServiceBusClient(settings.Value.HostName);
+            _client = new ServiceBusClient(settings.Value.ConnectionString);
             _sender = _client.CreateSender(settings.Value.QueueName);
             _processor = _client.CreateProcessor(settings.Value.QueueName, new ServiceBusProcessorOptions());
         }
