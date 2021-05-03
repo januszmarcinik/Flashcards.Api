@@ -1,9 +1,23 @@
 @url = http://localhost:55320
+//@url = https://jm-flashcards.azurewebsites.net
 @email = janusz@januszmarcinik.pl
 @password = zaq1@WSX
 @deckName = OnPremises
 
-###
+### Check whether API is healthy
+GET {{url}} HTTP/1.1
+
+### Register user
+POST {{url}}/api/users HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "{{email}}",
+    "password": "{{password}}",
+    "confirmPassword": "{{password}}"
+}
+
+### Login request to get token
 
 # @name login
 POST {{url}}/api/auth HTTP/1.1
@@ -14,9 +28,7 @@ Content-Type: application/json
     "password": "{{password}}"
 }
 
-###
-
-# @name createDeck
+### Create deck
 POST {{url}}/api/decks HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{login.response.body.token}}
@@ -26,9 +38,11 @@ Authorization: Bearer {{login.response.body.token}}
     "description": ""
 }
 
-###
+### Get decks
+GET {{url}}/api/decks HTTP/1.1
+Authorization: Bearer {{login.response.body.token}}
 
-# @name createCard
+### Create sample card in given deck
 POST {{url}}/api/decks/{{deckName}}/cards HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer {{login.response.body.token}}
@@ -37,3 +51,7 @@ Authorization: Bearer {{login.response.body.token}}
     "question": "<p>Testowa karta</p>",
     "answer": "<p>Jakaś odpowiedź</p>"
 }
+
+### Get cards in deck
+GET {{url}}/api/decks/{{deckName}}/cards HTTP/1.1
+Authorization: Bearer {{login.response.body.token}}
