@@ -1,8 +1,9 @@
-@url = http://localhost:55320
-//@url = https://jm-flashcards.azurewebsites.net
+//@url = http://localhost:55320
+//@url = http://20.86.126.74/flashcards
+@url = https://jm-flashcards.azurewebsites.net
 @email = janusz@januszmarcinik.pl
 @password = zaq1@WSX
-@deckName = OnPremises
+@deckName = Azure
 
 ### Check whether API is healthy
 GET {{url}} HTTP/1.1
@@ -38,8 +39,8 @@ Authorization: Bearer {{login.response.body.token}}
     "description": ""
 }
 
-### Get decks
-GET {{url}}/api/decks HTTP/1.1
+### Get created deck
+GET {{url}}/api/decks/{{deckName}} HTTP/1.1
 Authorization: Bearer {{login.response.body.token}}
 
 ### Create sample card in given deck

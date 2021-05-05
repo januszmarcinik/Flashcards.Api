@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -44,9 +45,8 @@ namespace Flashcards.Api
             
             services.AddApplication(SettingsRegistry);
 
-            services.AddSettings<AppSettings>(Configuration);
-            var appSettings = Configuration.GetSettings<AppSettings>();
-            _ = appSettings.InfrastructureType == AppSettings.InfrastructureAzure
+            var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            _ = environment == "Azure"
                 ? services.AddAzureInfrastructure(SettingsRegistry)
                 : services.AddOnPremisesInfrastructure(SettingsRegistry);
 
@@ -81,7 +81,7 @@ namespace Flashcards.Api
             app.UseExceptionHandlerMiddleware();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
